@@ -1,3 +1,4 @@
+import CTAFooter from "@/components/sections/CTAFooter";
 import Footer from "@/components/sections/Footer";
 import Image from "next/image";
 
@@ -8,6 +9,7 @@ export default function Home() {
         <h1 className="text-4xl font-semibold text-primary">Hyrivo</h1>
         <h2 className="text-lg">My Job Application Tracker</h2>
       </section>
+      <CTAFooter/>
       <Footer/>
     </main>
   );
