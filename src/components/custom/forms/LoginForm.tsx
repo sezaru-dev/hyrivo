@@ -69,7 +69,7 @@ export function LoginForm({
               <FormItem className="grid gap-3">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="email@gmail.com" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
