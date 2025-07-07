@@ -1,10 +1,7 @@
-import { InputForm } from "@/components/custom/forms/LoginForm"
+import { LoginForm } from "@/components/custom/forms/LoginForm"
 import { ThemeToggle } from "@/components/custom/toggles/ThemeToggle"
-import { LoginForm } from "@/components/LoginForm"
 import { GalleryVerticalEnd } from "lucide-react"
 import Link from "next/link"
-
-
 
 export default function LoginPage() {
   return (
