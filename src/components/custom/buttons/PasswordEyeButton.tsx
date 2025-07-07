@@ -1,0 +1,25 @@
+import { Button } from '@/components/ui/button'
+import { Eye, EyeOff } from 'lucide-react'
+import React from 'react'
+
+interface PasswordEyeButtonProps {
+  show: boolean
+  onToggle: () => void
+}
+
+const PasswordEyeButton = ({show, onToggle}: PasswordEyeButtonProps) => {
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon"
+      onClick={onToggle}
+      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 text-muted-foreground"
+    >
+      {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+    </Button>
+
+  )
+}
+
+export default PasswordEyeButton
