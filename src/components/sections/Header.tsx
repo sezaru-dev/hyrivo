@@ -12,10 +12,10 @@ const Header = () => {
           <ThemeToggle/>
           <nav className="space-x-2">
             <Link href="/login">
-              <Button variant="ghost" size="sm">Login</Button>
+              <Button variant="ghost">Login</Button>
             </Link>
             <Link href="/signup">
-              <Button size="sm">Sign Up</Button>
+              <Button>Sign Up</Button>
             </Link>
           </nav>
         </div>
