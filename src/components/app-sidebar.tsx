@@ -46,8 +46,8 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: "Sub-menu 1",
-          url: "#",
+          title: "Job Applications",
+          url: "/dashboard/job-applications",
         },
         {
           title: "Sub-menu 2",
