@@ -7,6 +7,8 @@ import { DataTable } from './data-table'
 import { columns } from './columns'
 import { jobApplications } from '../../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
+import NewApplicationModal from '@/components/custom/modals/NewApplicationModal'
+
 
 async function getData(): Promise<JobApplicationType[]> {
   // Fetch data from your API here.
@@ -23,12 +25,7 @@ const JobApplicationPage = async () => {
               <h1 className="text-2xl font-bold tracking-tight">Job Applications</h1>
               <p className="text-muted-foreground text-sm">Browse and manage your submitted job applications.</p>
             </div>
-            <Link href='/dashboard/products/add-product'>
-              <Button className='bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90'>
-                <CirclePlus/>
-                New Application
-              </Button>
-            </Link>
+            <NewApplicationModal/>
           </div>
     
           {/* stats */}
