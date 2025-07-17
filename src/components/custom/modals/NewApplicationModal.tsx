@@ -22,7 +22,7 @@ export default function NewApplicationModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className='bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90'>
+        <Button className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/90'>
           <CirclePlus/>
           New Application
         </Button>
