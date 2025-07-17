@@ -14,12 +14,12 @@ export function StatCard({ title, value, change, isPositive = true }: StatCardPr
         {change ?
           <div className="col-span-3 flex flex-col justify-center">
             <div className="text-sm text-muted-foreground mb-2">{title}</div>
-            <div className="text-3xl font-semibold text-sidebar-primary">{value}</div>
+            <div className="text-3xl font-semibold text-primary">{value}</div>
           </div>
           :
           <>
             <div className="text-sm text-muted-foreground mb-2">{title}</div>
-            <div className="text-3xl font-semibold text-sidebar-primary">{value}</div>
+            <div className="text-3xl font-semibold text-primary">{value}</div>
           </> 
         }
         {
