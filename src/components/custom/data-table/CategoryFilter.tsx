@@ -12,7 +12,7 @@ type CategoryFilterProps = {
 
 const CategoryFilter = ({table}: CategoryFilterProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const status = ["Applied", "Interview", "Offer", "Hired", "Rejected", "Inactive"]
+  const status = ["Applied", "Interview", "Offered", "Hired", "Rejected", "Inactive"]
 
   function toggleCategory(category: string) {
     const updated = selectedCategories.includes(category)
