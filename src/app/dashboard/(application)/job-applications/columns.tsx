@@ -15,6 +15,7 @@ import Link from "next/link"
 import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
+import { Badge } from "@/components/ui/badge"
 
 
 
@@ -100,7 +101,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         </Button>
       )
     },
-    filterFn: categoryFilter // custom filter we defined above
+    filterFn: categoryFilter
   },
   {
     accessorKey: "interviewAt",
@@ -170,6 +171,13 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <div className="w-32">
+        <Badge variant="outline" className="px-1.5 text-muted-foreground">
+          {row.original.jobType}
+        </Badge>
+      </div>
+    ),
   },
   {
     accessorKey: "salary",
