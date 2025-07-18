@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, Delete, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, BadgeCheck, CalendarClock, Delete, FileText, Handshake, LoaderIcon, MoreHorizontal, PauseCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -17,7 +17,14 @@ import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 
-
+const statusIconMap: Record<string, JSX.Element> = {
+  Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
+  Interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
+  Offered: <Handshake className="text-amber-500 dark:text-amber-400" />,
+  Hired: <BadgeCheck className="text-green-500 dark:text-green-400" />,
+  Rejected: <XCircle className="text-red-500 dark:text-red-400" />,
+  Inactive: <PauseCircle className="text-zinc-500 dark:text-zinc-400" />,
+}
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -101,6 +108,15 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <Badge
+        variant="outline"
+        className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3"
+      >
+        {statusIconMap[row.original.status]}
+        {row.original.status}
+      </Badge>
+    ),
     filterFn: categoryFilter
   },
   {
