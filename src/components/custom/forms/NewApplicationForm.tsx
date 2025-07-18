@@ -45,7 +45,7 @@ export function InputForm() {
       appliedDate: new Date(),
       interviewAt: undefined,
       jobType: "On-Site Full-Time",
-      salary: "",
+      salary: 10000,
     },
   })
 
