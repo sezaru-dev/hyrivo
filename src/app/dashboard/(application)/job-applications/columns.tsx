@@ -209,6 +209,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span>{new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(row.original.salary)}</span>
+
+    ),
   },
   {
     id: "actions",
