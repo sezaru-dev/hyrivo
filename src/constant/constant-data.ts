@@ -51,7 +51,7 @@ export const jobApplications: JobApplicationType[] = [
     companyName: "CloudSprint",
     jobTitle: "Full Stack Engineer",
     appliedDate: "2025-06-18",
-    status: "Offer",
+    status: "Offered",
     interviewAt: "2025-07-01T09:00:00",
     followUp: "2025-07-02",
     salary: "₱95,000/month",
