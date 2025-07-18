@@ -18,6 +18,6 @@ export type JobApplicationType = {
   status: JobStatus;
   interviewAt: string | null;
   followUp: string;
-  salary: string;
+  salary: number;
   jobType: JobType;
 };
