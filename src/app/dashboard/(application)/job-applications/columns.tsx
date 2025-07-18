@@ -79,6 +79,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    
     cell: ({ row }) => {
       const rawValue = row.getValue("appliedDate")
 
@@ -154,7 +155,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         className="-ml-4"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Follow Up
+        Follow-Up
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
