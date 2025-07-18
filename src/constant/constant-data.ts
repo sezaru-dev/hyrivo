@@ -10,7 +10,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Interview",
     interviewAt: "2025-07-12T09:00:00",
     followUp: "2025-06-29",
-    salary: "₱75,000/month",
+    salary: 75000,
     jobType: "Full-Time Remote"
   },
   {
@@ -21,7 +21,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Applied",
     interviewAt: null,
     followUp: "2025-06-24",
-    salary: "₱50,000/month",
+    salary: 50000,
     jobType: "On-Site Full-Time"
   },
   {
@@ -32,7 +32,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Rejected",
     interviewAt: null,
     followUp: "2025-06-12",
-    salary: "₱70,000/month",
+    salary: 70000,
     jobType: "Hybrid"
   },
   {
@@ -43,7 +43,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Interview",
     interviewAt: "2025-07-09T09:00:00",
     followUp: "2025-06-15",
-    salary: "₱85,000/month",
+    salary: 85000,
     jobType: "Remote Contract"
   },
   {
@@ -54,7 +54,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Offered",
     interviewAt: "2025-07-01T09:00:00",
     followUp: "2025-07-02",
-    salary: "₱95,000/month",
+    salary: 95000,
     jobType: "Full-Time Remote"
   },
   {
@@ -65,7 +65,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Applied",
     interviewAt: null,
     followUp: "2025-07-15",
-    salary: "₱60,000/month",
+    salary: 60000,
     jobType: "Contract"
   },
   {
@@ -76,7 +76,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Applied",
     interviewAt: null,
     followUp: "2025-07-09",
-    salary: "₱15,000/month",
+    salary: 15000,
     jobType: "Internship"
   },
   {
@@ -87,7 +87,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Interview",
     interviewAt: "2025-07-13T09:00:00",
     followUp: "2025-07-04",
-    salary: "₱72,000/month",
+    salary: 72000,
     jobType: "Remote Full-Time"
   },
   {
@@ -98,7 +98,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Rejected",
     interviewAt: "2025-06-25T09:00:00",
     followUp: "2025-06-19",
-    salary: "₱80,000/month",
+    salary: 80000,
     jobType: "On-Site Full-Time"
   },
   {
@@ -109,7 +109,7 @@ export const jobApplications: JobApplicationType[] = [
     status: "Applied",
     interviewAt: null,
     followUp: "2025-07-19",
-    salary: "₱65,000/month",
+    salary: 65000,
     jobType: "Hybrid Remote"
   }
 ];
