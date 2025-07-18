@@ -4,7 +4,7 @@ export type JobType =
   | 'Full-Time Remote'
   | 'On-Site Full-Time'
   | 'Hybrid'
-  | 'Contract - 6 months'
+  | 'Contract'
   | 'Internship'
   | 'Remote Contract'
   | 'Remote Full-Time'

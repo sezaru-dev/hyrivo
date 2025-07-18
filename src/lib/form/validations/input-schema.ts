@@ -8,7 +8,7 @@ export const jobTypes = [
   "On-Site Full-Time",
   "Full-Time Remote",
   "Hybrid",
-  "Contract - 6 months",
+  "Contract",
   "Internship",
   "Remote Contract",
 ] as const;
