@@ -26,7 +26,10 @@ export const inputFormSchema = z.object({
   }),
   interviewAt: z.date().optional(),
   jobType: z.enum(jobTypes),
-  salary: z.string().min(1, "Salary is required")
+  salary: z.number({
+    required_error: "Salary is required",
+    invalid_type_error: "Salary must be a number",
+  }).min(1000, "Salary must be at least 4 digits (e.g. 1000)")
 }).superRefine((data, ctx) => {
   if (
     (data.status === "Interview" || data.status === "Offered") &&
