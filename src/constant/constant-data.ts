@@ -124,4 +124,69 @@ export const jobApplications: JobApplicationType[] = [
   }
 ];
 
+export const archievesData: JobApplicationType[] = [
+  {
+    _id: "64d2f1034fa6e3c7a9a1e201",
+    companyName: "Skyline Digital",
+    jobTitle: "UI/UX Designer",
+    appliedDate: "2025-04-10",
+    status: "Rejected",
+    interviewAt: "2025-04-25T13:30:00",
+    followUp: "2025-04-20",
+    salary: 60000,
+    jobType: "Full-Time Remote",
+    isArchived: true
+  },
+  {
+    _id: "64d2f1034fa6e3c7a9a1e202",
+    companyName: "BrightWave Tech",
+    jobTitle: "Software Engineer",
+    appliedDate: "2025-03-18",
+    status: "Inactive",
+    interviewAt: null,
+    followUp: "2025-03-30",
+    salary: 71000,
+    jobType: "On-Site Full-Time",
+    isArchived: true,
+    remarks: "Auto-archived due to inactivity"
+  },
+  {
+    _id: "64d2f1034fa6e3c7a9a1e203",
+    companyName: "NeuralNet AI",
+    jobTitle: "ML Engineer",
+    appliedDate: "2025-02-22",
+    status: "Rejected",
+    interviewAt: "2025-03-10T11:00:00",
+    followUp: "2025-02-28",
+    salary: 88000,
+    jobType: "Hybrid",
+    isArchived: true
+  },
+  {
+    _id: "64d2f1034fa6e3c7a9a1e204",
+    companyName: "OceanSoft Corp",
+    jobTitle: "Product Manager",
+    appliedDate: "2025-01-05",
+    status: "Inactive",
+    interviewAt: null,
+    followUp: "2025-01-20",
+    salary: 95000,
+    jobType: "Remote Contract",
+    isArchived: true,
+    remarks: "Auto-archived due to inactivity"
+  },
+  {
+    _id: "64d2f1034fa6e3c7a9a1e205",
+    companyName: "NovaEdge Systems",
+    jobTitle: "QA Engineer",
+    appliedDate: "2025-05-12",
+    status: "Rejected",
+    interviewAt: "2025-05-27T10:00:00",
+    followUp: "2025-05-22",
+    salary: 67000,
+    jobType: "On-Site Full-Time",
+    isArchived: true
+  }
+]
+
 
