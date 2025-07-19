@@ -19,7 +19,11 @@ import { handleRemarksInputSubmit } from "@/lib/form/actions/input-submit"
 import { hasRemarkProps } from "../modals/EditRemarksModal"
 import { Textarea } from "@/components/ui/textarea"
 
-export function RemarksForm({hasRemark}: hasRemarkProps) {
+type RemarksFormProps = hasRemarkProps & {
+  onSubmit: () => void
+}
+
+export function RemarksForm({hasRemark, onSubmit}: RemarksFormProps) {
   const form = useForm<RemarksFormValues>({
     resolver: zodResolver(remarksFormSchema),
     defaultValues: {
@@ -31,6 +35,7 @@ export function RemarksForm({hasRemark}: hasRemarkProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleRemarksInputSubmit, (errors) => {
   console.log("Validation errors:", errors)
+  onSubmit()
 })} className="space-y-6">
           {/* Company */}
           <FormField
@@ -55,7 +60,7 @@ export function RemarksForm({hasRemark}: hasRemarkProps) {
 
       {/* Submit button */}
       <div className="flex justify-end pt-4">
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>Submit</Button>
       </div>
 </form>
 

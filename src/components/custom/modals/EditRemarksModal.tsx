@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { RemarksForm } from "../forms/RemarksForm";
+import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 
 export type hasRemarkProps = {
   hasRemark?: string | null;
@@ -17,15 +18,27 @@ export type hasRemarkProps = {
 
 export default function EditRemarksModal({hasRemark}: hasRemarkProps) {
   const [open, setOpen] = useState(false);
+  const setOpenDropdownId = useDropdownMenuStore(
+    (state) => state.setOpenDropdownId
+  );
+   const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      setOpenDropdownId(null); // ✅ Close dropdown when dialog closes
+    }
+  };
+
   const onSubmit = () => {
     setOpen(false);
+    setOpenDropdownId(null); 
+    // Also close dropdown when form is submitted
     // Add your mutation logic here
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange }>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="w-full justify-start px-2">
+        <Button variant="ghost" className=" justify-start px-2">
           {hasRemark ? "Edit Remarks" : "Add Remarks"}
         </Button>
       </DialogTrigger>
@@ -36,7 +49,7 @@ export default function EditRemarksModal({hasRemark}: hasRemarkProps) {
           </DialogTitle>
         </DialogHeader>
         {/* form here */}
-        <RemarksForm hasRemark={hasRemark}/>
+        <RemarksForm hasRemark={hasRemark} onSubmit={onSubmit}/>
       </DialogContent>
     </Dialog>
   );

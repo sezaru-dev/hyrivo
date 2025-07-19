@@ -17,6 +17,9 @@ import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import EditRemarksModal from "@/components/custom/modals/EditRemarksModal"
+import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
+import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
+import { UnarchiveDialog } from "@/components/custom/modals/UnarchiveDialog"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -130,32 +133,38 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const jobApplication = row.original
+      const { openDropdownId, setOpenDropdownId } = useDropdownMenuStore()
+      const isOpen = openDropdownId === jobApplication._id
  
       return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={(open) => {
+          setOpenDropdownId(open ? jobApplication._id : null)
+        }}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="grid">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            
+
             {row.original.status === "Rejected" ?
               <DropdownMenuItem asChild>
                 <EditRemarksModal hasRemark={row.original.remarks}/>
               </DropdownMenuItem>
             : null}
             <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                Unarchive
-              </Link>
+              {(row.original.status === "Rejected" || row.original.status === "Inactive") && (
+                <DropdownMenuItem asChild>
+                  <UnarchiveDialog status={row.original.status} />
+                </DropdownMenuItem>
+              )}
             </DropdownMenuItem>
-            <DropdownMenuItem >
-              Delete Permanently
-            </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
+              </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
