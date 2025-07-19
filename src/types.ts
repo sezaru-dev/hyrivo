@@ -20,4 +20,5 @@ export type JobApplicationType = {
   followUp: string;
   salary: number;
   jobType: JobType;
+  isArchived: boolean;
 };
