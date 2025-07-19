@@ -43,4 +43,16 @@ export const inputFormSchema = z.object({
   }
 })
 
+export const remarksFormSchema = z.object({
+  remarks: z
+    .string()
+    .min(10, {
+      message: "Bio must be at least 10 characters.",
+    })
+    .max(200, {
+      message: "Bio must not be longer than 200 characters.",
+    }),
+})
+
 export type InputFormValues = z.infer<typeof inputFormSchema>
+export type RemarksFormValues = z.infer<typeof remarksFormSchema>
