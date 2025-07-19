@@ -16,6 +16,7 @@ import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
+import EditRemarksModal from "@/components/custom/modals/EditRemarksModal"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -141,11 +142,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
+            
             {row.original.status === "Rejected" ?
               <DropdownMenuItem asChild>
-                <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                  Edit Remarks
-                </Link>
+                <EditRemarksModal hasRemark={row.original.remarks}/>
               </DropdownMenuItem>
             : null}
             <DropdownMenuItem asChild>
