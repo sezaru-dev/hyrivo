@@ -13,6 +13,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 75000,
     jobType: "Full-Time Remote",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e002",
@@ -25,6 +26,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 50000,
     jobType: "On-Site Full-Time",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e003",
@@ -37,6 +39,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 70000,
     jobType: "Hybrid",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e004",
@@ -49,6 +52,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 85000,
     jobType: "Remote Contract",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e005",
@@ -61,6 +65,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 95000,
     jobType: "Full-Time Remote",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e006",
@@ -73,6 +78,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 60000,
     jobType: "Contract",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e007",
@@ -85,6 +91,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 15000,
     jobType: "Internship",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e008",
@@ -97,6 +104,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 72000,
     jobType: "Remote Full-Time",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e009",
@@ -109,6 +117,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 80000,
     jobType: "On-Site Full-Time",
     isArchived: false,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e00a",
@@ -121,6 +130,7 @@ export const jobApplications: JobApplicationType[] = [
     salary: 65000,
     jobType: "Hybrid Remote",
     isArchived: false,
+    remarks: null
   }
 ];
 
@@ -135,7 +145,8 @@ export const archievesData: JobApplicationType[] = [
     followUp: "2025-04-20",
     salary: 60000,
     jobType: "Full-Time Remote",
-    isArchived: true
+    isArchived: true,
+    remarks: 'Application closed due to mismatch in design skills'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e202",
@@ -160,7 +171,8 @@ export const archievesData: JobApplicationType[] = [
     followUp: "2025-02-28",
     salary: 88000,
     jobType: "Hybrid",
-    isArchived: true
+    isArchived: true,
+    remarks: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e204",
@@ -185,7 +197,8 @@ export const archievesData: JobApplicationType[] = [
     followUp: "2025-05-22",
     salary: 67000,
     jobType: "On-Site Full-Time",
-    isArchived: true
+    isArchived: true,
+    remarks: null
   }
 ]
 
