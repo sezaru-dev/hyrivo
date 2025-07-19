@@ -3,15 +3,15 @@ import { CirclePlus } from "lucide-react"
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { StatCard } from '@/components/custom/stats/StatCard'
-/* import { DataTable } from './data-table'
-import { columns } from './columns' */
-import { jobApplications } from '../../../../constant/constant-data'
+import { DataTable } from './data-table'
+import { columns } from './columns'
+import { archievesData } from '../../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
 
 
 async function getData(): Promise<JobApplicationType[]> {
   // Fetch data from your API here.
-  return jobApplications
+  return archievesData
 }
 
 const JobApplicationPage = async () => {
@@ -31,7 +31,7 @@ const JobApplicationPage = async () => {
             <StatCard title="Archived Applications (%)" value="3" />
 
           </div>
-          {/* <DataTable columns={columns} data={data} /> */}
+          <DataTable columns={columns} data={data} />
     
     
         </main>
