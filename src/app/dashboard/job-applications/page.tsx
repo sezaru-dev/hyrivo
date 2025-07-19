@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { StatCard } from '@/components/custom/stats/StatCard'
 import { DataTable } from './data-table'
 import { columns } from './columns'
-import { jobApplications } from '../../../../constant/constant-data'
+import { jobApplications } from '../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
 import NewApplicationModal from '@/components/custom/modals/NewApplicationModal'
 
