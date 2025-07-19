@@ -21,5 +21,5 @@ export type JobApplicationType = {
   salary: number;
   jobType: JobType;
   isArchived: boolean;
-  remarks?: string;
+  remarks: string | null;
 };
