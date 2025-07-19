@@ -246,6 +246,13 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 Mark as Inactive
               </Link>
             </DropdownMenuItem>
+            {row.original.status === "Rejected" ?
+              <DropdownMenuItem asChild>
+                <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
+                  Move to Archive
+                </Link>
+              </DropdownMenuItem>
+            : null}
 
             <DropdownMenuItem >
               Delete
