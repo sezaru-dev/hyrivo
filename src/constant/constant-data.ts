@@ -11,7 +11,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: "2025-07-12T09:00:00",
     followUp: "2025-06-29",
     salary: 75000,
-    jobType: "Full-Time Remote"
+    jobType: "Full-Time Remote",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e002",
@@ -22,7 +23,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: null,
     followUp: "2025-06-24",
     salary: 50000,
-    jobType: "On-Site Full-Time"
+    jobType: "On-Site Full-Time",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e003",
@@ -33,7 +35,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: null,
     followUp: "2025-06-12",
     salary: 70000,
-    jobType: "Hybrid"
+    jobType: "Hybrid",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e004",
@@ -44,7 +47,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: "2025-07-09T09:00:00",
     followUp: "2025-06-15",
     salary: 85000,
-    jobType: "Remote Contract"
+    jobType: "Remote Contract",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e005",
@@ -55,7 +59,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: "2025-07-01T09:00:00",
     followUp: "2025-07-02",
     salary: 95000,
-    jobType: "Full-Time Remote"
+    jobType: "Full-Time Remote",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e006",
@@ -66,7 +71,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: null,
     followUp: "2025-07-15",
     salary: 60000,
-    jobType: "Contract"
+    jobType: "Contract",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e007",
@@ -77,7 +83,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: null,
     followUp: "2025-07-09",
     salary: 15000,
-    jobType: "Internship"
+    jobType: "Internship",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e008",
@@ -88,7 +95,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: "2025-07-13T09:00:00",
     followUp: "2025-07-04",
     salary: 72000,
-    jobType: "Remote Full-Time"
+    jobType: "Remote Full-Time",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e009",
@@ -99,7 +107,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: "2025-06-25T09:00:00",
     followUp: "2025-06-19",
     salary: 80000,
-    jobType: "On-Site Full-Time"
+    jobType: "On-Site Full-Time",
+    isArchived: false,
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e00a",
@@ -110,7 +119,8 @@ export const jobApplications: JobApplicationType[] = [
     interviewAt: null,
     followUp: "2025-07-19",
     salary: 65000,
-    jobType: "Hybrid Remote"
+    jobType: "Hybrid Remote",
+    isArchived: false,
   }
 ];
 
