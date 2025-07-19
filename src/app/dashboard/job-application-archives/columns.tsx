@@ -141,19 +141,16 @@ export const columns: ColumnDef<JobApplicationType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}`}>
-                View
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                Add Remarks
-              </Link>
-            </DropdownMenuItem>
+            {row.original.status === "Rejected" ?
+              <DropdownMenuItem asChild>
+                <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
+                  Edit Remarks
+                </Link>
+              </DropdownMenuItem>
+            : null}
             <DropdownMenuItem asChild>
               <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                Restore
+                Unarchive
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem >

@@ -50,12 +50,8 @@ const data = {
           url: "/dashboard/job-applications",
         },
         {
-          title: "Sub-menu 2",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 3",
-          url: "#",
+          title: "Archives",
+          url: "/dashboard/job-application-archives",
         },
       ],
     },
