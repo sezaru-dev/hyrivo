@@ -17,6 +17,7 @@ export type JobApplicationType = {
   appliedDate: string;
   status: JobStatus;
   interviewAt: string | null;
+  interviewDone: boolean;
   followUp: string;
   salary: number;
   jobType: JobType;
