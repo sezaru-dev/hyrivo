@@ -8,6 +8,7 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
+  Headset,
   Map,
   PieChart,
   Settings2,
@@ -54,6 +55,11 @@ const data = {
           url: "/dashboard/job-application-archives",
         },
       ],
+    },
+    {
+      title: "Interviews",
+      url: "dashboard/interviews",
+      icon: Headset,
     },
     {
       title: "Calendar",
