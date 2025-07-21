@@ -22,6 +22,7 @@ import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import { UnarchiveDialog } from "@/components/custom/modals/UnarchiveDialog"
 import { jobInterviews } from "@/constant/constant-data"
 import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
+import ActionDialog from "@/components/custom/modals/ActionDialog"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -178,21 +179,50 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            {row.original.status === "Rejected" ?
               <DropdownMenuItem asChild>
-                <EditRemarksModal hasRemark={row.original.remarks}/>
+                <ActionDialog
+                  data={row.original.notes}
+                  title={row.original.notes? "Edit Notes" : "Add Notes"}
+                >
+                  <Button variant="ghost" className=" justify-start px-2">
+                    Add/Edit Note
+                  </Button>
+                </ActionDialog>
               </DropdownMenuItem>
-            : null}
             <DropdownMenuItem asChild>
               {(row.original.status === "Rejected" || row.original.status === "Inactive") && (
                 <DropdownMenuItem asChild>
                   <UnarchiveDialog status={row.original.status} />
                 </DropdownMenuItem>
               )}
+              
             </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
-              </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
+                actionText="Yes, Mark as Completed"
+                description={<>
+                  This will set the interview status to <strong>Completed</strong>. 
+                  Make sure the interview has already taken place. You’ll still be able to add notes or feedback later from the Completed Interviews.
+                </>}  
+              >
+                <Button variant="ghost" className=" justify-start px-2">Mark as Completed</Button>
+              </AlertDialogComponent>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
+                actionText="Yes, Mark as Missed"
+                description={
+                <>This will update the interview status to <strong>Missed</strong>. 
+                  You can still reschedule the interview later to reset its status to <strong>Scheduled</strong>.
+                </>  
+                }  
+              >
+                <Button variant="ghost" className=" justify-start px-2">Mark as Missed</Button>
+              </AlertDialogComponent>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
