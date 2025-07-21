@@ -1,4 +1,5 @@
 export type JobStatus = 'Applied' | 'Interview' | 'Offered' | 'Hired' | 'Rejected' | 'Inactive';
+export type InterviewStatus = 'None' | 'Scheduled' | 'Completed' | 'Missed';
 
 export type JobType =
   | 'Full-Time Remote'
@@ -17,7 +18,7 @@ export type JobApplicationType = {
   appliedDate: string;
   status: JobStatus;
   interviewAt: string | null;
-  interviewDone: boolean;
+  interviewStatus: InterviewStatus;
   followUp: string;
   salary: number;
   jobType: JobType;
