@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button"
 
 type AlertDialogProps = {
   title?: string
-  description?: string
+  description?: string | React.ReactNode
   actionText?: string
   cancelText?: string
   onAction?: () => void
