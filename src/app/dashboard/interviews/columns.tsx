@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, BadgeCheck, CalendarClock, Delete, FileText, Handshake, LoaderIcon, MoreHorizontal, PauseCircle, XCircle } from "lucide-react"
+import { ArrowUpDown, BadgeCheck, CalendarClock, CircleAlert, Delete, FileText, Handshake, LoaderIcon, MoreHorizontal, PauseCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -14,13 +14,14 @@ import {
 import Link from "next/link"
 import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
-import { format } from "date-fns"
+import { format, isBefore } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import EditRemarksModal from "@/components/custom/modals/EditRemarksModal"
 import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import { UnarchiveDialog } from "@/components/custom/modals/UnarchiveDialog"
 import { jobInterviews } from "@/constant/constant-data"
+import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -82,11 +83,26 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       }
 
       const parsedDate = new Date(rawValue)
-      const formatted = isNaN(parsedDate.getTime())
+      if (isNaN(parsedDate.getTime())) {
+        return <span className="text-destructive font-medium">Invalid date</span>
+      }
+      const isOverdue = isBefore(parsedDate, new Date())
+      const formatted = format(parsedDate, "MMM d, yyyy 'at' h:mm a")
+/*       const formatted = isNaN(parsedDate.getTime())
         ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy 'at' h:mm a")
+        : format(parsedDate, "MMM d, yyyy 'at' h:mm a") */
 
-      return <span>{formatted}</span>
+      return (
+        <span className="relative flex items-center gap-2 whitespace-nowrap">
+            {formatted}
+            {
+              isOverdue ?
+            <InterviewDueTooltip>
+              <CircleAlert size={16} className="text-red-500"/>
+            </InterviewDueTooltip>  : null
+            }
+          </span>
+      )
     },
   },
 
@@ -118,30 +134,6 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       return <span>{formatted}</span>
     },
   },
-    {
-      accessorKey: "interviewStatus",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            className="-ml-4"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Interview Status
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <Badge
-          variant="outline"
-          className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 w-min"
-        >
-          {row.original.interviewStatus}
-        </Badge>
-      ),
-      filterFn: categoryFilter
-    },
   {
     accessorKey: "notes",
     header: ({ column }) => {
@@ -158,30 +150,6 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     },
     cell: ({ row }) => {
       const rawValue = row.getValue("notes")
-
-      if (typeof rawValue !== "string" || !rawValue) {
-        return null
-      }
-      return <span>{rawValue}</span>
-    },
-  },
-
-  {
-    accessorKey: "remarks",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="-ml-4"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Remarks
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => {
-      const rawValue = row.getValue("remarks")
 
       if (typeof rawValue !== "string" || !rawValue) {
         return null

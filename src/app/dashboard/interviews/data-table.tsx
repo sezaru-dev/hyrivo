@@ -98,7 +98,7 @@ export function DataTable<TData extends { companyName: string; jobTitle: string 
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="max-w-sm"
         />
-        <CategoryFilter table={table} />
+        {/* <CategoryFilter table={table} /> */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
