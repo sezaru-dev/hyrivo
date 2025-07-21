@@ -14,7 +14,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 75000,
     jobType: "Full-Time Remote",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e002",
@@ -28,7 +29,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 50000,
     jobType: "On-Site Full-Time",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e003",
@@ -42,7 +44,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 70000,
     jobType: "Hybrid",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e004",
@@ -56,7 +59,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 85000,
     jobType: "Remote Contract",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e005",
@@ -70,7 +74,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 95000,
     jobType: "Full-Time Remote",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e006",
@@ -84,7 +89,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 60000,
     jobType: "Contract",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e007",
@@ -98,7 +104,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 15000,
     jobType: "Internship",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e008",
@@ -112,7 +119,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 72000,
     jobType: "Remote Full-Time",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e009",
@@ -126,7 +134,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 80000,
     jobType: "On-Site Full-Time",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e00a",
@@ -140,7 +149,8 @@ export const jobApplications: JobApplicationType[] = [
     salary: 65000,
     jobType: "Hybrid Remote",
     isArchived: false,
-    remarks: null
+    remarks: null,
+    notes: null
   }
 ];
 
@@ -157,7 +167,8 @@ export const archievesData: JobApplicationType[] = [
     salary: 60000,
     jobType: "Full-Time Remote",
     isArchived: true,
-    remarks: 'Application closed due to mismatch in design skills'
+    remarks: 'Application closed due to mismatch in design skills',
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e202",
@@ -171,7 +182,8 @@ export const archievesData: JobApplicationType[] = [
     salary: 71000,
     jobType: "On-Site Full-Time",
     isArchived: true,
-    remarks: "Auto-archived due to inactivity"
+    remarks: "Auto-archived due to inactivity",
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e203",
@@ -185,7 +197,8 @@ export const archievesData: JobApplicationType[] = [
     salary: 88000,
     jobType: "Hybrid",
     isArchived: true,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e204",
@@ -199,7 +212,8 @@ export const archievesData: JobApplicationType[] = [
     salary: 95000,
     jobType: "Remote Contract",
     isArchived: true,
-    remarks: "Auto-archived due to inactivity"
+    remarks: "Auto-archived due to inactivity",
+    notes: null
   },
   {
     _id: "64d2f1034fa6e3c7a9a1e205",
@@ -213,7 +227,8 @@ export const archievesData: JobApplicationType[] = [
     salary: 67000,
     jobType: "On-Site Full-Time",
     isArchived: true,
-    remarks: null
+    remarks: null,
+    notes: 'Google meet'
   }
 ]
 
@@ -231,6 +246,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "Contract",
     isArchived: false,
     remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "98b8949ed08967c8ec407678",
@@ -245,6 +261,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "Remote Contract",
     isArchived: false,
     remarks: null,
+    notes: 'Zoom interview confirmed. Review system design. Join 10 mins early.'
   },
   {
     _id: "15c211a95e6868101cd59f2a",
@@ -259,6 +276,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "On-Site Full-Time",
     isArchived: false,
     remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "a383ff7a0d719ebb345021ee",
@@ -273,6 +291,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "On-Site Full-Time",
     isArchived: false,
     remarks: "Looking forward to the interview and possible offer.",
+    notes: 'Google meet'
   },
   {
     _id: "ea3123272c1eee3a1758a88d",
@@ -287,6 +306,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "Contract",
     isArchived: false,
     remarks: "Looking forward to the interview and possible offer.",
+    notes: 'Google meet'
   },
   {
     _id: "41cbb08b2ee2e336ba322790",
@@ -301,6 +321,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "On-Site Full-Time",
     isArchived: false,
     remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "07c81eace83d67a5c8283cb1",
@@ -315,6 +336,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "Hybrid",
     isArchived: false,
     remarks: "Looking forward to the interview and possible offer.",
+    notes: 'Google meet'
   },
   {
     _id: "0093e8396fd8ef34cf167050",
@@ -329,6 +351,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "Full-Time Remote",
     isArchived: false,
     remarks: null,
+    notes: 'Google meet'
   },
   {
     _id: "f243cd964dbaa6a9d668b211",
@@ -343,6 +366,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "On-Site Full-Time",
     isArchived: false,
     remarks: "Looking forward to the interview and possible offer.",
+    notes: 'Google meet'
   },
   {
     _id: "899431cca9db29ad65da44c9",
@@ -357,6 +381,7 @@ export const jobInterviews: JobApplicationType[] = [
     jobType: "On-Site Full-Time",
     isArchived: false,
     remarks: null,
+    notes: 'Google meet'
   }
 
 
