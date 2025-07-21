@@ -24,4 +24,5 @@ export type JobApplicationType = {
   jobType: JobType;
   isArchived: boolean;
   remarks: string | null;
+  notes: string | null
 };
