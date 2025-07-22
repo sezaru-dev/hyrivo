@@ -4,6 +4,7 @@ import { DataTable } from './data-table'
 import { columns } from './columns'
 import { jobInterviews } from '../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
+import { CountdownCard } from '@/components/custom/stats/Countdown'
 
 async function getData(): Promise<JobApplicationType[]> {
   // Fetch data from your API here.
@@ -23,13 +24,11 @@ const DashboardEvents = async () => {
           </div>
     
           {/* stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <CountdownCard/>
             <StatCard title="Upcoming Interviews" value="10" />
-            <StatCard title="Overdue Interviews" value="2" />
             <StatCard title="This Week's Interviews" value="6" change="2" isPositive />
-            <StatCard title="Completed Interviews" value="2" />
-            <StatCard title="Missed Interviews" value="2" />
-            <StatCard title="Total Interviews" value="6" />
+            <StatCard title="Overdue Interviews" value="2" />
 
           </div>
           <DataTable columns={columns} data={data} />
