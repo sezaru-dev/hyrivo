@@ -18,6 +18,7 @@ import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
 import ActionDialog from "@/components/custom/modals/ActionDialog"
 import RescheduleDialog from "@/components/custom/modals/RescheduleDialog"
+import { ViewDetailsDialog } from "@/components/custom/modals/ViewDetailsDialog"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -135,6 +136,14 @@ export const columns: ColumnDef<JobApplicationType>[] = [
           <DropdownMenuContent align="end" className="grid">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
+
+              <DropdownMenuItem asChild>
+                <ViewDetailsDialog>
+                  <Button variant="ghost" className=" justify-start px-2">
+                    View Details
+                  </Button>
+                </ViewDetailsDialog>
+              </DropdownMenuItem>
 
               <DropdownMenuItem asChild>
                 <RescheduleDialog
