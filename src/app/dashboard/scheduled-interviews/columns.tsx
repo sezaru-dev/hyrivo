@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, BadgeCheck, CalendarClock, CircleAlert, Delete, FileText, Handshake, LoaderIcon, MoreHorizontal, PauseCircle, XCircle } from "lucide-react"
+import { ArrowUpDown, CircleAlert,  MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,28 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Link from "next/link"
-import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format, isBefore } from "date-fns"
-import { Badge } from "@/components/ui/badge"
-import EditRemarksModal from "@/components/custom/modals/EditRemarksModal"
 import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
-import { UnarchiveDialog } from "@/components/custom/modals/UnarchiveDialog"
-import { jobInterviews } from "@/constant/constant-data"
 import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
 import ActionDialog from "@/components/custom/modals/ActionDialog"
 import RescheduleDialog from "@/components/custom/modals/RescheduleDialog"
-
-const statusIconMap: Record<string, JSX.Element> = {
-  Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
-  Interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
-  Offered: <Handshake className="text-amber-500 dark:text-amber-400" />,
-  Hired: <BadgeCheck className="text-green-500 dark:text-green-400" />,
-  Rejected: <XCircle className="text-red-500 dark:text-red-400" />,
-  Inactive: <PauseCircle className="text-zinc-500 dark:text-zinc-400" />,
-}
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -105,35 +90,6 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             }
           </span>
       )
-    },
-  },
-
-    {
-    accessorKey: "appliedDate",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="-ml-4"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Applied Date
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    
-    cell: ({ row }) => {
-      const rawValue = row.getValue("appliedDate")
-
-      if (typeof rawValue !== "string" || !rawValue) {
-        return <span className="text-muted-foreground italic">No date</span>
-      }
-
-      const parsedDate = new Date(rawValue)
-      const formatted = isNaN(parsedDate.getTime())
-        ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy") // 👉 Jun 25, 2025
-
-      return <span>{formatted}</span>
     },
   },
   {
