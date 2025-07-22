@@ -50,20 +50,24 @@ export function CountdownCard() {
         <div className="flex flex-col justify-center">
           <h2 className="text-sm text-muted-foreground mb-2">Next interview in</h2>
           <p className="text-xl font-semibold text-primary">{formattedTime}</p>
-          <span className="mt-1 text-sm text-muted-foreground">
-            with <span className="font-medium text-foreground">DevSolutions Inc.</span>
-          </span>
+          {timeLeft && (
+            <span className="mt-1 text-sm text-muted-foreground">
+              with <span className="font-medium text-foreground">DevSolutions Inc.</span>
+            </span>
+          )}
         </div>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="mt-1 text-xs font-medium text-muted-foreground cursor-pointer">
-              <MessageSquare className="w-4 h-4 text-green-500" />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent side="top">
-            Zoom interview confirmed. Review system design. Join 10 mins early.
-          </TooltipContent>
-        </Tooltip>
+        {timeLeft && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="mt-1 text-xs font-medium text-muted-foreground cursor-pointer">
+                <MessageSquare className="w-4 h-4 text-green-500" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              Zoom interview confirmed. Review system design. Join 10 mins early.
+            </TooltipContent>
+          </Tooltip>
+        )}
       </CardContent>
     </Card>
   )
