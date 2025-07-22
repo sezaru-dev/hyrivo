@@ -5,7 +5,6 @@ import { ChevronDownIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
@@ -36,47 +35,48 @@ export function DateTimePickerField({ label, value, onChange }: Props) {
   }, [dateOnly, time])
 
   return (
-    <FormItem>
+    <FormItem className="space-y-2">
       <FormLabel>{label}</FormLabel>
-      <div className="flex gap-4">
-        <div className="flex flex-col gap-3">
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <FormControl>
-                <Button
-                  variant="outline"
-                  className="w-40 justify-between font-normal"
-                >
-                  {dateOnly ? dateOnly.toLocaleDateString() : "Select date"}
-                  <ChevronDownIcon />
-                </Button>
-              </FormControl>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={dateOnly}
-                captionLayout="dropdown"
-                onSelect={(date) => {
-                  setDateOnly(date)
-                  setOpen(false)
-                }}
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
 
-        <div className="flex flex-col gap-3">
-          <Input
-            type="time"
-            id="time-picker"
-            step="60"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-          />
-        </div>
+      <div className="flex flex-col sm:flex-row gap-4">
+        {/* Date Picker */}
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <FormControl>
+              <Button
+                variant="outline"
+                className="w-full sm:w-40 justify-between font-normal"
+              >
+                {dateOnly ? dateOnly.toLocaleDateString() : "Select date"}
+                <ChevronDownIcon />
+              </Button>
+            </FormControl>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={dateOnly}
+              captionLayout="dropdown"
+              onSelect={(date) => {
+                setDateOnly(date)
+                setOpen(false)
+              }}
+            />
+          </PopoverContent>
+        </Popover>
+
+        {/* Time Picker */}
+        <Input
+          type="time"
+          step="60"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          className="w-full sm:w-32"
+        />
       </div>
-      <FormMessage />
-    </FormItem>
+
+    <FormMessage />
+</FormItem>
+
   )
 }
