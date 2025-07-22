@@ -23,6 +23,7 @@ import { UnarchiveDialog } from "@/components/custom/modals/UnarchiveDialog"
 import { jobInterviews } from "@/constant/constant-data"
 import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
 import ActionDialog from "@/components/custom/modals/ActionDialog"
+import RescheduleDialog from "@/components/custom/modals/RescheduleDialog"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -180,6 +181,17 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             <DropdownMenuSeparator />
 
               <DropdownMenuItem asChild>
+                <RescheduleDialog
+                  data={row.original.notes}
+                  title="Reschedule Interview"
+                >
+                  <Button variant="ghost" className=" justify-start px-2">
+                    Reschedule Interview
+                  </Button>
+                </RescheduleDialog>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem asChild>
                 <ActionDialog
                   data={row.original.notes}
                   title={row.original.notes? "Edit Notes" : "Add Notes"}
@@ -189,14 +201,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                   </Button>
                 </ActionDialog>
               </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              {(row.original.status === "Rejected" || row.original.status === "Inactive") && (
-                <DropdownMenuItem asChild>
-                  <UnarchiveDialog status={row.original.status} />
-                </DropdownMenuItem>
-              )}
-              
-            </DropdownMenuItem>
+
             <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
                 actionText="Yes, Mark as Completed"
