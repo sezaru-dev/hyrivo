@@ -64,6 +64,19 @@ export const notesFormSchema = z.object({
     }),
 })
 
+
+const now = new Date()
+now.setHours(0, 0, 0, 0)
+export const interviewDateFormSchema = z.object({
+  interviewAt: z.date().refine(
+    (date) => date >= now,
+    {
+      message: "Interview date cannot be in the past",
+    }
+  ),
+})
+
 export type InputFormValues = z.infer<typeof inputFormSchema>
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
 export type NotesFormValues = z.infer<typeof notesFormSchema>
+export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
