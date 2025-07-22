@@ -17,9 +17,9 @@ const DashboardEvents = async () => {
     <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
           {/* Page Heading */}
           <div className="mb-4">
-              <h1 className="text-2xl font-bold tracking-tight">Interviews</h1>
+              <h1 className="text-2xl font-bold tracking-tight">Scheduled Interviews</h1>
               <p className="text-muted-foreground text-sm">
-                Stay organized by reviewing upcoming, completed, and missed interviews from your job applications.
+                Stay prepared and on top of upcoming, weekly, and overdue interviews.
               </p>
           </div>
     
