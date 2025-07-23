@@ -2,7 +2,7 @@ import React from 'react'
 import { StatCard } from '@/components/custom/stats/StatCard'
 import { DataTable } from './data-table'
 import { columns } from './columns'
-import { jobInterviews } from '../../../constant/constant-data'
+import { jobInterviews } from '../../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
 import { CountdownCard } from '@/components/custom/stats/Countdown'
 

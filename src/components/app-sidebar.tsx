@@ -58,8 +58,22 @@ const data = {
     },
     {
       title: "Interviews",
-      url: "dashboard/interviews",
+      url: "/dashboard/interviews",
       icon: Headset,
+      items: [
+        {
+          title: "Scheduled",
+          url: "/dashboard/interviews/scheduled",
+        },
+        {
+          title: "Completed",
+          url: "/dashboard/interviews/completed",
+        },
+        {
+          title: "Missed",
+          url: "/dashboard/interviews/missed",
+        },
+      ],
     },
     {
       title: "Calendar",

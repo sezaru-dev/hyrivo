@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/table"
 
 import { Columns2 } from "lucide-react"
-import { DataTablePagination } from "../../../components/custom/data-table/Pagination"
+import { DataTablePagination } from "../../../../components/custom/data-table/Pagination"
 
 import { JobApplicationType } from "@/types"
 import { globalFilterFn } from "@/components/custom/data-table/globalFilterFn"
