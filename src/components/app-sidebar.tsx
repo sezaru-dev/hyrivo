@@ -75,7 +75,7 @@ const data = {
         },
       ],
     },
-    {
+/*     {
       title: "Calendar",
       url: "#",
       icon: BookOpen,
@@ -120,7 +120,7 @@ const data = {
           url: "#",
         },
       ],
-    },
+    }, */
   ],
 }
 
