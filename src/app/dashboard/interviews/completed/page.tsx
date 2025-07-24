@@ -1,10 +1,11 @@
 import React from 'react'
 import { StatCard } from '@/components/custom/stats/StatCard'
-/* import { DataTable } from './data-table'
-import { columns } from './columns' */
+
 import { jobInterviews } from '../../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
 import { DateStatCard } from '@/components/custom/stats/DateStatCard'
+import { DataTable } from './data-table'
+import { columns } from './columns'
 
 async function getData(): Promise<JobApplicationType[]> {
   // Fetch data from your API here.
@@ -31,7 +32,7 @@ const DashboardCompletedInterview = async () => {
 {/*             <StatCard title="Last Completed Interview" value="July 20, 2025" /> */}
             <DateStatCard title="Last Completed Interview" value="July 20, 2025" />
           </div>
-          {/* <DataTable columns={columns} data={data} /> */}
+          <DataTable columns={columns} data={data} />
         </main>
   )
 }
