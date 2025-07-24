@@ -66,7 +66,53 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+      animation: {
+        blob: "blob 8s infinite ease-in-out",
+        blobFloat: "blob-float 14s infinite ease-in-out",
+      },
+      keyframes: {
+        blob: {
+          "0%": {
+            transform: "translate(0px, 0px) scale(1)",
+            borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
+          },
+          "33%": {
+            transform: "translate(20px, -10px) scale(1.1)",
+            borderRadius: "50% 50% 40% 60% / 60% 40% 60% 40%",
+          },
+          "66%": {
+            transform: "translate(-10px, 20px) scale(0.9)",
+            borderRadius: "60% 40% 50% 50% / 50% 60% 40% 60%",
+          },
+          "100%": {
+            transform: "translate(0px, 0px) scale(1)",
+            borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
+          },
+        },
+        blobFloat: {
+          "0%": {
+            transform: "translate(0, 0) scale(1)",
+            borderRadius: "60% 40% 55% 45% / 45% 50% 50% 55%",
+          },
+          "25%": {
+            transform: "translate(-10px, 10px) scale(1.05)",
+            borderRadius: "55% 45% 50% 50% / 60% 40% 60% 40%",
+          },
+          "50%": {
+            transform: "translate(10px, -10px) scale(0.97)",
+            borderRadius: "50% 50% 60% 40% / 50% 60% 40% 50%",
+          },
+          "75%": {
+            transform: "translate(-5px, 15px) scale(1.03)",
+            borderRadius: "58% 42% 48% 52% / 52% 48% 58% 42%",
+          },
+          "100%": {
+            transform: "translate(0, 0) scale(1)",
+            borderRadius: "60% 40% 55% 45% / 45% 50% 50% 55%",
+          },
+        },
+      },
   	}
   },
   plugins: [require("tailwindcss-animate")],
