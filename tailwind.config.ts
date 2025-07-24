@@ -69,7 +69,7 @@ const config: Config = {
   		},
       animation: {
         blob: "blob 8s infinite ease-in-out",
-        blobFloat: "blob-float 14s infinite ease-in-out",
+        blobTwo: "blobTwo 12s infinite ease-in-out",
       },
       keyframes: {
         blob: {
@@ -90,28 +90,30 @@ const config: Config = {
             borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
           },
         },
-        blobFloat: {
+        blobTwo: {
           "0%": {
-            transform: "translate(0, 0) scale(1)",
-            borderRadius: "60% 40% 55% 45% / 45% 50% 50% 55%",
+            transform: "translate(0px, 0px) scale(1)",
+            borderRadius: "45% 55% 55% 45% / 50% 45% 55% 50%",
           },
           "25%": {
-            transform: "translate(-10px, 10px) scale(1.05)",
-            borderRadius: "55% 45% 50% 50% / 60% 40% 60% 40%",
+            transform: "translate(15px, -15px) scale(1.05)",
+            borderRadius: "50% 50% 45% 55% / 55% 50% 45% 50%",
           },
           "50%": {
-            transform: "translate(10px, -10px) scale(0.97)",
-            borderRadius: "50% 50% 60% 40% / 50% 60% 40% 50%",
+            transform: "translate(-15px, 10px) scale(0.95)",
+            borderRadius: "55% 45% 50% 50% / 50% 55% 45% 50%",
           },
           "75%": {
-            transform: "translate(-5px, 15px) scale(1.03)",
-            borderRadius: "58% 42% 48% 52% / 52% 48% 58% 42%",
+            transform: "translate(10px, 10px) scale(1.02)",
+            borderRadius: "50% 55% 50% 45% / 45% 50% 55% 50%",
           },
           "100%": {
-            transform: "translate(0, 0) scale(1)",
-            borderRadius: "60% 40% 55% 45% / 45% 50% 50% 55%",
+            transform: "translate(0px, 0px) scale(1)",
+            borderRadius: "45% 55% 55% 45% / 50% 45% 55% 50%",
           },
-        },
+        }
+
+
       },
   	}
   },
