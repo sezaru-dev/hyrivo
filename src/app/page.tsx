@@ -7,13 +7,13 @@ import PainPoints from "@/components/sections/PainPoints";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <main className="">
       <Header/>
       <Hero/>
-      <PainPoints/>
+{/*       <PainPoints/>
       <Features/>
       <CTAFooter/>
-      <Footer/>
+      <Footer/> */}
     </main>
   );
 }
