@@ -12,8 +12,8 @@ export default function Home() {
       <Hero/>
 {/*       <PainPoints/>
       <Features/>
-      <CTAFooter/>
-      <Footer/> */}
+      <CTAFooter/> */}
+      <Footer/>
     </main>
   );
 }

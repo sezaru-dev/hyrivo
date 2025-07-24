@@ -24,7 +24,7 @@ const Hero = () => {
         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8">
           Stay organized, focused, and confident in your job hunt — all from a powerful, distraction-free dashboard.
         </p>
-        <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
           <Button size="lg" className='w-full sm:w-min hover:!bg-blue-700 dark:hover:!bg-blue-800 bg-blue-600 dark:bg-blue-700 text-white'>Get Started</Button>
           <Button variant="outline" size="lg" className='w-full sm:w-min'>See how it works</Button>
         </div>
