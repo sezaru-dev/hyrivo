@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-/* import { signIn } from "next-auth/react" */
+import { signIn } from "next-auth/react"
 import { FaGoogle, FaGithub } from "react-icons/fa"
 
 import {
@@ -61,6 +61,7 @@ export function LoginDialog({children}: LoginDialogProps) {
             variant="outline"
             disabled={isLoading}
             className="w-full flex gap-2 items-center justify-center bg-[#333] text-white hover:bg-[#24292F]"
+            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
             >
             {/* onClick={() => handleSignIn("github")} */}
             <FaGithub className="size-4" />
