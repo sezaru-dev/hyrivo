@@ -1,4 +1,3 @@
-// /src/lib/auth.ts
 import GitHub from "next-auth/providers/github"
 import { NextAuthOptions } from "next-auth"
 import { env } from "@/utils/env"
