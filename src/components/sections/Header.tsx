@@ -23,5 +23,3 @@ const Header = () => {
 }
 
 export default Header
-
-/* flex items-center justify-center px-6 py-3 */
