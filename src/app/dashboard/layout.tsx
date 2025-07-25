@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar"
+import { DynamicBreadcrumbs } from "@/components/custom/breadcrumbs/DynamicBreadcrumbs";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -27,19 +28,7 @@ export default function RootLayout({
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Applications
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Job Applications</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <DynamicBreadcrumbs/>
           </div>
         </header>
           <>
