@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-        "brand-blue": "hsl(var(--brand-blue))",
+  			'brand-blue': 'hsl(var(--brand-blue))',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -67,54 +67,70 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-      animation: {
-        blob: "blob 8s infinite ease-in-out",
-        blobTwo: "blobTwo 12s infinite ease-in-out",
-      },
-      keyframes: {
-        blob: {
-          "0%": {
-            transform: "translate(0px, 0px) scale(1)",
-            borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
-          },
-          "33%": {
-            transform: "translate(20px, -10px) scale(1.1)",
-            borderRadius: "50% 50% 40% 60% / 60% 40% 60% 40%",
-          },
-          "66%": {
-            transform: "translate(-10px, 20px) scale(0.9)",
-            borderRadius: "60% 40% 50% 50% / 50% 60% 40% 60%",
-          },
-          "100%": {
-            transform: "translate(0px, 0px) scale(1)",
-            borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
-          },
-        },
-        blobTwo: {
-          "0%": {
-            transform: "translate(0px, 0px) scale(1)",
-            borderRadius: "45% 55% 55% 45% / 50% 45% 55% 50%",
-          },
-          "25%": {
-            transform: "translate(15px, -15px) scale(1.05)",
-            borderRadius: "50% 50% 45% 55% / 55% 50% 45% 50%",
-          },
-          "50%": {
-            transform: "translate(-15px, 10px) scale(0.95)",
-            borderRadius: "55% 45% 50% 50% / 50% 55% 45% 50%",
-          },
-          "75%": {
-            transform: "translate(10px, 10px) scale(1.02)",
-            borderRadius: "50% 55% 50% 45% / 45% 50% 55% 50%",
-          },
-          "100%": {
-            transform: "translate(0px, 0px) scale(1)",
-            borderRadius: "45% 55% 55% 45% / 50% 45% 55% 50%",
-          },
-        }
-
-
-      },
+  		animation: {
+  			blob: 'blob 8s infinite ease-in-out',
+  			blobTwo: 'blobTwo 12s infinite ease-in-out',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			blob: {
+  				'0%': {
+  					transform: 'translate(0px, 0px) scale(1)',
+  					borderRadius: '40% 60% 60% 40% / 40% 40% 60% 60%'
+  				},
+  				'33%': {
+  					transform: 'translate(20px, -10px) scale(1.1)',
+  					borderRadius: '50% 50% 40% 60% / 60% 40% 60% 40%'
+  				},
+  				'66%': {
+  					transform: 'translate(-10px, 20px) scale(0.9)',
+  					borderRadius: '60% 40% 50% 50% / 50% 60% 40% 60%'
+  				},
+  				'100%': {
+  					transform: 'translate(0px, 0px) scale(1)',
+  					borderRadius: '40% 60% 60% 40% / 40% 40% 60% 60%'
+  				}
+  			},
+  			blobTwo: {
+  				'0%': {
+  					transform: 'translate(0px, 0px) scale(1)',
+  					borderRadius: '45% 55% 55% 45% / 50% 45% 55% 50%'
+  				},
+  				'25%': {
+  					transform: 'translate(15px, -15px) scale(1.05)',
+  					borderRadius: '50% 50% 45% 55% / 55% 50% 45% 50%'
+  				},
+  				'50%': {
+  					transform: 'translate(-15px, 10px) scale(0.95)',
+  					borderRadius: '55% 45% 50% 50% / 50% 55% 45% 50%'
+  				},
+  				'75%': {
+  					transform: 'translate(10px, 10px) scale(1.02)',
+  					borderRadius: '50% 55% 50% 45% / 45% 50% 55% 50%'
+  				},
+  				'100%': {
+  					transform: 'translate(0px, 0px) scale(1)',
+  					borderRadius: '45% 55% 55% 45% / 50% 45% 55% 50%'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

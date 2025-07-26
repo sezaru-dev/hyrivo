@@ -1,18 +1,22 @@
 import CTAFooter from "@/components/sections/CTAFooter";
-import Features from "@/components/sections/Features";
+import FAQSection from "@/components/sections/FAQs";
+import WhatYouCanDo from "@/components/sections/WhatYouCanDo";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
-import PainPoints from "@/components/sections/PainPoints";
+import HowItWorks from "@/components/sections/HowItWorks";
+import WhyHyrivo from "@/components/sections/WhyHyrivo";
 
 export default function Home() {
   return (
     <main className="">
       <Header/>
       <Hero/>
-{/*       <PainPoints/>
-      <Features/>
-      <CTAFooter/> */}
+      <HowItWorks/>
+      <WhyHyrivo/>
+      <WhatYouCanDo/>
+      <FAQSection/>
+      <CTAFooter/>
       <Footer/>
     </main>
   );
