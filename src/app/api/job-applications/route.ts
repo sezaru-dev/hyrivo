@@ -1,11 +1,13 @@
 
-import { authOptions } from "@/lib/backend/auth";
 import { connectToDB } from "@/lib/backend/db";
+import { verifySession } from "@/lib/backend/verify-session";
 import JobApplication from "@/models/job-application-model";
-import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET() {
+  const session = await verifySession()
+  if (session instanceof NextResponse) return session
+
   try {
     await connectToDB();
 
@@ -23,11 +25,9 @@ export async function GET() {
 
 
 export async function POST(req: NextRequest) {
-  /* const session = await getServerSession(authOptions)
+  /*const session = await verifySession()
+  if (session instanceof NextResponse) return session */
 
-  if (!session || !session.user?.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  } */
   const mockEmail = "test@example.com"
 
   try {
