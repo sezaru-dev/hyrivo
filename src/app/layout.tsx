@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner"
 import NextAuthProvider from "@/components/providers/next-auth-provider";
+import TanstackProviders from "@/components/providers/tanstack-providers";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -57,7 +58,9 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NextAuthProvider>
-              {children}
+              <TanstackProviders>
+                {children}
+              </TanstackProviders>
             </NextAuthProvider>
           <Toaster position="top-right"/>
         </ThemeProvider>
