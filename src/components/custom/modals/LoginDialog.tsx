@@ -46,16 +46,16 @@ export function LoginDialog({children}: LoginDialogProps) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4 mt-4">
-          <Button
+{/*           <Button
             variant="outline"
             disabled={isLoading}
             className="w-full flex gap-2 items-center justify-center bg-[#4285F4] text-white hover:bg-[#357ae8]"
+             onClick={() => handleSignIn("google")}
             >
-            {/* onClick={() => handleSignIn("google")} */}
             <FaGoogle className="size-4" />
             {isLoading ? "Signing in..." : "Login with Google"}
-          </Button>
+          </Button> */}
+        <div className="grid gap-4 mt-4">
 
           <Button
             variant="outline"
