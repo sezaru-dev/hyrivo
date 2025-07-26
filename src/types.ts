@@ -19,10 +19,11 @@ export type JobApplicationType = {
   status: JobStatus;
   interviewAt: string | null;
   interviewStatus: InterviewStatus;
+  interviewNote: string | null;
+  interviewRemarks: string | null;
   followUp: string;
   salary: number;
   jobType: JobType;
   isArchived: boolean;
-  remarks: string | null;
-  notes: string | null
+  archiveRemarks: string | null;
 };
