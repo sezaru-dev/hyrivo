@@ -27,3 +27,12 @@ export type JobApplicationType = {
   isArchived: boolean;
   archiveRemarks: string | null;
 };
+
+export type JobApplicationStats = {
+  total: number
+  applied: number
+  interview: number
+  offered: number
+  hired: number
+  rejected: number
+}
