@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface StatCardProps {
   title: string;
-  value: string;
+  value: string | React.ReactNode  ;
   change?: string;
   isPositive?: boolean;
 }
