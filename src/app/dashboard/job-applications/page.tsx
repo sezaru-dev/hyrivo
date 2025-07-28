@@ -5,11 +5,26 @@ import { StatCard } from "@/components/custom/stats/StatCard"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal"
+import useJobApplicationsStats from "@/lib/hooks/use-job-appliactions-stats"
+import { isError } from "lodash"
+import { CountUpNumber } from "@/motions/count-up-number"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const JobApplicationPage = () => {
-  const { data, isLoading, isError, isFetching } = useJobApplications()
+  const { 
+    data: jobApplications, 
+    isLoading: isLoadingApplications, 
+    isError: isErrorApplications, 
+    isFetching: isFetchingApplications
+  } = useJobApplications()
+  const { 
+    data: jobApplicationsStats, 
+    isLoading: isLoadingApplicationStats, 
+    isError: isErrorApplicationStats, 
+    isFetching: isFetchingApplicationStats
+  } = useJobApplicationsStats()
 
-  if (isLoading) {
+  /* if (isLoadingApplications || isLoadingApplicationStats) {
     return (
       <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
         <p>Loading...</p>
@@ -17,13 +32,13 @@ const JobApplicationPage = () => {
     )
   }
 
-  if (isError) {
+  if (isErrorApplications || isErrorApplicationStats) {
     return (
       <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
         <p>Failed to load job applications.</p>
       </main>
     )
-  }
+  } */
 
   return (
     <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
@@ -38,19 +53,29 @@ const JobApplicationPage = () => {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-        <StatCard title="Applied" value="3" />
-        <StatCard title="Interviews" value="3" />
-        <StatCard title="Offer" value="2" />
-        <StatCard title="Hired" value="1" />
-        <StatCard title="Rejected" value="5" />
-        <StatCard title="Total Application" value="12" />
+        
+        <StatCard title="Applied" value={<CountUpNumber to={jobApplicationsStats?.interview ?? 0} />} />
+        <StatCard title="Interviews" value={<CountUpNumber to={jobApplicationsStats?.interview ?? 0} />} />
+        <StatCard title="Offer" value={<CountUpNumber to={jobApplicationsStats?.offered ?? 0} />} />
+        <StatCard title="Hired" value={<CountUpNumber to={jobApplicationsStats?.hired ?? 0} />} />
+        <StatCard title="Rejected" value={<CountUpNumber to={jobApplicationsStats?.rejected ?? 0} />} />
+        <StatCard title="Total Application" value={<CountUpNumber to={jobApplicationsStats?.total ?? 0} />} />
       </div>
 
-      {isFetching && (
+      {isFetchingApplications && (
         <p className="text-sm text-muted-foreground">Updating data...</p>
       )}
 
-      <DataTable columns={columns} data={data ?? []} />
+{/*         <div className="">
+          <div>
+            <Skeleton className="h-6 w-full rounded" />
+          </div>
+
+        </div> */}
+{/*       {(isLoadingApplications) ? (
+      ) : (
+      )} */}
+      <DataTable columns={columns} data={jobApplications ?? []} />
     </main>
   )
 }
