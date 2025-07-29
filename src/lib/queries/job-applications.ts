@@ -1,5 +1,6 @@
-// lib/queries/job-applications.ts
 import { JobApplicationType } from "@/types"
+import { fetcher } from "./fetcher";
+import { InputFormValues } from "../form/validations/input-schema";
 
 export async function fetchJobApplications(): Promise<JobApplicationType[]> {
   const res = await fetch("/api/job-applications")
@@ -9,3 +10,9 @@ export async function fetchJobApplications(): Promise<JobApplicationType[]> {
 
   return res.json()
 }
+
+export const createJobApplication = (data: InputFormValues) =>
+  fetcher("/api/job-applications", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
