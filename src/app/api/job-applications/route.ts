@@ -11,7 +11,7 @@ export async function GET() {
   try {
     await connectToDB();
 
-    const applications = await JobApplication.find();
+    const applications = await JobApplication.find().sort({ appliedDate: -1 }).lean();
     return Response.json(applications, { status: 200 });
   } catch (error) {
     console.error("[GET_JOB_APPLICATIONS_ERROR]", error);
@@ -41,7 +41,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(newApplication, { status: 201 })
   } catch (err) {
-    return NextResponse.json({ error: "Server error", details: err }, { status: 500 })
+    return NextResponse.json(
+  { error: "Server error", message: err instanceof Error ? err.message : "Unknown error" },
+  { status: 500 }
+)
   }
 }
 
