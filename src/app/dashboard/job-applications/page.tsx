@@ -54,7 +54,7 @@ const JobApplicationPage = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         
-        <StatCard title="Applied" value={<CountUpNumber to={jobApplicationsStats?.interview ?? 0} />} />
+        <StatCard title="Applied" value={<CountUpNumber to={jobApplicationsStats?.applied ?? 0} />} />
         <StatCard title="Interviews" value={<CountUpNumber to={jobApplicationsStats?.interview ?? 0} />} />
         <StatCard title="Offer" value={<CountUpNumber to={jobApplicationsStats?.offered ?? 0} />} />
         <StatCard title="Hired" value={<CountUpNumber to={jobApplicationsStats?.hired ?? 0} />} />
@@ -62,20 +62,20 @@ const JobApplicationPage = () => {
         <StatCard title="Total Application" value={<CountUpNumber to={jobApplicationsStats?.total ?? 0} />} />
       </div>
 
-      {isFetchingApplications && (
-        <p className="text-sm text-muted-foreground">Updating data...</p>
-      )}
 
-{/*         <div className="">
-          <div>
-            <Skeleton className="h-6 w-full rounded" />
-          </div>
-
-        </div> */}
-{/*       {(isLoadingApplications) ? (
+      {(isLoadingApplications || isFetchingApplications) ? (
+      <div className="space-y-4 py-4">
+        <Skeleton className="h-9 w-full rounded" />
+        <Skeleton className="h-80 w-full rounded" />
+        <div className="flex items-center justify-between gap-4">
+          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+        </div>
+      </div>
       ) : (
-      )} */}
       <DataTable columns={columns} data={jobApplications ?? []} />
+      )}
     </main>
   )
 }
