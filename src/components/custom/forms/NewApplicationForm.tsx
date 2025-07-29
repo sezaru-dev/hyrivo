@@ -2,8 +2,6 @@
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -30,29 +28,40 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import { inputFormSchema, InputFormValues, jobTypes, statuses } from "@/lib/form/validations/input-schema"
-import { handleInputSubmit } from "@/lib/form/actions/input-submit"
+import { submitJobApplication } from "@/lib/form/actions/input-submit"
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { DateTimePickerField } from "./fields/DateTimePicker"
+import { useCreateJobApplication } from "@/lib/hooks/use-create-job-application"
 
-export function InputForm() {
+type Props = {
+  onSuccess?: () => void;
+};
+
+export function InputForm({onSuccess}: Props) {
   const form = useForm<InputFormValues>({
     resolver: zodResolver(inputFormSchema),
     defaultValues: {
       status: "Applied",
-      company: "",
+      companyName: "",
       jobTitle: "",
       appliedDate: new Date(),
       interviewAt: undefined,
       jobType: "On-Site Full-Time",
-      salary: 10000,
+      salary: 25000,
     },
   })
 
   const status = form.watch("status")
+  const { mutateAsync: createJobApplication } = useCreateJobApplication()
+
+  const onSubmit = (data: InputFormValues) => {
+    submitJobApplication(data, createJobApplication, form.reset)
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleInputSubmit, (errors) => {
+      <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
   console.log("Validation errors:", errors)
 })} className="space-y-6">
         {/* Full-width fields */}
@@ -60,7 +69,7 @@ export function InputForm() {
           {/* Company */}
           <FormField
             control={form.control}
-            name="company"
+            name="companyName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Company</FormLabel>
