@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,18 +10,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { InputForm } from "../forms/NewApplicationForm";
+import { useModalStore } from "@/stores/features/useModalStore";
 
 export default function NewApplicationModal() {
-  const [open, setOpen] = useState(false);
-  const onSubmit = () => {
-    setOpen(false);
-    // Add your mutation logic here
-  };
+  const { isNewAppModalOpen, closeNewAppModal, openNewAppModal } = useModalStore();
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isNewAppModalOpen} onOpenChange={(val) => (val ? openNewAppModal() : closeNewAppModal())}>
       <DialogTrigger asChild>
-        <Button className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>
+        <Button className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80' onClick={openNewAppModal}>
           <CirclePlus/>
           New Application
         </Button>
