@@ -228,7 +228,7 @@ export function InputForm({onSuccess}: Props) {
 
       {/* Submit button */}
       <div className="flex justify-end pt-4">
-        <Button type="submit">Submit</Button>
+        <Button type="submit"  className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>Submit</Button>
       </div>
 </form>
 
