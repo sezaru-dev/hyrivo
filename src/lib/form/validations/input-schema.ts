@@ -76,7 +76,30 @@ export const interviewDateFormSchema = z.object({
   ),
 })
 
+export const signupFormSchema = z.object({
+  name: z.string().min(2, { 
+    message: "Name must be at least 2 characters." 
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters.",
+  }),
+})
+
+export const LoginFormSchema = z.object({
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters.",
+  }),
+})
+
 export type InputFormValues = z.infer<typeof inputFormSchema>
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
 export type NotesFormValues = z.infer<typeof notesFormSchema>
 export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
+export type SignupFormValues = z.infer<typeof signupFormSchema>
+export type LoginFormValues = z.infer<typeof LoginFormSchema>
