@@ -11,7 +11,12 @@ export async function GET() {
   try {
     await connectToDB();
 
-    const applications = await JobApplication.find().sort({ appliedDate: -1 }).lean();
+    const userEmail = session.user.email
+  
+     const applications = await JobApplication.find({ userEmail })
+      .sort({ appliedDate: -1 })
+      .lean()
+
     return Response.json(applications, { status: 200 });
   } catch (error) {
     console.error("[GET_JOB_APPLICATIONS_ERROR]", error);
@@ -25,18 +30,17 @@ export async function GET() {
 
 
 export async function POST(req: NextRequest) {
-  /*const session = await verifySession()
-  if (session instanceof NextResponse) return session */
-
-  const mockEmail = "test@example.com"
+  const session = await verifySession()
+  if (session instanceof NextResponse) return session
 
   try {
     const data = await req.json()
     await connectToDB()
+    const userEmail = session.user.email
 
     const newApplication = await JobApplication.create({
       ...data,
-      userEmail: mockEmail,
+      userEmail,
     })
 
     return NextResponse.json(newApplication, { status: 201 })
