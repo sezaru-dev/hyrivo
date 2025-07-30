@@ -1,6 +1,6 @@
 
 import { toast } from "sonner"
-import { InputFormValues, InterviewDateFormValues, RemarksFormValues } from "../validations/input-schema"
+import { InputFormValues, InterviewDateFormValues, RemarksFormValues, SignupFormValues } from "../validations/input-schema"
 import { useModalStore } from "@/stores/features/useModalStore";
 
 
@@ -45,4 +45,25 @@ export function handleReschedInterviewInputSubmit(data: InterviewDateFormValues)
       </pre>
     ),
   })
+}
+
+export const handleSignupUser = async(
+  data: SignupFormValues,
+  signupUser: (data: SignupFormValues) => Promise<unknown>,
+  reset?: () => void
+) => {
+  toast.promise(
+    signupUser(data),
+    {
+      loading: <span>Submitting application...</span>,
+      success: () => {
+        reset?.()
+        return <span className="text-green-500">Application submitted successfully</span>
+      },
+      error: (err) => {
+        console.error("Submission error:", err)
+        return <span className="text-red-500">Failed to submit application</span>
+      },
+    }
+  )
 }
