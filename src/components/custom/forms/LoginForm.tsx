@@ -17,38 +17,44 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link"
+import LoginWithGithubButton from "../buttons/LoginWithGithubButton"
+import { LoginFormSchema } from "@/lib/form/validations/input-schema"
+import { signIn } from "next-auth/react"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
-const FormSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-})
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
+  const [isLoading, setIsLoading] = useState(false)
+  const form = useForm<z.infer<typeof LoginFormSchema>>({
+      resolver: zodResolver(LoginFormSchema),
       defaultValues: {
         email: "",
         password: "",
       },
     })
-  
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-      toast("You submitted the following values", {
-        description: (
-          <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      })
-    }
+  const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
+    setIsLoading(true)
+    // Call NextAuth signIn function with credentials provider
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    })
 
+    if (res?.ok) {
+      toast.success("Successfully logged in!")
+      // optionally redirect
+      window.location.href = "/dashboard"
+    } else {
+      toast.error("Invalid credentials")
+      setIsLoading(false)
+    }
+    
+  }
 
   return (
     <Form {...form}>
@@ -56,7 +62,7 @@ export function LoginForm({
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Enter your email below to login to your account
+            Login to your Hyrivo account
           </p>
         </div>
 
@@ -98,26 +104,24 @@ export function LoginForm({
           />
 
 
-          <Button type="submit" className="w-full">
-            Login
+          <Button
+           type="submit" 
+           disabled={isLoading}
+           className="w-full h-9 px-4 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-800 text-white">
+            {isLoading ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                Signing in...
+              </>
+            ) : "Login"
+}
           </Button>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background text-muted-foreground relative z-10 px-2">
-              Or continue with
+              Or
             </span>
           </div>
-          <Button variant="outline" className="w-full" type="button">
-            <FaGoogle/>
-            Login with Google
-          </Button>
-        </div>
-
-        
-        <div className="text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <Link href='/signup' className="underline underline-offset-4">
-            Sign up
-          </Link>
+          <LoginWithGithubButton/>
         </div>
       </form>
     </Form>
