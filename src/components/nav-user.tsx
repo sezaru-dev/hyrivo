@@ -48,7 +48,7 @@ export function NavUser() {
                 {session?.user?.image ? 
                 <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? "User avatar"}  />
                 :
-                <AvatarFallback className="rounded-lg">S</AvatarFallback>
+                <AvatarFallback className="rounded-lg">{session?.user?.name?.charAt(0).toUpperCase() ?? ""}</AvatarFallback>
                 }
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -70,7 +70,7 @@ export function NavUser() {
                 {session?.user?.image ? 
                 <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? "User avatar"}  />
                 :
-                <AvatarFallback className="rounded-lg">S</AvatarFallback>
+                <AvatarFallback className="rounded-lg">{session?.user?.name?.charAt(0).toUpperCase() ?? ""}</AvatarFallback>
                 }
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
