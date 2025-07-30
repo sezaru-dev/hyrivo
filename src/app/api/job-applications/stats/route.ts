@@ -5,17 +5,18 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
   //verify session
-  /* const session = await verifySession()
-  if (session instanceof NextResponse) return session */
+  const session = await verifySession()
+  if (session instanceof NextResponse) return session
 
   //connection to the database
   await connectToDB()
+  const userEmail = session.user.email
 
   try {
     const pipeline = [
       {
         $match: {
-          userEmail:"test@example.com" // Replace with actual session email if needed
+          userEmail // Replace with actual session email if needed
         }
       },
       {
