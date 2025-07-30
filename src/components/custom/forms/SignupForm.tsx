@@ -19,26 +19,20 @@ import { FaGoogle } from "react-icons/fa";
 import Link from "next/link"
 import PasswordEyeButton from "../buttons/PasswordEyeButton"
 import { useState } from "react"
+import LoginWithGithubButton from "../buttons/LoginWithGithubButton"
+import { signupFormSchema, SignupFormValues } from "@/lib/form/validations/input-schema"
+import { handleSignupUser } from "@/lib/form/actions/input-submit"
+import { useSignupUser } from "@/lib/hooks/use-signup-user"
+import { useHandleSignupUser } from "@/lib/hooks/useHandleSignupUser"
 
-const FormSchema = z.object({
-  name: z.string().min(2, { 
-    message: "Name must be at least 2 characters." 
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
-})
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
   const [showPassword, setShowPassword] = useState(false)
-  const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof signupFormSchema>>({
+      resolver: zodResolver(signupFormSchema),
       defaultValues: {
         name: "",
         email: "",
@@ -46,22 +40,20 @@ export function SignupForm({
       },
     })
   
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-      toast("You submitted the following values", {
-        description: (
-          <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      })
-    }
+  const { mutateAsync: signupUser } = useSignupUser()
+  const handleSignupUser = useHandleSignupUser() // ✅ Use the custom hook
 
+  const onSubmit = (data: SignupFormValues) => {
+    handleSignupUser(data, signupUser, form.reset)
+  }  
 
   return (
     <Form {...form}>
-      <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={form.handleSubmit(onSubmit)}>
+      <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={form.handleSubmit(onSubmit, (errors) => {
+  console.log("Validation errors:", errors)
+})}>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Create your Hyrivo account</h1>
+          <h1 className="text-2xl font-bold">Create your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
             Track your job applications effortlessly
           </p>
@@ -111,7 +103,7 @@ export function SignupForm({
                 <div className="space-y-1">
                   <div className="relative">
                     <FormControl>
-                      <Input {...field} type={showPassword ? "text" : "password"}/>
+                      <Input {...field} type={showPassword ? "text" : "password"} autoComplete="off"/>
                     </FormControl>
                     <PasswordEyeButton show={showPassword} onToggle={() => setShowPassword(prev => !prev)}/>
                   </div>
@@ -121,28 +113,17 @@ export function SignupForm({
             )}
           />
 
-
-          <Button type="submit" className="w-full">
-            Login
+          <Button type="submit" className="w-full h-9 px-4 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-800 text-white">
+            Sign Up
           </Button>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background text-muted-foreground relative z-10 px-2">
-              Or continue with
+              Or
             </span>
           </div>
-          <Button variant="outline" className="w-full" type="button">
-            <FaGoogle/>
-            Continue with Google
-          </Button>
+          <LoginWithGithubButton/>
         </div>
 
-        
-        <div className="text-center text-sm">
-          Already have an account?{" "}
-          <Link href='/login' className="underline underline-offset-4">
-            Login
-          </Link>
-        </div>
       </form>
     </Form>
   )
