@@ -10,8 +10,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { useDeleteJobApplication } from "@/lib/hooks/use-delete-job-application"
 
 type AlertDialogProps = {
+  id: string 
   title?: string
   description?: string | React.ReactNode
   actionText?: string
@@ -20,7 +22,8 @@ type AlertDialogProps = {
   children?: React.ReactNode
 }
 
-export const  AlertDialogComponent: React.FC<AlertDialogProps> = ({
+  export const  AlertDialogComponent: React.FC<AlertDialogProps> = ({
+    id,
     title =  "Are you absolutely sure?", 
     description = "This action cannot be undone. This will permanently delete and remove your data from our servers.",
     actionText = "Continue", 
@@ -28,6 +31,13 @@ export const  AlertDialogComponent: React.FC<AlertDialogProps> = ({
     onAction,
     children
   }: AlertDialogProps) => {
+
+  const { mutate: deleteApplication, isPending } = useDeleteJobApplication()
+
+  const handleDelete = () => {
+    deleteApplication(id)
+    onAction?.() // if you want to do something after deleting (e.g. close dropdown)
+  }
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -50,18 +60,16 @@ export const  AlertDialogComponent: React.FC<AlertDialogProps> = ({
 
           {
             onAction ? (
-              <AlertDialogAction onClick={() => {
-                (onAction as (() => void) | undefined)?.()
-                  // your actual delete logic
-              }} className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>
+              <AlertDialogAction onClick={handleDelete} 
+                disabled={isPending}
+                className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>
                 {actionText}
               </AlertDialogAction>
             ) : (
-              <AlertDialogAction onClick={() => {
-                (onAction as (() => void) | undefined)?.()
-                  // your actual delete logic
-              }} className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>
-                {actionText}
+              <AlertDialogAction  onClick={handleDelete} 
+                disabled={isPending}
+                className='bg-brand-blue text-sidebar-primary-foreground hover:bg-brand-blue/80'>
+                {isPending ? "Deleting..." : actionText}
               </AlertDialogAction>
             )
           }
