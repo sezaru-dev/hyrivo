@@ -16,3 +16,8 @@ export const createJobApplication = (data: InputFormValues) =>
     method: "POST",
     body: JSON.stringify(data),
   });
+  
+export const deleteJobApplication = (id: string) =>
+  fetcher(`/api/job-applications/${id}`, {
+    method: "DELETE",
+  });
