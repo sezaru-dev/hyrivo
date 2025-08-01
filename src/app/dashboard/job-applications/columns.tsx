@@ -16,6 +16,8 @@ import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
+import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
+import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 
 const statusIconMap: Record<string, JSX.Element> = {
   Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
@@ -219,9 +221,13 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const jobApplication = row.original
+      const { openDropdownId, setOpenDropdownId } = useDropdownMenuStore()
+      const isOpen = openDropdownId === jobApplication._id
  
       return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={(open) => {
+          setOpenDropdownId(open ? jobApplication._id : null)
+        }}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
@@ -254,9 +260,9 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               </DropdownMenuItem>
             : null}
 
-            <DropdownMenuItem >
-              Delete
-            </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <AlertDialogComponent id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+              </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
