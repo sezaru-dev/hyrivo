@@ -38,6 +38,10 @@ export async function POST(req: NextRequest) {
     await connectToDB()
     const userEmail = session.user.email
 
+    if (data.status === "interview"){
+      data.interviewStatus = "scheduled"
+    }
+    
     const newApplication = await JobApplication.create({
       ...data,
       userEmail,
