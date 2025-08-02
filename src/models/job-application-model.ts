@@ -27,8 +27,8 @@ const jobApplicationSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Applied', 'Interview', 'Offered', 'Hired', 'Rejected', 'Inactive'],
-      default: 'Applied',
+      enum: ['applied', 'interview', 'offered', 'hired', 'rejected', 'inactive'],
+      default: 'applied',
     },
     interviewAt: {
       type: String,
@@ -36,8 +36,8 @@ const jobApplicationSchema = new Schema(
     },
     interviewStatus: {
       type: String,
-      enum: ['None', 'Scheduled', 'Completed', 'Missed'],
-      default: 'None',
+      enum: ['none', 'scheduled', 'completed', 'missed'],
+      default: 'none',
     },
     interviewNote: {
       type: String,
