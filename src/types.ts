@@ -1,5 +1,5 @@
-export type JobStatus = 'Applied' | 'Interview' | 'Offered' | 'Hired' | 'Rejected' | 'Inactive';
-export type InterviewStatus = 'None' | 'Scheduled' | 'Completed' | 'Missed';
+export type JobStatus = 'applied' | 'interview' | 'offered' | 'hired' | 'rejected' | 'inactive';
+export type InterviewStatus = 'none' | 'scheduled' | 'completed' | 'missed';
 
 export type JobType =
   | 'Full-Time Remote'
