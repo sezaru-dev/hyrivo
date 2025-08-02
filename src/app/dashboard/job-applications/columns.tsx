@@ -18,14 +18,15 @@ import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
+import { capitalize } from "@/utils/capitalize"
 
 const statusIconMap: Record<string, JSX.Element> = {
-  Applied: <FileText className="text-gray-500 dark:text-gray-400" />,
-  Interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
-  Offered: <Handshake className="text-amber-500 dark:text-amber-400" />,
-  Hired: <BadgeCheck className="text-green-500 dark:text-green-400" />,
-  Rejected: <XCircle className="text-red-500 dark:text-red-400" />,
-  Inactive: <PauseCircle className="text-zinc-500 dark:text-zinc-400" />,
+  applied: <FileText className="text-gray-500 dark:text-gray-400" />,
+  interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
+  offered: <Handshake className="text-amber-500 dark:text-amber-400" />,
+  hired: <BadgeCheck className="text-green-500 dark:text-green-400" />,
+  rejected: <XCircle className="text-red-500 dark:text-red-400" />,
+  inactive: <PauseCircle className="text-zinc-500 dark:text-zinc-400" />,
 }
 
 // This type is used to define the shape of our data.
@@ -117,7 +118,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3"
       >
         {statusIconMap[row.original.status]}
-        {row.original.status}
+        {capitalize(row.original.status)}
       </Badge>
     ),
     filterFn: categoryFilter
@@ -252,7 +253,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 Mark as Inactive
               </Link>
             </DropdownMenuItem> */}
-            {row.original.status === "Rejected" ?
+            {row.original.status === "rejected" ?
               <DropdownMenuItem asChild>
                 <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
                   Move to Archive
