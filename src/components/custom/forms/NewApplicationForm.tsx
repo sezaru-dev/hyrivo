@@ -33,6 +33,7 @@ import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { DateTimePickerField } from "./fields/DateTimePicker"
 import { useCreateJobApplication } from "@/lib/hooks/use-create-job-application"
+import { capitalize } from "@/utils/capitalize"
 
 type Props = {
   onSuccess?: () => void;
@@ -42,7 +43,7 @@ export function InputForm({onSuccess}: Props) {
   const form = useForm<InputFormValues>({
     resolver: zodResolver(inputFormSchema),
     defaultValues: {
-      status: "Applied",
+      status: "applied",
       companyName: "",
       jobTitle: "",
       appliedDate: new Date(),
@@ -154,7 +155,7 @@ export function InputForm({onSuccess}: Props) {
                   <SelectContent>
                     {statuses.map((s) => (
                       <SelectItem key={s} value={s}>
-                        {s}
+                        {capitalize(s)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -166,7 +167,7 @@ export function InputForm({onSuccess}: Props) {
         </div>
 
         {/* Interview Schedule (conditionally rendered) */}
-        {(status === "Interview" || status === "Offered") && (
+        {(status === "interview" || status === "offered") && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField
               control={form.control}
