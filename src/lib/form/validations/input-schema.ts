@@ -1,8 +1,8 @@
 import { z } from "zod"
 export const statuses = [
-  "Applied",
-  "Interview",
-  "Offered",
+  "applied",
+  "interview",
+  "offered",
 ] as const;
 export const jobTypes = [
   "On-Site Full-Time",
@@ -32,7 +32,7 @@ export const inputFormSchema = z.object({
   }).min(1000, "Salary must be at least 4 digits (e.g. 1000)")
 }).superRefine((data, ctx) => {
   if (
-    (data.status === "Interview" || data.status === "Offered") &&
+    (data.status === "interview" || data.status === "offered") &&
     !data.interviewAt
   ) {
     ctx.addIssue({
