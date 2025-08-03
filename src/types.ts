@@ -29,10 +29,17 @@ export type JobApplicationType = {
 };
 
 export type JobApplicationStats = {
-  total: number
+  total: number| null
   applied: number
   interview: number
   offered: number
   hired: number
   rejected: number
 }
+
+export type InterviewStats = {
+  nextInterviewIn: number | null;
+  upcoming: number;
+  thisWeek: number;
+  overdue: number;
+};
