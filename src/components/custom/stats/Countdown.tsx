@@ -3,6 +3,11 @@ import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { MessageSquare } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { JobApplicationType } from "@/types"
+
+type CountdownCardProps = {
+  data: JobApplicationType | null | undefined
+}
 
 const scheduledDate = new Date("2025-07-22T14:00:00+08:00")
 
@@ -20,19 +25,23 @@ function getTimeDiff(target: Date) {
   return { days, hours, minutes }
 }
 
-export function CountdownCard() {
+export function CountdownCard({data}: CountdownCardProps) {
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number } | null>(null)
 
   useEffect(() => {
+    if (!data?.interviewAt) return
+
+    const targetDate = new Date(data.interviewAt)
+
     const updateCountdown = () => {
-      const diff = getTimeDiff(scheduledDate)
+      const diff = getTimeDiff(targetDate)
       setTimeLeft(diff)
     }
 
     updateCountdown()
     const interval = setInterval(updateCountdown, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [data?.interviewAt])
 
   const formattedTime = timeLeft
     ? [
@@ -52,11 +61,11 @@ export function CountdownCard() {
           <p className="text-xl font-semibold text-primary">{formattedTime}</p>
           {timeLeft && (
             <span className="mt-1 text-sm text-muted-foreground">
-              with <span className="font-medium text-foreground">DevSolutions Inc.</span>
+              with <span className="font-medium text-foreground">{data?.companyName}</span>
             </span>
           )}
         </div>
-        {timeLeft && (
+        {timeLeft && data?.interviewNote && (
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="mt-1 text-xs font-medium text-muted-foreground cursor-pointer">
