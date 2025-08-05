@@ -38,7 +38,7 @@ export type JobApplicationStats = {
 }
 
 export type InterviewStats = {
-  nextInterviewIn: number | null;
+  nextInterviewIn: JobApplicationType | null;
   upcoming: number;
   thisWeek: number;
   overdue: number;
