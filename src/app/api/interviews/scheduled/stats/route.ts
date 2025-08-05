@@ -45,10 +45,10 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(
       {
-        "overdueInterviews": overdueOnly.length,
-        "upcomingInterviews": upcomingOnly.length,
-        "weeklyInterviews": thisWeeksInterviews.length,
-        "soonestUpcomingInterview": soonestUpcoming ? soonestUpcoming : null,
+        "overdue": overdueOnly.length,
+        "upcoming": upcomingOnly.length,
+        "thisWeek": thisWeeksInterviews.length,
+        "nextInterviewIn": soonestUpcoming ? soonestUpcoming : null,
       }, { status: 200 });
   } catch (error) {
     console.error("[GET_OVERDUE_INTERVIEWS_ERROR]", error);
