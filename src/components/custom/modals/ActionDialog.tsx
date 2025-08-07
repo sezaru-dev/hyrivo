@@ -14,7 +14,7 @@ import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 import { NotesForm } from "../forms/NotesForm";
 
 export type ActionDialogProps = {
-  data?: string | null;
+  data: any
   children: React.ReactNode
   title: string
 }
