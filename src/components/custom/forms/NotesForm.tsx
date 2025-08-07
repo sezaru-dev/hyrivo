@@ -13,9 +13,6 @@ import {
   FormDescription,
 } from "@/components/ui/form"
 
-import { Input } from "@/components/ui/input"
-import { notesFormSchema, NotesFormValues } from "@/lib/form/validations/input-schema"
-import { handleRemarksInputSubmit } from "@/lib/form/actions/input-submit"
 import { Textarea } from "@/components/ui/textarea"
 import { ActionDialogProps } from "../modals/ActionDialog"
 import useUpdateScheduledInterviewNotes from "@/lib/hooks/interviews/use-scheduled-interview-notes"
@@ -49,11 +46,13 @@ export function NotesForm({data, onSubmit}: NotesFormProps) {
 
   const mutation = useUpdateScheduledInterviewNotes()
 
+  
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(
           async (values) => {
-            await toast.promise(
+             toast.promise(
               mutation.mutateAsync({
                 id: data._id,
                 data: { interviewNote: values.interviewNote },
