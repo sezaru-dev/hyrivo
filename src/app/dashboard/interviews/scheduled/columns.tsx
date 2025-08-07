@@ -94,7 +94,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     },
   },
   {
-    accessorKey: "notes",
+    accessorKey: "interviewNote",
     header: ({ column }) => {
       return (
         <Button
@@ -108,7 +108,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       )
     },
     cell: ({ row }) => {
-      const rawValue = row.getValue("notes")
+      const rawValue = row.getValue("interviewNote")
 
       if (typeof rawValue !== "string" || !rawValue) {
         return null
@@ -147,7 +147,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <RescheduleDialog
-                  data={row.original.notes}
+                  data={row.original.interviewNote}
                   title="Reschedule Interview"
                 >
                   <Button variant="ghost" className=" justify-start px-2">
@@ -158,8 +158,8 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <ActionDialog
-                  data={row.original.notes}
-                  title={row.original.notes? "Edit Notes" : "Add Notes"}
+                  data={jobApplication}
+                  title={row.original.interviewNote? "Edit Notes" : "Add Notes"}
                 >
                   <Button variant="ghost" className=" justify-start px-2">
                     Add/Edit Note
@@ -167,7 +167,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 </ActionDialog>
               </DropdownMenuItem>
 
-            <DropdownMenuItem asChild>
+{/*             <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
                 actionText="Yes, Mark as Completed"
                 description={<>
@@ -177,8 +177,8 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               >
                 <Button variant="ghost" className=" justify-start px-2">Mark as Completed</Button>
               </AlertDialogComponent>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
+            </DropdownMenuItem> */}
+{/*             <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
                 actionText="Yes, Mark as Missed"
                 description={
@@ -192,7 +192,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       )
