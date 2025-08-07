@@ -60,7 +60,7 @@ export function CountdownCard({data}: CountdownCardProps) {
           <h2 className="text-sm text-muted-foreground mb-2">Next interview in</h2>
           <p className="text-xl font-semibold text-primary">{formattedTime}</p>
           {timeLeft && (
-            <span className="mt-1 text-sm text-muted-foreground">
+            <span className="mt-1 text-xs sm:text-sm text-muted-foreground">
               with <span className="font-medium text-foreground">{data?.companyName}</span>
             </span>
           )}
@@ -73,7 +73,7 @@ export function CountdownCard({data}: CountdownCardProps) {
               </div>
             </TooltipTrigger>
             <TooltipContent side="top">
-              Zoom interview confirmed. Review system design. Join 10 mins early.
+              {data.interviewNote}
             </TooltipContent>
           </Tooltip>
         )}
