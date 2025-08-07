@@ -14,3 +14,12 @@ export const updateScheduledInterviewNote = (id: string, data: Pick<JobApplicati
     },
     body: JSON.stringify(data),
   });
+
+  export const rescheduleInterview = (id: string, interviewAt: string) =>
+  fetcher(`/api/interviews/scheduled/${id}/reschedule`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ interviewAt }),
+  });
