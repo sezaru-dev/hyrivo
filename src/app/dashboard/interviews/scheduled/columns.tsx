@@ -76,9 +76,6 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       }
       const isOverdue = isBefore(parsedDate, new Date())
       const formatted = format(parsedDate, "MMM d, yyyy 'at' h:mm a")
-/*       const formatted = isNaN(parsedDate.getTime())
-        ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy 'at' h:mm a") */
 
       return (
         <span className="relative flex items-center gap-2 whitespace-nowrap">
@@ -147,7 +144,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <RescheduleDialog
-                  data={row.original.interviewNote}
+                  data={jobApplication}
                   title="Reschedule Interview"
                 >
                   <Button variant="ghost" className=" justify-start px-2">
@@ -167,8 +164,9 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 </ActionDialog>
               </DropdownMenuItem>
 
-{/*             <DropdownMenuItem asChild>
+            {/* <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
+                id={jobApplication._id}
                 actionText="Yes, Mark as Completed"
                 description={<>
                   This will set the interview status to <strong>Completed</strong>. 
@@ -177,9 +175,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               >
                 <Button variant="ghost" className=" justify-start px-2">Mark as Completed</Button>
               </AlertDialogComponent>
-            </DropdownMenuItem> */}
-{/*             <DropdownMenuItem asChild>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
+                id={jobApplication._id}
                 actionText="Yes, Mark as Missed"
                 description={
                 <>This will update the interview status to <strong>Missed</strong>. 
@@ -191,7 +190,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               </AlertDialogComponent>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
+              <AlertDialogComponent id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
             </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
