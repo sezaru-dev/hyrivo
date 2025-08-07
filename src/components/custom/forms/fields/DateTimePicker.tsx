@@ -11,18 +11,33 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { JobApplicationType } from "@/types"
 
 type Props = {
+  data: Pick<JobApplicationType, "interviewAt">
   label: string
-  value?: Date
+  value?: Date // full datetime from RHF form
   onChange: (date: Date | undefined) => void
 }
 
-export function DateTimePickerField({ label, value, onChange }: Props) {
+export function DateTimePickerField({ data, label, value, onChange }: Props) {
   const [open, setOpen] = useState(false)
   const [dateOnly, setDateOnly] = useState<Date | undefined>(value)
   const [time, setTime] = useState("09:00")
 
+  // Only run this on mount to initialize from `value`
+  useEffect(() => {
+    if (value) {
+      const [hours, minutes] = [
+        value.getHours().toString().padStart(2, "0"),
+        value.getMinutes().toString().padStart(2, "0"),
+      ]
+      setDateOnly(new Date(value))
+      setTime(`${hours}:${minutes}`)
+    }
+  }, [])
+
+  // Only call onChange if the combined datetime actually changed
   useEffect(() => {
     if (dateOnly && time) {
       const [hours, minutes] = time.split(":").map(Number)
@@ -30,9 +45,13 @@ export function DateTimePickerField({ label, value, onChange }: Props) {
       newDate.setHours(hours)
       newDate.setMinutes(minutes)
       newDate.setSeconds(0)
-      onChange(newDate)
+      newDate.setMilliseconds(0)
+
+      if (value?.toISOString() !== newDate.toISOString()) {
+        onChange(newDate)
+      }
     }
-  }, [dateOnly, time])
+  }, [dateOnly, time]) // avoid infinite loop
 
   return (
     <FormItem className="space-y-2">
@@ -75,8 +94,7 @@ export function DateTimePickerField({ label, value, onChange }: Props) {
         />
       </div>
 
-    <FormMessage />
-</FormItem>
-
+      <FormMessage />
+    </FormItem>
   )
 }
