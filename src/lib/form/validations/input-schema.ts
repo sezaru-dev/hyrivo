@@ -53,17 +53,6 @@ export const remarksFormSchema = z.object({
       message: "Remarks must not be longer than 200 characters.",
     }),
 })
-export const notesFormSchema = z.object({
-  remarks: z
-    .string()
-    .min(10, {
-      message: "Notes must be at least 10 characters.",
-    })
-    .max(200, {
-      message: "Notes must not be longer than 200 characters.",
-    }),
-})
-
 
 const now = new Date()
 now.setHours(0, 0, 0, 0)
@@ -99,7 +88,6 @@ export const LoginFormSchema = z.object({
 
 export type InputFormValues = z.infer<typeof inputFormSchema>
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
-export type NotesFormValues = z.infer<typeof notesFormSchema>
 export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
 export type SignupFormValues = z.infer<typeof signupFormSchema>
 export type LoginFormValues = z.infer<typeof LoginFormSchema>
