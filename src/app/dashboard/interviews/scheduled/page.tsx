@@ -6,6 +6,9 @@ import { columns } from './columns'
 import { CountdownCard } from '@/components/custom/stats/Countdown'
 import useScheduledInterviewsStats from '@/lib/hooks/interviews/use-scheduled-interview-stats'
 import { CountUpNumber } from '@/motions/count-up-number'
+import useGetScheduledInterviews from '@/lib/hooks/interviews/use-scheduled-interviews'
+import { Skeleton } from '@/components/ui/skeleton'
+import { JobApplicationType } from '@/types'
 
 
 const DashboardEvents = () => {
@@ -15,6 +18,12 @@ const DashboardEvents = () => {
     isError: isErrorStats, 
     isFetching: isFetchingStats
   } = useScheduledInterviewsStats()
+  const { 
+    data: interviews, 
+    isLoading: isLoadingInterviews, 
+    isError: isErrorInterviews, 
+    isFetching: isFetchingInterviews
+  } = useGetScheduledInterviews()
 
   
   
@@ -37,7 +46,23 @@ const DashboardEvents = () => {
             <StatCard title="Overdue Interviews" value={<CountUpNumber to={dataStats?.overdue ?? 0} />} />
 
           </div>
-          {/* <DataTable columns={columns} data={data} /> */}
+          {isErrorInterviews ? (
+            <div className="p-4 text-red-500 bg-red-50 border border-red-200 rounded">
+              Failed to load interviews. Please try again later.
+            </div>
+          ) : isLoadingInterviews ? (
+            <div className="space-y-4 py-4">
+              <Skeleton className="h-9 w-full rounded" />
+              <Skeleton className="h-80 w-full rounded" />
+              <div className="flex items-center justify-between gap-4">
+                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
+              </div>
+            </div>
+          ) : (
+            <DataTable columns={columns} data={interviews as JobApplicationType[] ?? []} />
+          )}
         </main>
   )
 }
