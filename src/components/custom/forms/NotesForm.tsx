@@ -18,40 +18,77 @@ import { notesFormSchema, NotesFormValues } from "@/lib/form/validations/input-s
 import { handleRemarksInputSubmit } from "@/lib/form/actions/input-submit"
 import { Textarea } from "@/components/ui/textarea"
 import { ActionDialogProps } from "../modals/ActionDialog"
+import useUpdateScheduledInterviewNotes from "@/lib/hooks/interviews/use-scheduled-interview-notes"
+import { toast } from "sonner"
+import { JobApplicationType } from "@/types"
+import z from "zod"
 
 type NotesFormProps = Omit<ActionDialogProps, 'children' | 'title'> & {
-  onSubmit: () => void
+  data:JobApplicationType
+  onSubmit?: () => void
 }
 
+const FormSchema = z.object({
+  interviewNote: z
+    .string()
+    .min(10, {
+      message: "Notes must be at least 10 characters.",
+    })
+    .max(200, {
+      message: "Notes must not be longer than 200 characters.",
+    }),
+})
+
 export function NotesForm({data, onSubmit}: NotesFormProps) {
-  const form = useForm<NotesFormValues>({
-    resolver: zodResolver(notesFormSchema),
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
-      remarks: "",
+      interviewNote: data?.interviewNote? data.interviewNote : "",
     },
   })
 
+  const mutation = useUpdateScheduledInterviewNotes()
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit( async (values) => {
-        await handleRemarksInputSubmit(values)
-      onSubmit() // ✅ Only runs when valid
-    },
-    (errors) => {
-      console.log("Validation errors:", errors)
-    }
-  )} className="space-y-6">
+      <form onSubmit={form.handleSubmit(
+          async (values) => {
+            await toast.promise(
+              mutation.mutateAsync({
+                id: data._id,
+                data: { interviewNote: values.interviewNote },
+              }),
+              {
+                loading: <span>Saving note...</span>,
+                success: () => {
+                  form.reset()
+                  onSubmit?.()
+                  return <span className="text-green-500">Note saved successfully</span>
+                },
+                error: (err: unknown) => {
+                  if (err instanceof Error) {
+                    return <span className="text-red-500">{err.message}</span>
+                  }
+                  return <span className="text-red-500">Something went wrong</span>
+                }
+              }
+            )
+          },
+          (errors) => {
+            console.log("Validation errors:", errors)
+          }
+        )} className="space-y-6">
           {/* Company */}
           <FormField
             control={form.control}
-            name="remarks"
+            name="interviewNote"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Notes</FormLabel>
                 <FormControl>
                   <Textarea
-                    defaultValue={data || ""}
-                    placeholder={!data ? "Why was this archived or rejected?" : ""}
+                    defaultValue={data?.interviewNote ?? ""}
+                    placeholder={!data?.interviewNote ? "Add any notes or details about the scheduled interview..." : ""}
                     className="resize-none"
                     rows={4}
                     {...field}
