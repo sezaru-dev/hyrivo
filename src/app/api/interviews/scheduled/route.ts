@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
   await connectToDB()
 
   try {
-    const interviews = await JobApplication.find({ userEmail, status: "interview", interviewStatus: "scheduled" })
+    const interviews = await JobApplication.find({ userEmail, status: "interview", interviewStatus: "scheduled" }).sort({ interviewAt: 1 })
     if (!interviews) {
       return NextResponse.json({ error: "Job application not found or unauthorized" }, { status: 404 })
     }
