@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 import { RescheduleInterviewForm } from "../forms/RescheduleInterviewForm";
+import { JobApplicationType } from "@/types";
 
 export type ActionDialogProps = {
-  data?: string | null;
+  data: Pick<JobApplicationType, "interviewAt">;
   children: React.ReactNode
   title: string
 }
