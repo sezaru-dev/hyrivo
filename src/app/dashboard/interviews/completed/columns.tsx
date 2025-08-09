@@ -92,7 +92,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     },
   },
   {
-    accessorKey: "notes",
+    accessorKey: "interviewRemarks",
     header: ({ column }) => {
       return (
         <Button
@@ -100,13 +100,13 @@ export const columns: ColumnDef<JobApplicationType>[] = [
           className="-ml-4"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Notes(REMARKS soon)
+          Remarks
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const rawValue = row.getValue("notes")
+      const rawValue = row.getValue("interviewRemarks")
 
       if (typeof rawValue !== "string" || !rawValue) {
         return null
@@ -137,8 +137,8 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <ActionDialog
-                  data={row.original.notes}
-                  title={row.original.notes? "Edit Notes" : "Add Notes"}
+                  data={row.original.interviewNote}
+                  title={row.original.interviewNote? "Edit Notes" : "Add Notes"}
                 >
                   <Button variant="ghost" className=" justify-start px-2">
                     Add/Edit Remarks
@@ -147,7 +147,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}/>
+              <AlertDialogComponent id={jobApplication._id} actionType="permanentDelete" onAction={() => setOpenDropdownId(null)}/>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
