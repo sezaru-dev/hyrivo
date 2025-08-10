@@ -12,6 +12,9 @@ export const env = createEnv({
     ACCESS_KEY: z.string(),
     REFRESH_KEY: z.string(),
   },
+  client: {
+    NEXT_PUBLIC_BASE_URL: z.string().url(),
+  },
 
   runtimeEnv: {
     GITHUB_ID: process.env.GITHUB_ID,
@@ -21,6 +24,8 @@ export const env = createEnv({
     MONGO_URI: process.env.MONGO_URI,
     MONGO_DB: process.env.MONGO_DB,
     ACCESS_KEY: process.env.ACCESS_KEY,
-    REFRESH_KEY: process.env.REFRESH_KEY
+    REFRESH_KEY: process.env.REFRESH_KEY,
+
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
 });
