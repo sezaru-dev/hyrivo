@@ -9,6 +9,8 @@ export const env = createEnv({
     NEXTAUTH_URL: z.string().url(),
     MONGO_URI: z.string().url(),
     MONGO_DB: z.string(),
+    ACCESS_KEY: z.string(),
+    REFRESH_KEY: z.string(),
   },
 
   runtimeEnv: {
@@ -18,5 +20,7 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     MONGO_URI: process.env.MONGO_URI,
     MONGO_DB: process.env.MONGO_DB,
+    ACCESS_KEY: process.env.ACCESS_KEY,
+    REFRESH_KEY: process.env.REFRESH_KEY
   },
 });
