@@ -72,22 +72,13 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       if (isNaN(parsedDate.getTime())) {
         return <span className="text-destructive font-medium">Invalid date</span>
       }
-      const isOverdue = isBefore(parsedDate, new Date())
+      
       const formatted = format(parsedDate, "MMM d, yyyy 'at' h:mm a")
-/*       const formatted = isNaN(parsedDate.getTime())
-        ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy 'at' h:mm a") */
 
       return (
         <span className="relative flex items-center gap-2 whitespace-nowrap">
-            {formatted}
-            {
-              isOverdue ?
-            <InterviewDueTooltip>
-              <CircleAlert size={16} className="text-red-500"/>
-            </InterviewDueTooltip>  : null
-            }
-          </span>
+          {formatted}
+        </span>
       )
     },
   },
