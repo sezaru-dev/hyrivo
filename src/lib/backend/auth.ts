@@ -4,8 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDB } from "./db";
 import { verifyPassword } from "./auth-bcrypt";
 import Users from "@/models/users-model";
-import { env } from "@/utils/env";
-import { refreshAccessToken } from "./refresh-token";
 
 
 export const authOptions: NextAuthOptions = {
@@ -41,9 +39,6 @@ export const authOptions: NextAuthOptions = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
-          accessToken: env.ACCESS_KEY, 
-          refreshToken: env.REFRESH_KEY, 
-          accessTokenExpires: Date.now() + 15 * 60 * 1000, // 15 minutes
         };
       },
     }),
@@ -51,7 +46,6 @@ export const authOptions: NextAuthOptions = {
 
   session: {
     strategy: "jwt", // Switch to JWT-based sessions
-    maxAge: 15 * 60, // 15 minutes
   },
 
   pages: {
@@ -59,32 +53,26 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    async jwt({ token, user }) {
-      // First time login
+    async jwt({ token, user, account }) {
+      // On first login, add user data to token
       if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.accessToken = user.accessToken;
-        token.refreshToken = user.refreshToken;
-        token.accessTokenExpires = user.accessTokenExpires;
-        return token;
+        token.provider = account?.provider; // Store the login provider (github or credentials)
       }
-
-      // Return token if access token not expired
-      if (Date.now() < (token.accessTokenExpires as number)) {
-        return token;
-      }
-
-      // Access token expired — refresh it
-      return await refreshAccessToken(token);
+      return token;
     },
 
     async session({ session, token }) {
+      // Expose extra token fields to session object
       if (token && session.user) {
-        session.user.id = token.id as string;
-        session.accessToken = token.accessToken as string;
-        session.error = token.error as string | undefined;
+        if (typeof token.id === "string") {
+          session.user.id = token.id
+        }
+        if (typeof token.provider === "string") {
+          session.user.provider = token.provider
+        }
       }
       return session;
     },
