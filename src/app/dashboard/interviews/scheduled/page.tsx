@@ -42,7 +42,7 @@ const DashboardEvents = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <CountdownCard data={dataStats?.nextInterviewIn}/>
             <StatCard title="Upcoming Interviews" value={<CountUpNumber to={dataStats?.upcoming ?? 0} />} />
-            <StatCard title="This Week's Interviews" value={<CountUpNumber to={dataStats?.thisWeek ?? 0} />} isPositive />
+            <StatCard title="This Week's Interviews" value={<CountUpNumber to={dataStats?.thisWeek ?? 0} />} />
             <StatCard title="Overdue Interviews" value={<CountUpNumber to={dataStats?.overdue ?? 0} />} />
 
           </div>
