@@ -43,3 +43,16 @@ export type InterviewStats = {
   thisWeek: number;
   overdue: number;
 };
+
+export type CompletedInterviewStats = {
+  completedThisWeek: number;
+  totalCompleted: number;
+  completionRate: {
+    rate: number,
+    trend: {
+      value: string,
+      direction: 'neutral' | 'positive' | 'negative'
+    }
+  }
+  lastCompletedInterview: string;
+};
