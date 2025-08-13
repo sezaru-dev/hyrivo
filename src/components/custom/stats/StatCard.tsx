@@ -4,10 +4,10 @@ interface StatCardProps {
   title: string;
   value: string | React.ReactNode  ;
   change?: string;
-  isPositive?: boolean;
+  direction?: 'neutral' | 'positive' | 'negative';
 }
 
-export function StatCard({ title, value, change, isPositive = true }: StatCardProps) {
+export function StatCard({ title, value, change, direction = 'neutral' }: StatCardProps) {
   return (
     <Card className="w-full bg-muted/20">
       <CardContent className={`p-6  ${change ? "flex items-start justify-between" : ""}`}>
@@ -24,11 +24,22 @@ export function StatCard({ title, value, change, isPositive = true }: StatCardPr
         }
         {
           !change || 
-          <div className={`mt-1 text-xs font-medium ${isPositive ? "text-green-500" : "text-red-500"}`}>
-            <p className=" border border-muted p-1 w-min rounded-full">
-              {isPositive ? "+" : ""}{change}
+          <div
+            className={`mt-1 text-xs font-medium ${
+              direction === "positive"
+                ? "text-green-500"
+                : direction === "negative"
+                ? "text-red-400"
+                : "text-gray-500"
+            }`}
+          >
+            <p className="border border-muted p-1 w-min rounded-full">
+              {direction === "positive" && "+"}
+              {direction === "negative" && "-"}
+              {direction === "neutral" ? "0%" : Math.abs(Number(change)) + "%"}
             </p>
           </div>
+
         }
       </CardContent>
     </Card>
