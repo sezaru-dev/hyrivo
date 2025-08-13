@@ -164,9 +164,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 </ActionDialog>
               </DropdownMenuItem>
 
-            {/* <DropdownMenuItem asChild>
+            <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
                 id={jobApplication._id}
+                actionType="markAsCompleted"
                 actionText="Yes, Mark as Completed"
                 description={<>
                   This will set the interview status to <strong>Completed</strong>. 
@@ -179,6 +180,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             <DropdownMenuItem asChild>
               <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
                 id={jobApplication._id}
+                actionType="markAsMissed"
                 actionText="Yes, Mark as Missed"
                 description={
                 <>This will update the interview status to <strong>Missed</strong>. 
@@ -190,8 +192,8 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               </AlertDialogComponent>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <AlertDialogComponent id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
-            </DropdownMenuItem> */}
+              <AlertDialogComponent id={jobApplication._id} actionType="permanentDelete" onAction={() => setOpenDropdownId(null)}/>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
