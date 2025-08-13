@@ -6,9 +6,10 @@ import { useEffect, useState } from "react"
 type CountUpNumberProps = {
   to: number
   duration?: number
+  symbol?: string
 }
 
-export const CountUpNumber = ({ to, duration = 1 }: CountUpNumberProps) => {
+export const CountUpNumber = ({ to, duration = 1, symbol }: CountUpNumberProps) => {
   const count = useMotionValue(0)
   const rounded = useTransform(count, latest => Math.floor(latest))
   const [display, setDisplay] = useState(0)
@@ -29,5 +30,5 @@ export const CountUpNumber = ({ to, duration = 1 }: CountUpNumberProps) => {
     }
   }, [to])
 
-  return <motion.span>{display}</motion.span>
+  return <motion.span>{display}{symbol}</motion.span>
 }
