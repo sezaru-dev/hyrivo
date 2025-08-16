@@ -128,8 +128,9 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <ActionDialog
-                  data={row.original.interviewNote}
-                  title={row.original.interviewNote? "Edit Notes" : "Add Notes"}
+                  data={jobApplication}
+                  title={row.original.interviewRemarks? "Edit Remarks" : "Add Remarks"}
+                  form="remarks"
                 >
                   <Button variant="ghost" className=" justify-start px-2">
                     Add/Edit Remarks

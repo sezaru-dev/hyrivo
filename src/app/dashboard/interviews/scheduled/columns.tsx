@@ -157,6 +157,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
                 <ActionDialog
                   data={jobApplication}
                   title={row.original.interviewNote? "Edit Notes" : "Add Notes"}
+                  form="notes"
                 >
                   <Button variant="ghost" className=" justify-start px-2">
                     Add/Edit Note
