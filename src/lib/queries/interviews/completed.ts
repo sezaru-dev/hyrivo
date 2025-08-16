@@ -1,4 +1,4 @@
-import { CompletedInterviewStats } from "@/types";
+import { CompletedInterviewStats, JobApplicationType } from "@/types";
 import { fetcher } from "../fetcher";
 
 export const getCompletedInterviews = () =>
@@ -14,3 +14,12 @@ export async function fetchCompletedInterviewsStats(): Promise<CompletedIntervie
 
   return res.json()
 }
+
+export const updateCompletedInterviewRemarks = (id: string, data: Pick<JobApplicationType, "interviewRemarks">) =>
+  fetcher(`/api/interviews/completed/${id}/remarks`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
