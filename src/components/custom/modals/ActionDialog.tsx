@@ -8,18 +8,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { RemarksForm } from "../forms/RemarksForm";
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
-import { NotesForm } from "../forms/NotesForm";
+import NotesForm from "../forms/NotesForm";
+import InterviewRemarksForm from "../forms/CompletedInterviewRemarksForm";
+
 
 export type ActionDialogProps = {
   data: any
   children: React.ReactNode
   title: string
+  form: 'notes' | 'remarks'
 }
 
-export default function ActionDialog({data, children, title}: ActionDialogProps) {
+/* const NotesForm = lazy(() => import("../forms/NotesForm"));
+const InterviewRemarksForm = lazy(() => import("../forms/CompletedInterviewRemarksForm")); */
+
+export default function ActionDialog({data, children, title, form}: ActionDialogProps) {
   const [open, setOpen] = useState(false);
   const setOpenDropdownId = useDropdownMenuStore(
     (state) => state.setOpenDropdownId
@@ -27,7 +31,7 @@ export default function ActionDialog({data, children, title}: ActionDialogProps)
    const handleOpenChange = (isOpen: boolean) => {
     setOpen(isOpen);
     if (!isOpen) {
-      setOpenDropdownId(null); // ✅ Close dropdown when dialog closes
+      setOpenDropdownId(null); // Close dropdown when dialog closes
     }
   };
 
@@ -49,8 +53,11 @@ export default function ActionDialog({data, children, title}: ActionDialogProps)
             {title}
           </DialogTitle>
         </DialogHeader>
-        {/* form here */}
-        <NotesForm data={data} onSubmit={onSubmit}/>
+          {form === "notes" ? (
+            <NotesForm data={data} onSubmit={onSubmit} />
+          ) : (
+            <InterviewRemarksForm data={data} onSubmit={onSubmit} />
+          )}
       </DialogContent>
     </Dialog>
   );
