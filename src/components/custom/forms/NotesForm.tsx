@@ -20,7 +20,7 @@ import { toast } from "sonner"
 import { JobApplicationType } from "@/types"
 import z from "zod"
 
-type NotesFormProps = Omit<ActionDialogProps, 'children' | 'title'> & {
+type NotesFormProps = Omit<ActionDialogProps, 'children' | 'title' | 'form'> & {
   data:JobApplicationType
   onSubmit?: () => void
 }
@@ -36,7 +36,7 @@ const FormSchema = z.object({
     }),
 })
 
-export function NotesForm({data, onSubmit}: NotesFormProps) {
+export default function NotesForm({data, onSubmit}: NotesFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
