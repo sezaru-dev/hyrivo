@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { StatCard } from '@/components/custom/stats/StatCard'
 
@@ -6,32 +7,37 @@ import { JobApplicationType } from '@/types'
 import { DateStatCard } from '@/components/custom/stats/DateStatCard'
 import { DataTable } from './data-table'
 import { columns } from './columns'
+import useGetMissedInterviews from '@/lib/hooks/interviews/missed/use-missed-interviews'
+import { Skeleton } from '@/components/ui/skeleton'
 
-async function getData(): Promise<JobApplicationType[]> {
-  // Fetch data from your API here.
-  return jobInterviews
-}
-
-const DashboardCompletedInterview = async () => {
-  const data = await getData()
+const DashboardCompletedInterview = () => {
+  const { 
+    data, 
+    isLoading, 
+    isError, 
+  } = useGetMissedInterviews()
   return (
     <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
           {/* Page Heading */}
           <div className="mb-4">
               <h1 className="text-2xl font-bold tracking-tight">Missed Interviews</h1>
               <p className="text-muted-foreground text-sm">
-                Track missed interviews to understand drop-off patterns and improve follow-up strategies.
+                List of missed interviews for easy tracking and management.
               </p>
           </div>
-    
-          {/* stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <StatCard title="Missed This Week" value="3" change="1" isPositive={false} />
-            <StatCard title="Total Missed" value="15" />
-            <StatCard title="Missed Rate" value="18%" change="2%" isPositive={false} />
-            <DateStatCard title="Last Missed Interview" value="July 21, 2025" />
-          </div>
-          <DataTable columns={columns} data={data} />
+
+          {isError ? (
+            <div className="p-4 text-red-500 bg-red-50 border border-red-200 rounded">
+              Failed to load interviews. Please try again later.
+            </div>
+          ) : isLoading ? (
+            <div className="space-y-4 py-4">
+              <Skeleton className="h-9 w-full rounded" />
+              <Skeleton className="h-72 w-full rounded" />
+            </div>
+          ) : (
+            <DataTable columns={columns} data={data as JobApplicationType[] ?? []} />
+          )}
         </main>
   )
 }
