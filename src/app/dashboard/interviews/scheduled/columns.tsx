@@ -1,24 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, CircleAlert,  MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, CircleAlert } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { JobApplicationType } from "@/types"
 import { format, isBefore } from "date-fns"
-import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
-import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
-import ActionDialog from "@/components/custom/modals/ActionDialog"
-import RescheduleDialog from "@/components/custom/modals/RescheduleDialog"
-import { ViewDetailsDialog } from "@/components/custom/modals/ViewDetailsDialog"
+import { ScheduledInterviewActions } from "@/components/custom/data-table/action-cells/ScheduledInterviewActions"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -117,86 +105,8 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const jobApplication = row.original
-      const { openDropdownId, setOpenDropdownId } = useDropdownMenuStore()
-      const isOpen = openDropdownId === jobApplication._id
- 
       return (
-        <DropdownMenu open={isOpen} onOpenChange={(open) => {
-          setOpenDropdownId(open ? jobApplication._id : null)
-        }}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="grid">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-              <DropdownMenuItem asChild>
-                <ViewDetailsDialog>
-                  <Button variant="ghost" className=" justify-start px-2">
-                    View Details
-                  </Button>
-                </ViewDetailsDialog>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild>
-                <RescheduleDialog
-                  data={jobApplication}
-                  title="Reschedule Interview"
-                >
-                  <Button variant="ghost" className=" justify-start px-2">
-                    Reschedule Interview
-                  </Button>
-                </RescheduleDialog>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild>
-                <ActionDialog
-                  data={jobApplication}
-                  title={row.original.interviewNote? "Edit Notes" : "Add Notes"}
-                  form="notes"
-                >
-                  <Button variant="ghost" className=" justify-start px-2">
-                    Add/Edit Note
-                  </Button>
-                </ActionDialog>
-              </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
-                id={jobApplication._id}
-                actionType="markAsCompleted"
-                actionText="Yes, Mark as Completed"
-                description={<>
-                  This will set the interview status to <strong>Completed</strong>. 
-                  Make sure the interview has already taken place. You’ll still be able to add notes or feedback later from the Completed Interviews.
-                </>}  
-              >
-                <Button variant="ghost" className=" justify-start px-2">Mark as Completed</Button>
-              </AlertDialogComponent>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
-                id={jobApplication._id}
-                actionType="markAsMissed"
-                actionText="Yes, Mark as Missed"
-                description={
-                <>This will update the interview status to <strong>Missed</strong>. 
-                  You can still reschedule the interview later to reset its status to <strong>Scheduled</strong>.
-                </>  
-                }  
-              >
-                <Button variant="ghost" className=" justify-start px-2">Mark as Missed</Button>
-              </AlertDialogComponent>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <AlertDialogComponent id={jobApplication._id} actionType="permanentDelete" onAction={() => setOpenDropdownId(null)}/>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ScheduledInterviewActions jobApplication={jobApplication}/>
       )
     },
   },
