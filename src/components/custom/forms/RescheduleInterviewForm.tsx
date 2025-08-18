@@ -19,7 +19,7 @@ import useScheduledInterviewReschedule from "@/lib/hooks/interviews/use-schedule
 import { toastPromise } from "../toastPromise"
 import { addMinutes } from "date-fns"
 
-type thisComponentProps = Omit<ActionDialogProps, 'children' | 'title'> & {
+type thisComponentProps = Omit<ActionDialogProps, 'children' | 'title' | 'form'> & {
   data: Pick<JobApplicationType, "interviewAt"> // Only need interviewAt for rescheduling
   onSubmit: () => void
 }
