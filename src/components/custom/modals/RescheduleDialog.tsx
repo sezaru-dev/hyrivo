@@ -26,7 +26,7 @@ export default function RescheduleDialog({data, children, title}: ActionDialogPr
    const handleOpenChange = (isOpen: boolean) => {
     setOpen(isOpen);
     if (!isOpen) {
-      setOpenDropdownId(null); // ✅ Close dropdown when dialog closes
+      setOpenDropdownId(null); //  Close dropdown when dialog closes
     }
   };
 
