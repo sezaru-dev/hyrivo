@@ -2,22 +2,17 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Headset,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  CalendarClock,
+  FileText,
+  Handshake,
+  Inbox,
+  LayoutDashboard,
+  XCircle,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavBrand } from "@/components/nav-brand"
 import {
   Sidebar,
   SidebarContent,
@@ -26,28 +21,22 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
 const data = {
   navMain: [
     {
+      title: "Dashboard",
+      url: "/dashboard/",
+      icon: LayoutDashboard,
+    },
+    {
       title: "Applications",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Job Applications",
-          url: "/dashboard/job-applications",
-        },
-        {
-          title: "Archives",
-          url: "/dashboard/job-application-archives",
-        },
-      ],
+      url: "/dashboard/job-applications",
+      icon: FileText,
     },
     {
       title: "Interviews",
       url: "/dashboard/interviews",
-      icon: Headset,
+      icon: CalendarClock,
       items: [
         {
           title: "Scheduled",
@@ -63,52 +52,21 @@ const data = {
         },
       ],
     },
-/*     {
-      title: "Calendar",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Sub-menu 1",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 2",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 3",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 4",
-          url: "#",
-        },
-      ],
+    {
+      title: "Offers",
+      url: "/dashboard/offers",
+      icon: Inbox,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "Sub-menu 1",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 2",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 3",
-          url: "#",
-        },
-        {
-          title: "Sub-menu 4",
-          url: "#",
-        },
-      ],
-    }, */
+      title: "Hired",
+      url: "/dashboard/hired",
+      icon: Handshake,
+    },
+    {
+      title: "Rejected",
+      url: "/dashboard/rejected",
+      icon: XCircle,
+    },
   ],
 }
 
@@ -116,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher />
+        <NavBrand />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
