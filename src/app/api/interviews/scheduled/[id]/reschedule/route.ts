@@ -39,7 +39,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { id: string
   try {
       const newSchedule = await JobApplication.findOneAndUpdate(
         { _id: params.id, userEmail }, // Make sure the user owns the record
-        { interviewAt: interviewAt },
+        { status: 'interview', interviewStatus: 'scheduled', interviewAt: interviewAt },
         { new: true }
       )
 
