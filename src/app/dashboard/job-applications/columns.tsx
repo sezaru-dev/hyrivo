@@ -15,7 +15,6 @@ import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import { capitalize } from "@/utils/capitalize"
 
@@ -228,7 +227,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            {
+            {/* {
               JobStatus.includes(jobApplication.status) ? 
                 <DropdownMenuItem asChild>
                   <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
@@ -250,7 +249,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
               <DropdownMenuItem asChild>
                 <AlertDialogComponent id={jobApplication._id} actionType="permanentDelete" onAction={() => setOpenDropdownId(null)}/>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       )
