@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronsUpDown, GalleryVerticalEnd, Plus } from "lucide-react"
+import { GalleryVerticalEnd, Plus } from "lucide-react"
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 
-export function TeamSwitcher() {
+export function NavBrand() {
   const { isMobile } = useSidebar()
 
   return (
