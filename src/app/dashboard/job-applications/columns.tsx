@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, BadgeCheck, CalendarClock, Delete, FileText, Handshake, LoaderIcon, MoreHorizontal, PauseCircle, XCircle } from "lucide-react"
+import { ArrowUpDown, CalendarClock, FileText, Handshake, Inbox, MoreHorizontal, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Link from "next/link"
 import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
@@ -23,21 +22,10 @@ import { capitalize } from "@/utils/capitalize"
 const statusIconMap: Record<string, JSX.Element> = {
   applied: <FileText className="text-gray-500 dark:text-gray-400" />,
   interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
-  offered: <Handshake className="text-amber-500 dark:text-amber-400" />,
-  hired: <BadgeCheck className="text-green-500 dark:text-green-400" />,
+  offered: <Inbox className="text-amber-500 dark:text-amber-400" />,
+  hired: <Handshake className="text-green-500 dark:text-green-400" />,
   rejected: <XCircle className="text-red-500 dark:text-red-400" />,
-  inactive: <PauseCircle className="text-zinc-500 dark:text-zinc-400" />,
 }
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
-/* export type Product = {
-  id: string
-  productname: string
-  price: number
-  category: string
-} */
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -93,7 +81,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       const parsedDate = new Date(rawValue)
       const formatted = isNaN(parsedDate.getTime())
         ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy") // 👉 Jun 25, 2025
+        : format(parsedDate, "MMM d, yyyy") //  Jun 25, 2025
 
       return <span>{formatted}</span>
     },
@@ -224,6 +212,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       const jobApplication = row.original
       const { openDropdownId, setOpenDropdownId } = useDropdownMenuStore()
       const isOpen = openDropdownId === jobApplication._id
+      const JobStatus = ["applied", "interview", "offered"]
  
       return (
         <DropdownMenu open={isOpen} onOpenChange={(open) => {
@@ -235,34 +224,32 @@ export const columns: ColumnDef<JobApplicationType>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="grid">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}`}>
-                View
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                Edit
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                Mark as Inactive
-              </Link>
-            </DropdownMenuItem> */}
-            {row.original.status === "rejected" ?
-              <DropdownMenuItem asChild>
-                <Link href={`/dashboard/products/product-list/${jobApplication._id}/edit`}>
-                  Move to Archive
-                </Link>
-              </DropdownMenuItem>
-            : null}
+
+            {
+              JobStatus.includes(jobApplication.status) ? 
+                <DropdownMenuItem asChild>
+                  <AlertDialogComponent onAction={() => setOpenDropdownId(null)}
+                    id={jobApplication._id}
+                    actionType="markAsRejected"
+                    actionText="Yes, Mark as Rejected"
+                    description={
+                      <>
+                        This will mark the application as <strong>Rejected</strong> and move it to your Rejected panel. 
+                        Make sure you’ve officially accepted the job offer before proceeding. 
+                      </>
+                    }
+                  >
+                    <Button variant="ghost" className=" justify-start px-2">Mark as Rejected</Button>
+                  </AlertDialogComponent>
+                </DropdownMenuItem> 
+              : ''
+            }
 
               <DropdownMenuItem asChild>
-                <AlertDialogComponent id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+                <AlertDialogComponent id={jobApplication._id} actionType="permanentDelete" onAction={() => setOpenDropdownId(null)}/>
               </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
