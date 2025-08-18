@@ -1,6 +1,6 @@
 "use client"
 
-import { ChartPie, ChevronRight, SquareTerminal, type LucideIcon } from "lucide-react"
+import { ChevronRight, type LucideIcon } from "lucide-react"
 
 import {
   Collapsible,
@@ -37,12 +37,6 @@ export function NavMain({
     <SidebarGroup>
       <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
       <SidebarMenu>
-        <SidebarMenuButton asChild>
-          <a href='/dashboard'>
-            <SquareTerminal />
-            <span>Overview</span>
-          </a>
-        </SidebarMenuButton>
         {items.map((item) => (
           <Collapsible
             key={item.title}
