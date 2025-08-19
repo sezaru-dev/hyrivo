@@ -1,20 +1,19 @@
 import { useDeleteJobApplication } from "@/lib/hooks/use-delete-job-application";
-import { toastPromise } from "../toastPromise";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { AlertDialog,  AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useRouter } from "next/navigation";
+import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 
-export function DeleteApplicationDialog({ id, onAction, withTooltip }: { id: string; onAction?: () => void, withTooltip?: boolean }) {
+export function DeleteApplicationDialog({ id, withTooltip }: { id: string, withTooltip?: boolean }) {
+  const { setOpenDropdownId } = useDropdownMenuStore()
   const { mutate: deleteApplication, isPending } = useDeleteJobApplication()
-    const router = useRouter()
 
 const deleteHandler = () => {
   deleteApplication(id, {
     onSuccess: () => {
-      onAction?.()
+      setOpenDropdownId(null)
       /* router.push("/dashboard/interviews/completed") */
     },
   })
