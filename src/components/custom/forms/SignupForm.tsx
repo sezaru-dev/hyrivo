@@ -11,17 +11,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { FaGoogle } from "react-icons/fa";
-import Link from "next/link"
 import PasswordEyeButton from "../buttons/PasswordEyeButton"
 import { useState } from "react"
 import LoginWithGithubButton from "../buttons/LoginWithGithubButton"
 import { signupFormSchema, SignupFormValues } from "@/lib/form/validations/input-schema"
-import { handleSignupUser } from "@/lib/form/actions/input-submit"
 import { useSignupUser } from "@/lib/hooks/use-signup-user"
 import { useHandleSignupUser } from "@/lib/hooks/useHandleSignupUser"
 

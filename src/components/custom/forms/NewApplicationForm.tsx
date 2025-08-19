@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form"
 import {
   Popover,
@@ -35,11 +34,11 @@ import { DateTimePickerField } from "./fields/DateTimePicker"
 import { useCreateJobApplication } from "@/lib/hooks/use-create-job-application"
 import { capitalize } from "@/utils/capitalize"
 
-type Props = {
+/* type Props = {
   onSuccess?: () => void;
-};
+}; */
 
-export function InputForm({onSuccess}: Props) {
+export function InputForm() {
   const form = useForm<InputFormValues>({
     resolver: zodResolver(inputFormSchema),
     defaultValues: {

@@ -15,8 +15,6 @@ import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { FaGoogle } from "react-icons/fa";
-import Link from "next/link"
 import LoginWithGithubButton from "../buttons/LoginWithGithubButton"
 import { LoginFormSchema } from "@/lib/form/validations/input-schema"
 import { signIn } from "next-auth/react"
