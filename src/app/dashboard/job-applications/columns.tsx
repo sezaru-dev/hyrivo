@@ -102,10 +102,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     cell: ({ row }) => (
       <Badge
         variant="outline"
-        className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3"
+        className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 max-w-fit"
       >
         {statusIconMap[row.original.status]}
-        {capitalize(row.original.status)}
+        {capitalize(row.original.status)} {row.original.interviewStatus === 'none' ? '' : `- ${capitalize(row.original.interviewStatus)}`}
       </Badge>
     ),
     filterFn: categoryFilter
@@ -133,33 +133,6 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       const formatted = isNaN(parsedDate.getTime())
         ? "Invalid date"
         : format(parsedDate, "MMM d, yyyy 'at' h:mm a")
-
-      return <span>{formatted}</span>
-    },
-  },
-  {
-    accessorKey: "followUp",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="-ml-4"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Follow-Up
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-      const rawValue = row.getValue("followUp")
-
-      if (typeof rawValue !== "string" || !rawValue) {
-        return <span className="text-muted-foreground italic">No date</span>
-      }
-
-      const parsedDate = new Date(rawValue)
-      const formatted = isNaN(parsedDate.getTime())
-        ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy") // 👉 Jun 25, 2025
 
       return <span>{formatted}</span>
     },
