@@ -71,7 +71,7 @@ export const ScheduledInterviewActions = ({ jobApplication}: ScheduledInterviewA
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <DeleteApplicationDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+          <DeleteApplicationDialog id={jobApplication._id}/>
         </DropdownMenuItem>
 
       </DropdownMenuContent>

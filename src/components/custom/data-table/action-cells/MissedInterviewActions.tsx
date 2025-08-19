@@ -47,7 +47,7 @@ export const MissedInterviewActions = ({ jobApplication}: ThisComponentProps) =>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <DeleteApplicationDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+          <DeleteApplicationDialog id={jobApplication._id}/>
         </DropdownMenuItem>
 
       </DropdownMenuContent>
