@@ -30,7 +30,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { id: string
     }
 
     return NextResponse.json(updated, { status: 200 })
-  } catch (error) {
+  } catch {
     return Response.json(
       { message: "Failed to update interview status" },
       { status: 500 }

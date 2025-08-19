@@ -2,9 +2,9 @@ import { connectToDB } from "@/lib/backend/db";
 import { verifySession } from "@/lib/backend/verify-session";
 import JobApplication from "@/models/job-application-model";
 import { endOfWeek, startOfWeek } from "date-fns";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await verifySession();
   if (session instanceof NextResponse) return session;
 
@@ -50,8 +50,7 @@ export async function GET(req: NextRequest) {
         "thisWeek": thisWeeksInterviews.length,
         "nextInterviewIn": soonestUpcoming ? soonestUpcoming : null,
       }, { status: 200 });
-  } catch (error) {
-    console.error("[GET_OVERDUE_INTERVIEWS_ERROR]", error);
+  } catch {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

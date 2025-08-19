@@ -1,9 +1,9 @@
 import { connectToDB } from "@/lib/backend/db";
 import { verifySession } from "@/lib/backend/verify-session";
 import JobApplication from "@/models/job-application-model";
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   //verify session
   const session = await verifySession()
   if (session instanceof NextResponse) return session
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
     } 
 
     return NextResponse.json({total, ...defaultStats}, { status: 200 });
-  } catch (error) {
+  } catch {
     return new NextResponse("Internal Server Error", { status: 500 })
   }
 }

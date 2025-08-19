@@ -3,7 +3,6 @@ import { verifySession } from "@/lib/backend/verify-session"
 import JobApplication from "@/models/job-application-model"
 import { NextRequest, NextResponse } from "next/server"
 
-
 export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
   const session = await verifySession()
   if (session instanceof NextResponse) return session
@@ -21,7 +20,7 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
       }
 
       return NextResponse.json(updated, { status: 200 })
-    } catch (error) {
+    } catch {
       return NextResponse.json({ error: "Failed to update interviewNote" }, { status: 500 })
     }
 }
@@ -53,7 +52,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { id: string
       }
 
       return NextResponse.json(updated, { status: 200 })
-    } catch (error) {
+    } catch {
       return NextResponse.json({ error: "Failed to update interviewNote" }, { status: 500 })
     }
 }

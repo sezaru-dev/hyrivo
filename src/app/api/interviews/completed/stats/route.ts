@@ -1,11 +1,10 @@
-import { jobApplications } from "@/constant/constant-data";
 import { connectToDB } from "@/lib/backend/db";
 import { verifySession } from "@/lib/backend/verify-session";
 import JobApplication from "@/models/job-application-model";
 import { endOfWeek, startOfWeek, subWeeks, format } from "date-fns";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await verifySession();
   if (session instanceof NextResponse) return session;
 

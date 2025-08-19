@@ -3,8 +3,8 @@ import { verifySession } from "@/lib/backend/verify-session"
 import JobApplication from "@/models/job-application-model"
 import { NextRequest, NextResponse } from "next/server"
 
-
-export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
+// GET /api/interview/completed/:id/remarks
+export const GET = async (_req: NextRequest, { params }: { params: { id: string } }) => {
   const session = await verifySession()
   if (session instanceof NextResponse) return session
 
@@ -12,20 +12,25 @@ export const GET = async (req: NextRequest, { params }: { params: { id: string }
   await connectToDB()
 
   try {
-      const updated = await JobApplication.findOne(
-        { _id: params.id, userEmail }, // Make sure the user owns the record
+    const updated = await JobApplication.findOne(
+      { _id: params.id, userEmail } // Make sure the user owns the record
+    )
+
+    if (!updated) {
+      return NextResponse.json(
+        { error: "Job application not found or unauthorized" },
+        { status: 404 }
       )
-
-      if (!updated) {
-        return NextResponse.json({ error: "Job application not found or unauthorized" }, { status: 404 })
-      }
-
-      return NextResponse.json(updated, { status: 200 })
-    } catch (error) {
-      return NextResponse.json({ error: "Failed to update interviewNote" }, { status: 500 })
     }
-}
 
+    return NextResponse.json(updated, { status: 200 })
+  } catch {
+    return NextResponse.json(
+      { error: "Failed to fetch job application" },
+      { status: 500 }
+    )
+  }
+}
 
 // PATCH /api/interview/completed/:id/remarks
 export const PATCH = async (req: NextRequest, { params }: { params: { id: string } }) => {
@@ -42,18 +47,24 @@ export const PATCH = async (req: NextRequest, { params }: { params: { id: string
   await connectToDB()
 
   try {
-      const updated = await JobApplication.findOneAndUpdate(
-        { _id: params.id, userEmail }, // Make sure the user owns the record
-        { interviewRemarks },
-        { new: true }
+    const updated = await JobApplication.findOneAndUpdate(
+      { _id: params.id, userEmail }, // Make sure the user owns the record
+      { interviewRemarks },
+      { new: true }
+    )
+
+    if (!updated) {
+      return NextResponse.json(
+        { error: "Job application not found or unauthorized" },
+        { status: 404 }
       )
-
-      if (!updated) {
-        return NextResponse.json({ error: "Job application not found or unauthorized" }, { status: 404 })
-      }
-
-      return NextResponse.json(updated, { status: 200 })
-    } catch (error) {
-      return NextResponse.json({ error: "Failed to update interview remarks" }, { status: 500 })
     }
+
+    return NextResponse.json(updated, { status: 200 })
+  } catch {
+    return NextResponse.json(
+      { error: "Failed to update interview remarks" },
+      { status: 500 }
+    )
+  }
 }

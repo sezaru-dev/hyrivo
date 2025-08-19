@@ -3,7 +3,7 @@ import { verifySession } from "@/lib/backend/verify-session"
 import JobApplication from "@/models/job-application-model"
 import { NextRequest, NextResponse } from "next/server"
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req:NextRequest, { params }: { params: { id: string } }) {
   const session = await verifySession()
   if (session instanceof NextResponse) return session
 

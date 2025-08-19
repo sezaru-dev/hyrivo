@@ -35,7 +35,7 @@ export const GET = async (req: NextRequest) => {
     }
 
     return NextResponse.json(interviews, { status: 200 })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { message: "Failed to fetch interviews" },
       { status: 500 }

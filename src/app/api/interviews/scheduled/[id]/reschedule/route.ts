@@ -48,7 +48,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { id: string
       }
 
       return NextResponse.json({ message: "Interview rescheduled" }, { status: 200 })
-    } catch (error) {
+    } catch {
       return NextResponse.json({ error: "Failed to reschedule interview" }, { status: 500 })
     }
 }
