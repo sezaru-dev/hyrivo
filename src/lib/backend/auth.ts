@@ -50,9 +50,7 @@ export const authOptions: NextAuthOptions = {
     updateAge: 60 * 30 //30 mins
   },
 
-  pages: {
-    signIn: "/", // Your custom sign-in page route
-  },
+
 
   callbacks: {
     async jwt({ token, user, account }) {
