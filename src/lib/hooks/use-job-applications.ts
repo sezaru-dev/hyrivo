@@ -4,10 +4,10 @@ import { fetchJobApplications, updateApplicationStatus } from "../queries/job-ap
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toastPromise } from "@/components/custom/toastPromise"
 
-export function useJobApplications() {
+export function useJobApplications(limit?: number) {
   return useQuery({
     queryKey: ["job-applications"],
-    queryFn: fetchJobApplications,
+    queryFn: () => fetchJobApplications(limit),
     staleTime: 1000 * 60 * 5,         // Consider fresh for 5 mins
     refetchOnMount: true,            // Refetch in background if data is stale
     refetchOnWindowFocus: true,      // Useful if user switches tab
