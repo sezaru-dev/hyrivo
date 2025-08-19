@@ -1,4 +1,4 @@
-export type JobStatus = 'applied' | 'interview' | 'offered' | 'hired' | 'rejected' | 'inactive';
+export type JobStatus = 'applied' | 'interview' | 'offered' | 'hired' | 'rejected';
 export type InterviewStatus = 'none' | 'scheduled' | 'completed' | 'missed';
 
 export type JobType =
@@ -21,11 +21,8 @@ export type JobApplicationType = {
   interviewStatus: InterviewStatus;
   interviewNote: string | null;
   interviewRemarks: string | null;
-  followUp: string;
   salary: number;
   jobType: JobType;
-  isArchived: boolean;
-  archiveRemarks: string | null;
 };
 
 export type JobApplicationStats = {
