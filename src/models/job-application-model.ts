@@ -27,7 +27,7 @@ const jobApplicationSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['applied', 'interview', 'offered', 'hired', 'rejected', 'inactive'],
+      enum: ['applied', 'interview', 'offered', 'hired', 'rejected'],
       default: 'applied',
     },
     interviewAt: {
@@ -47,10 +47,6 @@ const jobApplicationSchema = new Schema(
       type: String,
       default: null,
     },
-    followUp: {
-      type: String,
-      default: '',
-    },
     salary: {
       type: Number,
       default: 0,
@@ -68,14 +64,6 @@ const jobApplicationSchema = new Schema(
         'Hybrid Remote',
       ],
       default: 'Full-Time Remote',
-    },
-    isArchived: {
-      type: Boolean,
-      default: false,
-    },
-    archiveRemarks: {
-      type: String,
-      default: null,
     },
   },
   {
