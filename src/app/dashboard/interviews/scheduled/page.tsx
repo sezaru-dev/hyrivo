@@ -14,15 +14,11 @@ import { JobApplicationType } from '@/types'
 const DashboardEvents = () => {
   const { 
     data: dataStats, 
-    isLoading: isLoadingStats, 
-    isError: isErrorStats, 
-    isFetching: isFetchingStats
   } = useScheduledInterviewsStats()
   const { 
     data: interviews, 
     isLoading: isLoadingInterviews, 
     isError: isErrorInterviews, 
-    isFetching: isFetchingInterviews
   } = useGetScheduledInterviews()
 
   

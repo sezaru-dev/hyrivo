@@ -1,8 +1,6 @@
 'use client'
 import React from 'react'
 import { StatCard } from '@/components/custom/stats/StatCard'
-
-import { jobInterviews } from '../../../../constant/constant-data'
 import { JobApplicationType } from '@/types'
 import { DateStatCard } from '@/components/custom/stats/DateStatCard'
 import { DataTable } from './data-table'
@@ -15,15 +13,11 @@ import { CountUpNumber } from '@/motions/count-up-number'
 const DashboardCompletedInterview = () => {
   const { 
     data: dataStats, 
-    isLoading: isLoadingStats, 
-    isError: isErrorStats, 
-    isFetching: isFetchingStats
   } = useCompletedInterviewStats()
   const { 
     data: interviews, 
     isLoading: isLoadingInterviews, 
     isError: isErrorInterviews, 
-    isFetching: isFetchingInterviews
   } = useGetCompletedInterviews()
 
   return (

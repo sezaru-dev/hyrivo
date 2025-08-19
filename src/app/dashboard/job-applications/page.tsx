@@ -6,7 +6,6 @@ import { DataTable } from "./data-table"
 import { columns } from "./columns"
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal"
 import useJobApplicationsStats from "@/lib/hooks/use-job-appliactions-stats"
-import { isError } from "lodash"
 import { CountUpNumber } from "@/motions/count-up-number"
 import { Skeleton } from "@/components/ui/skeleton"
 
@@ -14,31 +13,12 @@ const JobApplicationPage = () => {
   const { 
     data: jobApplications, 
     isLoading: isLoadingApplications, 
-    isError: isErrorApplications, 
     isFetching: isFetchingApplications
   } = useJobApplications()
   const { 
     data: jobApplicationsStats, 
-    isLoading: isLoadingApplicationStats, 
-    isError: isErrorApplicationStats, 
-    isFetching: isFetchingApplicationStats
   } = useJobApplicationsStats()
 
-  /* if (isLoadingApplications || isLoadingApplicationStats) {
-    return (
-      <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
-        <p>Loading...</p>
-      </main>
-    )
-  }
-
-  if (isErrorApplications || isErrorApplicationStats) {
-    return (
-      <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">
-        <p>Failed to load job applications.</p>
-      </main>
-    )
-  } */
 
   return (
     <main className="flex-1 p-6 md:p-8 space-y-6 mt-8">

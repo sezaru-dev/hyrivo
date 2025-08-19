@@ -7,8 +7,6 @@ export default function RecentApplications() {
     const { 
         data, 
         isLoading, 
-        isError, 
-        isFetching
       } = useJobApplications(5)
   return (
     <div className="mt-4 col-span-2">
