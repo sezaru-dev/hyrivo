@@ -1,24 +1,12 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, CircleAlert,  MoreHorizontal, Trash2 } from "lucide-react"
+import { ArrowUpDown} from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { JobApplicationType } from "@/types"
-import { format, isBefore } from "date-fns"
-import { AlertDialogComponent } from "@/components/custom/alert-dialogs/AlertDialogComponent"
+import { format } from "date-fns"
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
-import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
-import ActionDialog from "@/components/custom/modals/ActionDialog"
 import { Badge } from "@/components/ui/badge"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { DeleteApplicationDialog } from "@/components/custom/alert-dialogs/DeleteActionDialog"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
