@@ -5,7 +5,6 @@ import { ArrowUpDown} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
-import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import { Badge } from "@/components/ui/badge"
 import { DeleteApplicationDialog } from "@/components/custom/alert-dialogs/DeleteActionDialog"
 
@@ -114,10 +113,9 @@ export const columns: ColumnDef<JobApplicationType>[] = [
     id: "actions",
     cell: ({ row }) => {
       const jobApplication = row.original
-      const { setOpenDropdownId } = useDropdownMenuStore()
- 
+      
       return (
-              <DeleteApplicationDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)} withTooltip/>
+              <DeleteApplicationDialog id={jobApplication._id} withTooltip/>
       )
     },
   },

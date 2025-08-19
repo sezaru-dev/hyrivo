@@ -22,7 +22,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
 import {
   Table,
   TableBody,
@@ -33,13 +32,9 @@ import {
 } from "@/components/ui/table"
 
 import { Columns2 } from "lucide-react"
-
-
 import { JobApplicationType } from "@/types"
 import { globalFilterFn } from "@/components/custom/data-table/globalFilterFn"
-import CategoryFilter from "@/components/custom/data-table/ArchivesCategoryFilter"
 import { DataTablePagination } from "@/components/custom/data-table/Pagination"
-
 
 interface DataTableProps<
   TData extends { companyName: string; jobTitle: string },

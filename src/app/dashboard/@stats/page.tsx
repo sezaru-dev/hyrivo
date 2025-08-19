@@ -2,7 +2,6 @@
 import { StatCard } from '@/components/custom/stats/StatCard'
 import useJobApplicationsStats from '@/lib/hooks/use-job-appliactions-stats'
 import { CountUpNumber } from '@/motions/count-up-number'
-import { ifError } from 'assert'
 import React from 'react'
 
 export default function StatsSlot() {

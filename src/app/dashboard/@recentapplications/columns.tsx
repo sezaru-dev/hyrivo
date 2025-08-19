@@ -1,21 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, CalendarClock, FileText, Handshake, Inbox, MoreHorizontal, XCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore"
 import { capitalize } from "@/utils/capitalize"
 
 const statusColorMap: Record<string, string> = {

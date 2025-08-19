@@ -1,6 +1,5 @@
 "use client"
 import * as React from "react"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -22,7 +21,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
 import {
   Table,
   TableBody,
@@ -31,14 +29,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
 import { Columns2 } from "lucide-react"
 import { DataTablePagination } from "../../../../components/custom/data-table/Pagination"
-
 import { JobApplicationType } from "@/types"
 import { globalFilterFn } from "@/components/custom/data-table/globalFilterFn"
-import CategoryFilter from "@/components/custom/data-table/ArchivesCategoryFilter"
-
 
 interface DataTableProps<
   TData extends { companyName: string; jobTitle: string },
