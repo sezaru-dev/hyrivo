@@ -28,22 +28,39 @@ export function useHandleSignupUser() {
 
           reset?.()
           router.push("/dashboard")
-        } catch (err: any) {
-          // If the error came from `signupUser` and includes a response body
-          if (err?.response?.json) {
-            const errorBody = await err.response.json()
-            throw new Error(errorBody?.error || "Signup failed")
+        } catch (err: unknown) {
+          // Normalize error as Error instance
+          let errorMessage = "Signup failed"
+
+          if (err instanceof Error) {
+            errorMessage = err.message
+          } else if (
+            typeof err === "object" &&
+            err !== null &&
+            "response" in err &&
+            typeof (err as { response?: { json: () => Promise<unknown> } }).response?.json === "function"
+          ) {
+            const errorBody = await (err as { response: { json: () => Promise<unknown> } }).response.json()
+            if (typeof errorBody === "object" && errorBody !== null && "error" in errorBody) {
+              errorMessage = (errorBody as { error?: string }).error || errorMessage
+            }
           }
-          // Fallback for non-HTTP errors
-          throw new Error(err?.message || "Signup failed")
+
+          throw new Error(errorMessage)
         }
       })(),
       {
         loading: <span>Submitting application...</span>,
         success: <span className="text-green-500">Signup successful. Redirecting...</span>,
-        error: (err) => (
-          <span className="text-red-500">{err.message || "Signup failed"}</span>
-        ),
+        error: (err: unknown) => {
+          let msg = "Signup failed"
+
+          if (err instanceof Error) {
+            msg = err.message
+          }
+
+          return <span className="text-red-500">{msg}</span>
+        },
       }
     )
   }
