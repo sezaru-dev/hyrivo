@@ -1,13 +1,17 @@
+import NewApplicationModal from "@/components/custom/modals/NewApplicationModal";
 
-export default function Page() {
+export default function OverviewPage() {
   return (
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-        </div>
+    <div className="p-6 md:p-8 mt-8">
+      <div className="flex items-end justify-between mb-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground text-sm">
+            Get a snapshot of your job search — track applications, interviews, offers, and more in one place.
+          </p>
+      </div>
+      <NewApplicationModal />
+      </div>
+    </div>
   )
 }
