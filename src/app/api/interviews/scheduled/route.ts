@@ -8,22 +8,37 @@ export const GET = async (req: NextRequest) => {
   if (session instanceof NextResponse) return session
 
   const userEmail = session.user.email
-
   await connectToDB()
 
+  const { searchParams } = new URL(req.url)
+  const limitParam = searchParams.get("limit")
+  const limit = limitParam ? Number(limitParam) : null
+
   try {
-    const interviews = await JobApplication.find({ userEmail, status: "interview", interviewStatus: "scheduled" }).sort({ interviewAt: 1 })
-    if (!interviews) {
-      return NextResponse.json({ error: "Job application not found or unauthorized" }, { status: 404 })
+    let query = JobApplication.find({
+      userEmail,
+      status: "interview",
+      interviewStatus: "scheduled",
+    }).sort({ interviewAt: 1 })
+
+    if (limit && !isNaN(limit)) {
+      query = query.limit(limit)
     }
-    return Response.json(interviews, { status: 200 });
+
+    const interviews = await query
+
+    if (!interviews || interviews.length === 0) {
+      return NextResponse.json(
+        { error: "No interviews found" },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json(interviews, { status: 200 })
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { message: "Failed to fetch interviews" },
       { status: 500 }
-    );
+    )
   }
-
-
 }
-
