@@ -9,8 +9,6 @@ type CountdownCardProps = {
   data: JobApplicationType | null | undefined
 }
 
-const scheduledDate = new Date("2025-07-22T14:00:00+08:00")
-
 function getTimeDiff(target: Date) {
   const now = new Date()
   const diff = target.getTime() - now.getTime()
