@@ -1,3 +1,4 @@
+'use client'
 import { AppSidebar } from "@/components/app-sidebar"
 import { DynamicBreadcrumbs } from "@/components/custom/breadcrumbs/DynamicBreadcrumbs";
 import { Separator } from "@/components/ui/separator"
@@ -6,12 +7,26 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { usePathname } from "next/navigation";
+
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  stats,
+  areachart,
+  piechart,
+  recentapplications,
+  upcominginterviews
+}: {
+  children: React.ReactNode
+  stats: React.ReactNode
+  areachart: React.ReactNode
+  piechart: React.ReactNode
+  recentapplications: React.ReactNode
+  upcominginterviews: React.ReactNode
+}) {
+  const pathname = usePathname()
+  const isOverview = pathname === "/dashboard"
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -25,6 +40,17 @@ export default function RootLayout({
         </header>
           <>
           {children}
+          {isOverview && (
+          <div className="flex flex-col gap-4 px-6 md:px-8 pb-6 md:pb-8">
+            {stats}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+              <div className="col-span-1 lg:col-span-2">{areachart}</div>
+              <div className="col-span-1">{piechart}</div>
+            </div>
+            {recentapplications}
+            {upcominginterviews}
+          </div>
+        )}
           </>
       </SidebarInset>
     </SidebarProvider>
