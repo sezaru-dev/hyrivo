@@ -6,6 +6,11 @@ type ToastMessages = {
   error?: string
 }
 
+interface ToastDataWithMessage {
+  message?: string
+  error?: string
+}
+
 export async function toastPromise<T>(
   promiseFn: () => Promise<T>,
   messages: ToastMessages = {}
@@ -14,29 +19,35 @@ export async function toastPromise<T>(
     const result = await toast
       .promise(promiseFn(), {
         loading: messages.loading ?? "Please wait...",
-        success: (data: any) => {
-          if (typeof data === "object" && "message" in data && typeof data.message === "string") {
-            return <span className="text-green-500">{data.message}</span>
+        success: (data) => {
+          // Narrow type safely
+          const maybeMessage = (data as unknown) as ToastDataWithMessage
+          if (maybeMessage?.message && typeof maybeMessage.message === "string") {
+            return <span className="text-green-500">{maybeMessage.message}</span>
           }
           return messages.success ?? <span className="text-green-500">Success!</span>
         },
-        error: (err: any) => {
+        error: (err) => {
           if (err instanceof Response) {
             return err
               .json()
-              .then((json) => (
-                <span className="text-red-500">
-                  {json.error ?? messages.error ?? "Something went wrong."}
-                </span>
-              ))
+              .then((json: unknown) => {
+                const maybeJson = json as ToastDataWithMessage
+                return (
+                  <span className="text-red-500">
+                    {maybeJson?.message ?? maybeJson?.error ?? messages.error ?? "Something went wrong."}
+                  </span>
+                )
+              })
               .catch(() => (
                 <span className="text-red-500">{messages.error ?? "Something went wrong."}</span>
               ))
           }
 
+          const maybeErr = err as unknown as ToastDataWithMessage
           return (
             <span className="text-red-500">
-              {err?.message ?? messages.error ?? "Something went wrong."}
+              {maybeErr?.message ?? messages.error ?? "Something went wrong."}
             </span>
           )
         },
@@ -49,4 +60,3 @@ export async function toastPromise<T>(
     return undefined
   }
 }
-

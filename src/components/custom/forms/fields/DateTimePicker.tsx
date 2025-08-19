@@ -14,13 +14,13 @@ import { FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/f
 import { JobApplicationType } from "@/types"
 
 type Props = {
-  data: Pick<JobApplicationType, "interviewAt">
+  data?: Pick<JobApplicationType, "interviewAt">
   label: string
   value?: Date // full datetime from RHF form
   onChange: (date: Date | undefined) => void
 }
 
-export function DateTimePickerField({ data, label, value, onChange }: Props) {
+export function DateTimePickerField({ label, value, onChange }: Props) {
   const [open, setOpen] = useState(false)
   const [dateOnly, setDateOnly] = useState<Date | undefined>(value)
   const [time, setTime] = useState("09:00")
@@ -35,7 +35,7 @@ export function DateTimePickerField({ data, label, value, onChange }: Props) {
       setDateOnly(new Date(value))
       setTime(`${hours}:${minutes}`)
     }
-  }, [])
+  }, [value])
 
   // Only call onChange if the combined datetime actually changed
   useEffect(() => {
@@ -51,7 +51,7 @@ export function DateTimePickerField({ data, label, value, onChange }: Props) {
         onChange(newDate)
       }
     }
-  }, [dateOnly, time]) // avoid infinite loop
+  }, [dateOnly, time, onChange, value]) // avoid infinite loop
 
   return (
     <FormItem className="space-y-2">

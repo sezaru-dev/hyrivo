@@ -5,12 +5,13 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Command, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Funnel } from 'lucide-react'
+import { Table } from '@tanstack/react-table'
 
-type CategoryFilterProps = {
-  table: any
+type CategoryFilterProps<TData> = {
+  table: Table<TData>
 }
 
-const CategoryFilter = ({table}: CategoryFilterProps) => {
+const CategoryFilter = <TData,>({table}: CategoryFilterProps<TData>) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const status = ["Applied", "Interview", "Offered", "Hired", "Rejected"]
 

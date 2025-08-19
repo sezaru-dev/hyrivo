@@ -7,20 +7,16 @@ import {
   Form,
   FormField,
 } from "@/components/ui/form"
-import { InterviewDateFormValues, interviewDateFormSchema } from "@/lib/form/validations/input-schema"
-import { handleReschedInterviewInputSubmit } from "@/lib/form/actions/input-submit"
 import { ActionDialogProps } from "../modals/ActionDialog"
 import { DateTimePickerField } from "./fields/DateTimePicker"
 import { JobApplicationType } from "@/types"
 import z from "zod"
-import useUpdateScheduledInterviewNotes from "@/lib/hooks/interviews/use-scheduled-interview-notes"
-import { toast } from "sonner"
 import useScheduledInterviewReschedule from "@/lib/hooks/interviews/use-scheduledinterview-reschedule"
 import { toastPromise } from "../toastPromise"
 import { addMinutes } from "date-fns"
 
 type thisComponentProps = Omit<ActionDialogProps, 'children' | 'title' | 'form'> & {
-  data: Pick<JobApplicationType, "interviewAt"> // Only need interviewAt for rescheduling
+  data: JobApplicationType
   onSubmit: () => void
 }
 
@@ -99,7 +95,7 @@ const handleRescheduleInterviewSubmit = async ({
                 name="interviewAt"
                 render={({ field }) => (
                   <DateTimePickerField
-                    data={data.interviewAt}
+                    data={data}
                     label="Interview Schedule"
                     value={field.value}
                     onChange={field.onChange}

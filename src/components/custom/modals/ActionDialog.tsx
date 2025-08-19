@@ -11,17 +11,15 @@ import {
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 import NotesForm from "../forms/NotesForm";
 import InterviewRemarksForm from "../forms/CompletedInterviewRemarksForm";
+import { JobApplicationType } from "@/types";
 
 
 export type ActionDialogProps = {
-  data: any
+  data: JobApplicationType
   children: React.ReactNode
   title: string
   form: 'notes' | 'remarks'
 }
-
-/* const NotesForm = lazy(() => import("../forms/NotesForm"));
-const InterviewRemarksForm = lazy(() => import("../forms/CompletedInterviewRemarksForm")); */
 
 export default function ActionDialog({data, children, title, form}: ActionDialogProps) {
   const [open, setOpen] = useState(false);
