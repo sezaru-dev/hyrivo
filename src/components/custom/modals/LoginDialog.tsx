@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { signIn } from "next-auth/react"
-import { FaGoogle, FaGithub } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa"
 
 import {
   Dialog,
@@ -19,7 +19,7 @@ type LoginDialogProps = {
 }
 
 export function LoginDialog({children}: LoginDialogProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
 
 /*   const handleSignIn = async (provider: "google" | "github") => {
     setIsLoading(true)
