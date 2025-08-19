@@ -1,17 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { GalleryVerticalEnd, Plus } from "lucide-react"
+import { GalleryVerticalEnd } from "lucide-react"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 
 export function NavBrand() {
-  const { isMobile } = useSidebar()
 
   return (
     <SidebarMenu>
