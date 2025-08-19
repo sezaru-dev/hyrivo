@@ -1,10 +1,13 @@
 import { JobApplicationType } from "@/types";
 import { fetcher } from "../fetcher";
 
-export const getScheduledInterviews = () =>
-  fetcher("/api/interviews/scheduled", {
+export const getScheduledInterviews = async (limit?: number): Promise<JobApplicationType[]> => {
+  const query = limit ? `?limit=${limit}` : ""
+  return fetcher<JobApplicationType[]>(`/api/interviews/scheduled${query}`, {
     method: "GET",
-  });
+  })
+}
+
   
 export const updateScheduledInterviewNote = (id: string, data: Pick<JobApplicationType, "interviewNote">) =>
   fetcher(`/api/interviews/scheduled/${id}/notes`, {
