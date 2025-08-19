@@ -13,7 +13,7 @@ import { RescheduleInterviewForm } from "../forms/RescheduleInterviewForm";
 import { JobApplicationType } from "@/types";
 
 export type ActionDialogProps = {
-  data: Pick<JobApplicationType, "interviewAt">;
+  data: JobApplicationType
   children: React.ReactNode
   title: string
 }
