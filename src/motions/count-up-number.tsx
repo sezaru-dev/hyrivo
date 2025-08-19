@@ -28,7 +28,7 @@ export const CountUpNumber = ({ to, duration = 1, symbol }: CountUpNumberProps) 
       controls.stop()
       unsubscribe()
     }
-  }, [to])
+  }, [to, count, duration, rounded])
 
   return <motion.span>{display}{symbol}</motion.span>
 }
