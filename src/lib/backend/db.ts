@@ -1,6 +1,6 @@
 // lib/db.ts
-import mongoose from 'mongoose';
-import { env } from '@/utils/env';
+import mongoose, { Mongoose } from "mongoose";
+import { env } from "@/utils/env";
 
 const MONGODB_URI = env.MONGO_URI;
 
@@ -8,10 +8,25 @@ if (!MONGODB_URI) {
   throw new Error("Missing MONGODB_URI in environment variables.");
 }
 
-let cached = (global as any).mongoose;
+// Define a type for the cached object
+type MongooseCached = {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+};
 
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+// Use globalThis for Next.js to avoid "any"
+declare global {
+  // eslint-disable-next-line no-var
+  var mongooseCached: MongooseCached | undefined;
+}
+
+let cached: MongooseCached;
+
+if (!globalThis.mongooseCached) {
+  cached = { conn: null, promise: null };
+  globalThis.mongooseCached = cached;
+} else {
+  cached = globalThis.mongooseCached;
 }
 
 export async function connectToDB() {
@@ -20,12 +35,14 @@ export async function connectToDB() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
-      dbName: env.MONGO_DB, // optional: customize your DB name here
-      bufferCommands: false,
-    });
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        dbName: env.MONGO_DB,
+        bufferCommands: false,
+      })
+      .then((mongooseInstance) => mongooseInstance);
 
-    mongoose.set("strictQuery", true); // optional: for mongoose >=7
+    mongoose.set("strictQuery", true);
   }
 
   cached.conn = await cached.promise;
