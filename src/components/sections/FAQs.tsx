@@ -25,7 +25,7 @@ export default function FAQSection() {
         <AccordionItem value="q3">
           <AccordionTrigger>Will I get notifications?</AccordionTrigger>
           <AccordionContent>
-            Not yet. We're focused on a simple, distraction-free workflow you control manually.
+            Not yet. We&apos;re focused on a simple, distraction-free workflow you control manually.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
