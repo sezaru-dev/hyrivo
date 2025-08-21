@@ -10,16 +10,16 @@ interface StatCardProps {
 export function StatCard({ title, value, change, direction = 'neutral' }: StatCardProps) {
   return (
     <Card className="w-full bg-muted/20">
-      <CardContent className={`p-6  ${change ? "flex items-start justify-between" : ""}`}>
+      <CardContent className={`p-4 sm:p-6  ${change ? "flex items-start justify-between" : ""}`}>
         {change ?
           <div className="col-span-3 flex flex-col justify-center">
-            <h2 className="text-sm text-muted-foreground mb-2">{title}</h2>
-            <p className="text-3xl font-semibold text-primary">{value}</p>
+            <h2 className="text-xs sm:text-sm text-muted-foreground mb-0 sm:mb-2">{title}</h2>
+            <p className="text-xl sm:text-3xl font-semibold text-primary">{value}</p>
           </div>
           :
           <>
-            <h2 className="text-sm text-muted-foreground mb-2">{title}</h2>
-            <p className="text-3xl font-semibold text-primary">{value}</p>
+            <h2 className="text-xs sm:text-sm text-muted-foreground mb-0 sm:mb-2">{title}</h2>
+            <p className="text-xl sm:text-3xl font-semibold text-primary">{value}</p>
           </> 
         }
         {
