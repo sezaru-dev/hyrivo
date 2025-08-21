@@ -1,16 +1,17 @@
-import NewApplicationModal from "@/components/custom/modals/NewApplicationModal";
+import AddNewModal from "@/components/custom/modals/AddNewModal";
+
 
 export default function OverviewPage() {
   return (
     <div className="p-6 md:p-8 mt-8">
-      <div className="flex items-end justify-between mb-4">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-4 gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground text-sm">
             Get a snapshot of your job search — track applications, interviews, offers, and more in one place.
           </p>
-      </div>
-      <NewApplicationModal />
+        </div>
+        <AddNewModal />
       </div>
     </div>
   )
