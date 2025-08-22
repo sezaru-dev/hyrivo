@@ -31,7 +31,8 @@ export function RemarksForm({hasRemark, onSubmit}: RemarksFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleRemarksInputSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleRemarksInputSubmit, () => onSubmit()
+)} className="space-y-6">
           {/* Company */}
           <FormField
             control={form.control}
