@@ -3,21 +3,28 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { useRouter } from "next/navigation";
-import useChangeScheduledInterviewStatus from "@/lib/hooks/interviews/use-change-scheduled-interview-status";
+import { useMarkAsCompletedFlow } from "@/lib/hooks/dashboard/use-markascompleted-flow";
+import { toastPromise } from "../toastPromise";
 
 export function MarkAsCompletedDialog({ id, onAction }: { id: string; onAction?: () => void}) {
-  const { mutate: changeStatus, isPending: isStatusChanging } = useChangeScheduledInterviewStatus()
-  const isLoading = isStatusChanging
-    const router = useRouter()
+  const { run, markAsCompleted, createTimeline, patchTimeline } = useMarkAsCompletedFlow()
+  const isLoading = createTimeline.isPending || markAsCompleted.isPending || patchTimeline.isPending
+  const router = useRouter()
 
-const actionHandler = () => {
-  changeStatus({ id: id, interviewStatus: "completed" }, {
-    onSuccess: () => {
-      onAction?.()
-      router.push("/dashboard/interviews/completed")
-    },
-  })
-}
+  const actionHandler = () => {
+    toastPromise(
+    () => run(id),
+    {
+      loading: "Marking as completed...",
+      success: () => {
+        onAction?.()
+        router.push("/dashboard/interviews/completed")
+        return "Marked as completed!" // message for the toast
+      },
+      error: "Failed to mark as completed.",
+    }
+  )
+  }
 
 
   return (
