@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useMarkAsCompletedFlow } from "@/lib/hooks/dashboard/use-markascompleted-flow";
 import { toastPromise } from "../toastPromise";
 import { useQueryClient } from "@tanstack/react-query";
-const queryClient = useQueryClient()
 
 export function MarkAsCompletedDialog({ id, onAction }: { id: string; onAction?: () => void}) {
+  const queryClient = useQueryClient()
   const { run, markAsCompleted, createTimeline, patchTimeline } = useMarkAsCompletedFlow()
   const isLoading = createTimeline.isPending || markAsCompleted.isPending || patchTimeline.isPending
   const router = useRouter()
