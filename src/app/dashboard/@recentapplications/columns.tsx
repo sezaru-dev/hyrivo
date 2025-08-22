@@ -82,7 +82,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       const rawValue = row.getValue("interviewAt")
 
       if (typeof rawValue !== "string" || !rawValue) {
-        return <span className="text-muted-foreground italic">No interview scheduled</span>
+        return null
       }
 
       const parsedDate = new Date(rawValue)
