@@ -32,14 +32,21 @@ export default function RootLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 pr-6">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <DynamicBreadcrumbs/>
-          </div>
-            <ThemeToggle/>
-        </header>
+          <header className='sticky top-0 z-50 flex flex-col'>
+            <div className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-background/30 backdrop-blur-xl px-4">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-2 px-4">
+                  <SidebarTrigger className="-ml-1" />
+                  <Separator orientation="vertical" className="mr-2 h-4" />
+                  <DynamicBreadcrumbs/>
+                </div>
+                <div className="mr-4 flex items-center gap-2">
+                  <ThemeToggle/>
+                </div>
+              </div>
+            </div>
+          </header>
+
           <>
           {children}
           {isOverview && (
