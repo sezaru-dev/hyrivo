@@ -54,10 +54,10 @@ export function DateTimePickerField({ label, value, onChange }: Props) {
   }, [dateOnly, time, onChange, value]) // avoid infinite loop
 
   return (
-    <FormItem className="space-y-2">
+    <FormItem className="space-y-2 w-full md:col-span-2">
       <FormLabel>{label}</FormLabel>
 
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 col-span-2">
         {/* Date Picker */}
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
