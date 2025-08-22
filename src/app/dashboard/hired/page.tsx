@@ -18,7 +18,7 @@ const DashboardCompletedInterview = () => {
           <div className="mb-4">
               <h1 className="text-2xl font-bold tracking-tight">Hired</h1>
               <p className="text-muted-foreground text-sm">
-                List of all job applications where you’re already hired.
+                List of job applications where you’ve accepted offers and are officially hired, helping you track your career progress.
               </p>
           </div>
 
