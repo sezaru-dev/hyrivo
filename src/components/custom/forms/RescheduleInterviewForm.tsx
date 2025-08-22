@@ -23,7 +23,6 @@ type thisComponentProps = Omit<ActionDialogProps, 'children' | 'title' | 'form'>
 type RescheduleHandlerParams = {
   values: z.infer<typeof FormSchema>
   id: string
-  mutation: ReturnType<typeof useScheduledInterviewReschedule>
   form: UseFormReturn<z.infer<typeof FormSchema>>
   onSuccessCallback?: () => void
 }
@@ -46,33 +45,29 @@ export function RescheduleInterviewForm({data, onSubmit}: thisComponentProps) {
     },
   })
 
-  const mutation = useScheduledInterviewReschedule()
+  const {mutateAsync, isPending, isSuccess} = useScheduledInterviewReschedule()
 
-const handleRescheduleInterviewSubmit = async ({
-  values,
-  id,
-  mutation,
-  form,
-  onSuccessCallback,
-}: RescheduleHandlerParams) => {
-  const result = await toastPromise(
-    () =>
-      mutation.mutateAsync({
+  const handleRescheduleInterviewSubmit = async ({
+    values,
+    id,
+    form,
+    onSuccessCallback,
+  }: RescheduleHandlerParams) => {
+    
+    try {
+      await mutateAsync({
         id,
         interviewAt: values.interviewAt.toISOString(),
-      }),
-    {
-      loading: "Rescheduling interview...",
-      success: "Interview rescheduled successfully.",
-      error: "Failed to reschedule interview",
-    }
-  )
+      })
 
-  if (result) {
-    form.reset()
-    onSuccessCallback?.()
+      // only run if mutation succeeds
+      form.reset()
+      onSuccessCallback?.()
+    } catch (error) {
+      // no need to handle toast here, since toastPromise is already inside the hook
+      console.error("Reschedule failed:", error)
+    }
   }
-}
 
   return (
     <Form {...form}>
@@ -81,13 +76,9 @@ const handleRescheduleInterviewSubmit = async ({
           handleRescheduleInterviewSubmit({
             values,
             id: data._id,
-            mutation,
             form,
             onSuccessCallback: onSubmit,
-          }),
-          (errors) => {
-            console.log("Validation errors:", errors)
-          }
+          })
       )} className="space-y-6">
               {/* Company */}
               <FormField
@@ -105,8 +96,21 @@ const handleRescheduleInterviewSubmit = async ({
 
           {/* Submit button */}
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={() => onSubmit()}>Cancel</Button>
-            <Button type="submit" className="bg-brand-blue text-white hover:bg-brand-blue/80">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isPending || isSuccess}
+              onClick={() => {
+                form.reset()
+                  onSubmit() // only close dialog here
+                }}
+              >
+              Cancel
+            </Button>
+            <Button 
+              type="submit" 
+               disabled={isPending || isSuccess}
+              className="bg-brand-blue text-white hover:bg-brand-blue/80">
               Submit
             </Button>
           </div>
