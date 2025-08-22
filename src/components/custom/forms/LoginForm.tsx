@@ -20,6 +20,8 @@ import { LoginFormSchema } from "@/lib/form/validations/input-schema"
 import { signIn } from "next-auth/react"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { toastPromise } from "../toastPromise"
+import { useRouter } from "next/navigation"
 
 
 export function LoginForm({
@@ -34,25 +36,28 @@ export function LoginForm({
         password: "",
       },
     })
+  const router = useRouter()
   const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
-    setIsLoading(true)
-    // Call NextAuth signIn function with credentials provider
-    const res = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    })
+    await toastPromise(async () => {
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      })
 
-    if (res?.ok) {
-      toast.success("Successfully logged in!")
-      // optionally redirect
-      window.location.href = "/dashboard"
-    } else {
-      toast.error("Invalid credentials")
-      setIsLoading(false)
-    }
-    
+      if (!res?.ok) throw new Error("Invalid credentials")
+      // redirect after success
+      router.push("/dashboard")
+
+      return "Successfully logged in!"
+    }, {
+      loading: "Signing in...",
+      success: () => <span className="text-green-500">Signed in successfully!</span>,
+      error: (err) => <span className="text-red-500">{(err as Error).message}</span>
+    })
   }
+
+  const isPending = form.formState.isSubmitting
 
   return (
     <Form {...form}>
@@ -104,7 +109,7 @@ export function LoginForm({
 
           <Button
            type="submit" 
-           disabled={isLoading}
+           disabled={isPending}
            className="w-full h-9 px-4 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-800 text-white">
             {isLoading ? (
               <>
