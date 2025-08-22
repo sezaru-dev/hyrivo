@@ -1,4 +1,23 @@
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Hyrivo – Dashboard",
+  description:
+    "Overview of your job applications, stats, and upcoming interviews.",
+  keywords: [
+    "job application tracker",
+    "job search dashboard",
+    "application status tracker",
+    "job application management",
+    "upcoming interviews",
+    "job application overview",
+    "job tracker dashboard",
+    "job application stats",
+    "job search organizer",
+    "career tracking system",
+  ],
+};
 
 export default function OverviewPage() {
   return (
