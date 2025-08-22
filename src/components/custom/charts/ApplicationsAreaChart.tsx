@@ -6,14 +6,10 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from "recharts"
-import { ChartContainer, ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, ChartConfig, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import useDashboardJobApplicationsTimeline from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-timeline"
-import { format } from "date-fns";
 
 type TimelineItem = {
   _id: string
@@ -51,28 +47,18 @@ export function ApplicationsAreaChart() {
     
   const timelineData = (data as TimelineItem[] | undefined) ?? []
 
-  const areaData = timelineData.map((item) => {
-    const start = new Date(item.weekStart)
-    const end = new Date(item.weekEnd)
-
-    // Format start and end
-    const startMonth = format(start, "MMM")
-    const endMonth = format(end, "MMM")
-    const startDay = format(start, "d")
-    const endDay = format(end, "d")
-
-    // Handle weeks that span different months
-    const weekLabel =
-      startMonth === endMonth
-        ? `${startMonth} ${startDay} - ${endDay}` // same month
-        : `${startMonth} ${startDay} - ${endMonth} ${endDay}` // different months
-
+const areaData = [...timelineData] // copy so original isn't mutated
+  .reverse()
+  .map((item, index) => {
     return {
-      week: weekLabel,
+      week: `Week ${index + 1}`,
       applied: item.applied,
       interview: item.interview,
-      }
-    })
+    }
+  })
+
+console.log(areaData);
+
 
   return (
     <Card>
@@ -83,47 +69,49 @@ export function ApplicationsAreaChart() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={areaData} margin={{ top: 16, right: 16, left: 0, bottom: 0 }}>
-              <defs>
-                {/* Gradient for Applied */}
-                <linearGradient id="fillApplied" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={chartConfig.applied.color} stopOpacity={0.8} />
-                  <stop offset="95%" stopColor={chartConfig.applied.color} stopOpacity={0.1} />
-                </linearGradient>
+        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+          <AreaChart data={areaData} margin={{ top: 16, right: 16, left: 0, bottom: 0 }}>
+            <defs>
+              {/* Gradient for Applied */}
+              <linearGradient id="fillApplied" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={chartConfig.applied.color} stopOpacity={0.8} />
+                <stop offset="95%" stopColor={chartConfig.applied.color} stopOpacity={0.1} />
+              </linearGradient>
 
-                {/* Gradient for Interview */}
-                <linearGradient id="fillInterview" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor={chartConfig.interview.color} stopOpacity={0.8} />
-                  <stop offset="95%" stopColor={chartConfig.interview.color} stopOpacity={0.1} />
-                </linearGradient>
-              </defs>
+              {/* Gradient for Interview */}
+              <linearGradient id="fillInterview" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={chartConfig.interview.color} stopOpacity={0.8} />
+                <stop offset="95%" stopColor={chartConfig.interview.color} stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
 
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="week" axisLine={false} tickLine={false} />
-              
-              <YAxis allowDecimals={false} />
-              <Tooltip />
-              <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="week" axisLine={false} tickLine={false} />
+            
+            <YAxis allowDecimals={false} />
+            <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent indicator="line" />}
+          />
+            {/* <Legend /> */}
 
-              {/* Applied area */}
-              <Area
-                type="monotone"
-                dataKey="applied"
-                stroke={chartConfig.applied.color}
-                fill="url(#fillApplied)"
-              />
+            {/* Applied area */}
+            <Area
+              type="monotone"
+              dataKey="applied"
+              stroke={chartConfig.applied.color}
+              fill="url(#fillApplied)"
+            />
 
-              {/* Interview area */}
-              <Area
-                type="monotone"
-                dataKey="interview"
-                stroke={chartConfig.interview.color}
-                fill="url(#fillInterview)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+            {/* Interview area */}
+            <Area
+              type="monotone"
+              dataKey="interview"
+              stroke={chartConfig.interview.color}
+              fill="url(#fillInterview)"
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+          </AreaChart>
         </ChartContainer>
 
       </CardContent>
