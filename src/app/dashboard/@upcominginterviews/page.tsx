@@ -2,7 +2,7 @@
 
 import useGetScheduledInterviews from "@/lib/hooks/interviews/use-scheduled-interviews";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Building2, Calendar, Laptop, Smartphone } from "lucide-react"
+import { Building2, Laptop, Smartphone } from "lucide-react"
 import { JobApplicationType } from "@/types";
 
 export default function UpcomingInterviews() {

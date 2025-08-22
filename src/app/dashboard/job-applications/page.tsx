@@ -5,16 +5,12 @@ import { columns } from "./columns"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useGetJobApplicationsStatusApplied } from "@/lib/hooks/applied/use-applied"
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal"
-import useDashboardJobApplicationsStats from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-stats"
 
 const JobApplicationPage = () => {
   const { 
     data: jobApplications, 
     isLoading: isLoadingApplications, 
   } = useGetJobApplicationsStatusApplied()
-  const { 
-    data: jobApplicationsStats, 
-  } = useDashboardJobApplicationsStats()
 
 
   return (

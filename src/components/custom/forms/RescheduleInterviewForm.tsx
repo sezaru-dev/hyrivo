@@ -12,7 +12,6 @@ import { DateTimePickerField } from "./fields/DateTimePicker"
 import { JobApplicationType } from "@/types"
 import z from "zod"
 import useScheduledInterviewReschedule from "@/lib/hooks/interviews/use-scheduledinterview-reschedule"
-import { toastPromise } from "../toastPromise"
 import { addMinutes } from "date-fns"
 
 type thisComponentProps = Omit<ActionDialogProps, 'children' | 'title' | 'form'> & {

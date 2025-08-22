@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  Bell,
   ChevronsUpDown,
   LogOut,
 } from "lucide-react"
@@ -14,7 +13,6 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
