@@ -42,7 +42,7 @@ export function NewApplicationForm() {
         // all invalidations after flow completes
         queryClient.invalidateQueries({ queryKey: ["timeline"] });
         queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] });
-        queryClient.invalidateQueries({ queryKey: ["job-applications-stats"] });
+        queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] });
       },
       {
         loading: "Adding application...",
