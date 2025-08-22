@@ -19,27 +19,12 @@ import useDashboardJobApplicationsStats from "@/lib/hooks/dashboard/use-dashboar
 
 
 const chartConfig = {
-  applied: {
-    label: "Applied",
-    color: "#3b82f6",
-  },
-  interview: {
-    label: "Interview",
-    color: "#06b6d4",
-  },
-  offer: {
-    label: "Offer",
-    color: "#22c55e",
-  },
-  hired: {
-    label: "Hired",
-    color: "#f59e0b",
-  },
-  rejected: {
-    label: "Rejected",
-    color: "#ef4444",
-  },
-} satisfies ChartConfig
+  applied: { label: "Applied", color: "hsl(var(--chart-applied))" },
+  interview: { label: "Interview", color: "hsl(var(--chart-interview))" },
+  offer: { label: "Offer", color: "hsl(var(--chart-offered))" },
+  hired: { label: "Hired", color: "hsl(var(--chart-hired))" },
+  rejected: { label: "Rejected", color: "hsl(var(--chart-rejected))" },
+} satisfies ChartConfig;
 
 export function ApplicationsPieChart() {
   const { 
