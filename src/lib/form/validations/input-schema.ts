@@ -12,9 +12,16 @@ export const jobTypes = [
   "Internship",
   "Remote Contract",
 ] as const;
+export const methodsOfInterview = [
+  "phone",
+  "online",
+  "onsite",
+] as const;
+const now = new Date()
+now.setHours(0, 0, 0, 0)
 
-export const inputFormSchema = z.object({
-  status: z.enum(statuses),
+//unused
+export const NewApplicationFormSchema = z.object({
   companyName: z.string().min(1, {
     message: "Required",
   }),
@@ -24,23 +31,28 @@ export const inputFormSchema = z.object({
   appliedDate: z.date({
     required_error: "A date of application is required.",
   }),
-  interviewAt: z.date().optional(),
   jobType: z.enum(jobTypes),
   salary: z.coerce.number({
     required_error: "Salary is required",
     invalid_type_error: "Salary must be a number",
   }).min(1000, "Salary must be at least 4 digits (e.g. 1000)")
-}).superRefine((data, ctx) => {
-  if (
-    (data.status === "interview" || data.status === "offered") &&
-    !data.interviewAt
-  ) {
-    ctx.addIssue({
-      path: ["interviewAt"],
-      code: "custom",
-      message: "Interview date is required when status is 'Interview' or 'Offered'",
-    });
-  }
+})
+
+export const InterviewDetailsFormSchema = z.object({
+  interviewAt: z.date().refine(
+    (date) => date >= now,
+    {
+      message: "Interview date cannot be in the past",
+    }
+  ),
+  interviewMethod: z.enum(methodsOfInterview),
+interviewNote: z
+  .string()
+  .optional()
+  .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
+    message: "Notes must be between 10 and 200 characters if provided",
+  }),
+
 })
 
 export const remarksFormSchema = z.object({
@@ -54,8 +66,7 @@ export const remarksFormSchema = z.object({
     }),
 })
 
-const now = new Date()
-now.setHours(0, 0, 0, 0)
+
 export const interviewDateFormSchema = z.object({
   interviewAt: z.date().refine(
     (date) => date >= now,
@@ -86,7 +97,8 @@ export const LoginFormSchema = z.object({
   }),
 })
 
-export type InputFormValues = z.infer<typeof inputFormSchema>
+export type NewApplicationFormValues = z.infer<typeof NewApplicationFormSchema>
+export type InterviewDetailsFormValues = z.infer<typeof InterviewDetailsFormSchema>
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
 export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
 export type SignupFormValues = z.infer<typeof signupFormSchema>
