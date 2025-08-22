@@ -10,20 +10,20 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
-
 import { ChartContainer, ChartConfig } from "@/components/ui/chart"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import useDashboardJobApplicationsTimeline from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-timeline"
+import { format } from "date-fns";
 
-const areaData = [
-  { week: "Week 1", applied: 2, interview: 1 },
-  { week: "Week 2", applied: 4, interview: 2 },
-  { week: "Week 3", applied: 3, interview: 0 },
-  { week: "Week 4", applied: 1, interview: 3 },
-  { week: "Week 5", applied: 6, interview: 2 },
-  { week: "Week 6", applied: 5, interview: 4 },
-  { week: "Week 7", applied: 3, interview: 1 },
-  { week: "Week 8", applied: 2, interview: 5 },
-]
+type TimelineItem = {
+  _id: string
+  userEmail: string
+  weekStart: string
+  weekEnd: string
+  applied: number
+  interview: number
+}
+  
 
 const chartConfig = {
   applied: {
@@ -37,6 +37,43 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ApplicationsAreaChart() {
+    const { 
+      data, 
+      isLoading, 
+      isError, 
+    } = useDashboardJobApplicationsTimeline()
+    if (isLoading) {
+      <p>Loading...</p>
+    }
+    if (isError) {
+      <p>Error!</p>
+    }
+    
+  const timelineData = (data as TimelineItem[] | undefined) ?? []
+
+  const areaData = timelineData.map((item) => {
+    const start = new Date(item.weekStart)
+    const end = new Date(item.weekEnd)
+
+    // Format start and end
+    const startMonth = format(start, "MMM")
+    const endMonth = format(end, "MMM")
+    const startDay = format(start, "d")
+    const endDay = format(end, "d")
+
+    // Handle weeks that span different months
+    const weekLabel =
+      startMonth === endMonth
+        ? `${startMonth} ${startDay} - ${endDay}` // same month
+        : `${startMonth} ${startDay} - ${endMonth} ${endDay}` // different months
+
+    return {
+      week: weekLabel,
+      applied: item.applied,
+      interview: item.interview,
+      }
+    })
+
   return (
     <Card>
       <CardHeader>
