@@ -1,6 +1,6 @@
 'use client'
 import { StatCard } from '@/components/custom/stats/StatCard'
-import useJobApplicationsStats from '@/lib/hooks/use-job-appliactions-stats'
+import useDashboardJobApplicationsStats from '@/lib/hooks/dashboard/use-dashboard-job-appliactions-stats'
 import { CountUpNumber } from '@/motions/count-up-number'
 import React from 'react'
 
@@ -9,7 +9,7 @@ export default function StatsSlot() {
     data, 
     isLoading, 
     isError, 
-  } = useJobApplicationsStats()
+  } = useDashboardJobApplicationsStats()
   if (isLoading) {
     <p>Loading...</p>
   }
