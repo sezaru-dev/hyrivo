@@ -15,7 +15,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import useJobApplicationsStats from "@/lib/hooks/use-job-appliactions-stats"
+import useDashboardJobApplicationsStats from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-stats"
+
 
 const chartConfig = {
   applied: {
@@ -45,7 +46,7 @@ export function ApplicationsPieChart() {
     data, 
     isLoading, 
     isError, 
-  } = useJobApplicationsStats()
+  } = useDashboardJobApplicationsStats()
   if (isLoading) {
     <p>Loading...</p>
   }
