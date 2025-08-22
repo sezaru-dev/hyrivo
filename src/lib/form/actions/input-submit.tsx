@@ -10,7 +10,6 @@ export const submitJobApplication = async(
   reset?: () => void
 ) => {
   const closeModal = useModalStore.getState().closeNewAppModal;
-  console.log("[SUBMIT] Data sent to backend:", data)
   toast.promise(
     createJobApplication(data),
     {

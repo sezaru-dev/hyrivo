@@ -48,10 +48,6 @@ export default function InterviewRemarksForm({data, onSubmit}: NotesFormProps) {
 
   const mutation = useUpdateCompletedInterviewRemarks()
 
-  
-
-  console.log(data);
-
   const handleSubmitForm = useCallback(
   async (values: z.infer<typeof FormSchema>) => {
     if (!data?._id) return;
