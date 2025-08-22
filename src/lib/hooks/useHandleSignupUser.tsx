@@ -27,7 +27,7 @@ export function useHandleSignupUser() {
           }
 
           reset?.()
-          router.push("/dashboard")
+          router.replace("/dashboard")
         } catch (err: unknown) {
           // Normalize error as Error instance
           let errorMessage = "Signup failed"
