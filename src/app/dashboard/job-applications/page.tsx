@@ -1,9 +1,7 @@
 "use client"
 
-import { StatCard } from "@/components/custom/stats/StatCard"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"
-import { CountUpNumber } from "@/motions/count-up-number"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useGetJobApplicationsStatusApplied } from "@/lib/hooks/applied/use-applied"
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal"
