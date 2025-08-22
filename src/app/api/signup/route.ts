@@ -11,6 +11,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "All fields are required" }, { status: 400 })
     }
 
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$/
+
+  if (!passwordRegex.test(password)) {
+    return NextResponse.json(
+      { message: "Password must be at least 6 characters and include uppercase, lowercase, number, and special character." },
+      { status: 400 }
+    )
+  }
+
     await connectToDB()
     const existingUser = await Users.findOne({ email })
 

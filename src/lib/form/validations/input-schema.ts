@@ -83,9 +83,15 @@ export const signupFormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
+password: z
+  .string()
+  .regex(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/,
+    {
+      message:
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+    }
+  ),
 })
 
 export const LoginFormSchema = z.object({
