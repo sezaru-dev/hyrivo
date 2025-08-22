@@ -5,6 +5,10 @@ import { ThemeProvider } from "../components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner"
 import NextAuthProvider from "@/components/providers/next-auth-provider";
 import TanstackProviders from "@/components/providers/tanstack-providers";
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/backend/auth";
+import { SessionProvider } from "@/components/providers/session-provider";
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,13 +44,15 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions)
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en"  className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased`}
       >
@@ -58,9 +64,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NextAuthProvider>
-              <TanstackProviders>
-                {children}
-              </TanstackProviders>
+              <SessionProvider session={session}>
+                <TanstackProviders>
+                  {children}
+                </TanstackProviders>
+              </SessionProvider>
             </NextAuthProvider>
           <Toaster position="top-right"/>
         </ThemeProvider>
