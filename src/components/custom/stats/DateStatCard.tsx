@@ -12,8 +12,8 @@ export function DateStatCard({ title, value }: StatCardProps) {
     <Card className="w-full bg-muted/20">
       <CardContent className="p-6 flex items-start justify-between">
         <div className="flex flex-col justify-center">
-          <h2 className="text-sm text-muted-foreground mb-2">{title}</h2>
-          <p className="text-xl font-semibold text-primary">{value}</p>
+          <h2 className="text-xs sm:text-sm text-muted-foreground mb-0 sm:mb-2">{title}</h2>
+          <p className="text-lg sm:text-xl font-semibold text-primary">{value}</p>
         </div>
       </CardContent>
     </Card>
