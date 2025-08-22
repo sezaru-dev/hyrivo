@@ -39,6 +39,11 @@ const jobApplicationSchema = new Schema(
       enum: ['none', 'scheduled', 'completed', 'missed'],
       default: 'none',
     },
+    interviewMethod: {
+      type: String,
+      enum: ['phone', 'online', 'onsite'],
+      default: 'phone',
+    },
     interviewNote: {
       type: String,
       default: null,
