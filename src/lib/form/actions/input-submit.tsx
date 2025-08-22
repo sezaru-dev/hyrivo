@@ -1,12 +1,12 @@
 
 import { toast } from "sonner"
-import { InputFormValues, InterviewDateFormValues, RemarksFormValues, SignupFormValues } from "../validations/input-schema"
+import { InterviewDateFormValues, NewApplicationFormValues, RemarksFormValues, SignupFormValues } from "../validations/input-schema"
 import { useModalStore } from "@/stores/features/useModalStore";
 
 
 export const submitJobApplication = async(
-  data: InputFormValues,
-  createJobApplication: (data: InputFormValues) => Promise<unknown>,
+  data: NewApplicationFormValues,
+  createJobApplication: (data: NewApplicationFormValues) => Promise<unknown>,
   reset?: () => void
 ) => {
   const closeModal = useModalStore.getState().closeNewAppModal;
