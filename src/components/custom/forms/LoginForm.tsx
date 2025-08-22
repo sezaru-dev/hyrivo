@@ -11,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -38,6 +37,7 @@ export function LoginForm({
     })
   const router = useRouter()
   const onSubmit = async (data: z.infer<typeof LoginFormSchema>) => {
+    setIsLoading(true) // lock button
     await toastPromise(async () => {
       const res = await signIn("credentials", {
         email: data.email,
@@ -45,9 +45,12 @@ export function LoginForm({
         redirect: false,
       })
 
-      if (!res?.ok) throw new Error("Invalid credentials")
-      // redirect after success
-      router.push("/dashboard")
+        if (!res?.ok) {
+        setIsLoading(false) // unlock if error
+        throw new Error("Invalid credentials")
+      }
+      // redirect after success and button stay disabled until router push completes
+      router.replace("/dashboard")
 
       return "Successfully logged in!"
     }, {
@@ -57,7 +60,6 @@ export function LoginForm({
     })
   }
 
-  const isPending = form.formState.isSubmitting
 
   return (
     <Form {...form}>
@@ -109,7 +111,7 @@ export function LoginForm({
 
           <Button
            type="submit" 
-           disabled={isPending}
+           disabled={isLoading}
            className="w-full h-9 px-4 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-800 text-white">
             {isLoading ? (
               <>
