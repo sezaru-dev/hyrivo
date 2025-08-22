@@ -14,6 +14,8 @@ export function useDeleteJobApplication() {
      
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["job-applications"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications-stats"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
     },
