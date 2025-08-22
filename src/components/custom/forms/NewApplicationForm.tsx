@@ -9,12 +9,9 @@ import { Input } from "@/components/ui/input"
 import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
-
 import { jobTypes, NewApplicationFormSchema, NewApplicationFormValues } from "@/lib/form/validations/input-schema"
 import { useModalStore } from "@/stores/features/useModalStore"
-
-// 🔹 Import the flow instead of old hook
-import { useCreateApplicationFlow } from "@/lib/hooks/applied/use-create-application-flow"
+import { useCreateApplicationFlow } from "@/lib/hooks/dashboard/use-create-application-flow"
 import { toastPromise } from "../toastPromise"
 import { useQueryClient } from "@tanstack/react-query"
 
