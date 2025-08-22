@@ -6,17 +6,17 @@ import {
 
 export const HowItWorksSteps = [
   {
-    icon: <FilePlus className="w-6 h-6 text-white" />,
+    icon: <FilePlus className="w-6 h-6 text-blue-600 dark:text-white" />,
     title: "Add an Application",
     description: "Manually enter job details like title, company, salary, and more.",
   },
   {
-    icon: <ActivitySquare className="w-6 h-6 text-white" />,
+    icon: <ActivitySquare className="w-6 h-6 text-blue-600 dark:text-white" />,
     title: "Track Progress",
     description: "Monitor statuses, set interview schedules, and follow-up reminders.",
   },
   {
-    icon: <ListChecks className="w-6 h-6 text-white" />,
+    icon: <ListChecks className="w-6 h-6 text-blue-600 dark:text-white" />,
     title: "Stay Organized",
     description: "Filter, sort, and view your entire job search in one clean dashboard.",
   },
