@@ -1,6 +1,5 @@
 import { JobApplicationType } from "@/types"
 import { fetcher } from "./fetcher";
-import { InputFormValues } from "../form/validations/input-schema";
 
 export async function fetchJobApplications(limit?: number): Promise<JobApplicationType[]> {
   const url = limit ? `/api/job-applications?limit=${limit}` : `/api/job-applications`
@@ -14,12 +13,6 @@ export async function fetchJobApplications(limit?: number): Promise<JobApplicati
 }
 
 
-export const createJobApplication = (data: InputFormValues) =>
-  fetcher("/api/job-applications", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
-  
 export const deleteJobApplication = (id: string) =>
   fetcher(`/api/job-applications/${id}/delete`, {
     method: "DELETE",
