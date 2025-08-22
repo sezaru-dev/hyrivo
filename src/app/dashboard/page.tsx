@@ -1,5 +1,4 @@
-import AddNewModal from "@/components/custom/modals/AddNewModal";
-
+import NewApplicationModal from "@/components/custom/modals/NewApplicationModal";
 
 export default function OverviewPage() {
   return (
@@ -11,7 +10,7 @@ export default function OverviewPage() {
             Get a snapshot of your job search — track applications, interviews, offers, and more in one place.
           </p>
         </div>
-        <AddNewModal />
+        <NewApplicationModal />
       </div>
     </div>
   )
