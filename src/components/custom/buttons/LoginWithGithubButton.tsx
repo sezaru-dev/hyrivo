@@ -12,11 +12,11 @@ const LoginWithGithubButton = () => {
   const handleSignIn = async () => {
     setIsLoading(true)
     try {
+      // The redirect happens automatically
       await signIn("github", { callbackUrl: "/dashboard" })
     } catch (error) {
       console.error("Login error", error)
-    } finally {
-      setIsLoading(false)
+      setIsLoading(false) // only reset if error occurs
     }
   }
 
