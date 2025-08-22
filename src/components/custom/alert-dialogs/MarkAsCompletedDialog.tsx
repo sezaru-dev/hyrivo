@@ -5,25 +5,42 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useMarkAsCompletedFlow } from "@/lib/hooks/dashboard/use-markascompleted-flow";
 import { toastPromise } from "../toastPromise";
+import { useQueryClient } from "@tanstack/react-query";
+const queryClient = useQueryClient()
 
 export function MarkAsCompletedDialog({ id, onAction }: { id: string; onAction?: () => void}) {
   const { run, markAsCompleted, createTimeline, patchTimeline } = useMarkAsCompletedFlow()
   const isLoading = createTimeline.isPending || markAsCompleted.isPending || patchTimeline.isPending
   const router = useRouter()
 
-  const actionHandler = () => {
-    toastPromise(
-    () => run(id),
-    {
-      loading: "Marking as completed...",
-      success: () => {
-        onAction?.()
-        router.push("/dashboard/interviews/completed")
-        return "Marked as completed!" // message for the toast
-      },
-      error: "Failed to mark as completed.",
+const actionHandler = async () => {
+    try {
+      await toastPromise(
+        async () => {
+          await run(id)
+          // Invalidate relevant queries after the flow completes
+          queryClient.invalidateQueries({ queryKey: ["timeline"] })
+          queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] })
+          queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] })
+          queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
+          queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
+          queryClient.invalidateQueries({ queryKey: ["completed-interviews"] });
+          queryClient.invalidateQueries({ queryKey: ["completed-interview-stats"] });
+          queryClient.invalidateQueries({ queryKey: ["missed-interviews"] });
+        },
+        {
+          loading: "Marking as completed...",
+          success: () => {
+            onAction?.()
+            router.push("/dashboard/interviews/completed")
+            return "Marked as completed!"
+          },
+          error: "Failed to mark as completed.",
+        }
+      )
+    } catch (err) {
+      console.error("Mark as completed flow failed:", err)
     }
-  )
   }
 
 
