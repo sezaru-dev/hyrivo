@@ -8,7 +8,7 @@ import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 
 export function DeleteApplicationDialog({ id, withTooltip }: { id: string, withTooltip?: boolean }) {
   const { setOpenDropdownId } = useDropdownMenuStore()
-  const { mutate: deleteApplication, isPending } = useDeleteJobApplication()
+  const { mutate: deleteApplication, isPending, isSuccess } = useDeleteJobApplication()
 
 const deleteHandler = () => {
   deleteApplication(id, {
@@ -48,14 +48,19 @@ const deleteHandler = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending || isSuccess}>Cancel</AlertDialogCancel>
 
             <Button
               onClick={deleteHandler}
-              disabled={isPending}
+              disabled={isPending || isSuccess}
               className="bg-red-600 text-white hover:bg-red-700"
             >
-              {isPending ? "Deleting..." : "Yes, Delete Permanently"}
+              {isPending
+                ? "Deleting..."
+                : isSuccess
+                ? "Deleting..."
+                : "Yes, Delete Permanently"}
+
             </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
