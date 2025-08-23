@@ -37,7 +37,7 @@ export function SignupForm({
     })
   
   const { mutateAsync: signupUser } = useSignupUser()
-  const handleSignupUser = useHandleSignupUser() // ✅ Use the custom hook
+  const handleSignupUser = useHandleSignupUser() // Use the custom hook
 
   const onSubmit = (data: SignupFormValues) => {
     handleSignupUser(data, signupUser, form.reset)
@@ -47,8 +47,8 @@ export function SignupForm({
     <Form {...form}>
       <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
+          <h1 className="text-2xl font-bold text-neutral-100">Create your account</h1>
+          <p className="text-neutral-400 text-sm text-balance">
             Track your job applications effortlessly
           </p>
         </div>
@@ -60,10 +60,13 @@ export function SignupForm({
             name="name"
             render={({ field }) => (
               <FormItem className="grid gap-2">
-                <FormLabel>Fullname</FormLabel>
+                <FormLabel className={cn(
+                  "text-neutral-100",
+                  form.formState.errors.name && "text-red-500"
+                )}>Fullname</FormLabel>
                 <div className="space-y-1">
                   <FormControl>
-                    <Input type="text" {...field} />
+                    <Input type="text" {...field} autoComplete="name" className="auth-inputs text-neutral-50"/>
                   </FormControl>
                   <FormMessage />
                 </div>
@@ -75,10 +78,13 @@ export function SignupForm({
             name="email"
             render={({ field }) => (
               <FormItem className="grid gap-2">
-                <FormLabel>Email</FormLabel>
+                <FormLabel className={cn(
+                  "text-neutral-100",
+                  form.formState.errors.email && "text-red-500"
+                )}>Email</FormLabel>
                 <div className="space-y-1">
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} autoComplete="email" className="auth-inputs text-neutral-50"/>
                   </FormControl>
                   <FormMessage />
                 </div>
@@ -92,12 +98,15 @@ export function SignupForm({
             render={({ field }) => (
               <FormItem className="grid gap-2">
                 <div className="flex items-center">
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className={cn(
+                  "text-neutral-100",
+                  form.formState.errors.password && "text-red-500"
+                )}>Password</FormLabel>
                 </div>
                 <div className="space-y-1">
                   <div className="relative">
                     <FormControl>
-                      <Input {...field} type={showPassword ? "text" : "password"} autoComplete="off"/>
+                      <Input {...field} type={showPassword ? "text" : "password"} autoComplete="new-password"  className="text-neutral-50"/>
                     </FormControl>
                     <PasswordEyeButton show={showPassword} onToggle={() => setShowPassword(prev => !prev)}/>
                   </div>
@@ -110,8 +119,8 @@ export function SignupForm({
           <Button type="submit" className="w-full h-9 px-4 bg-sky-600 hover:bg-sky-700 dark:bg-sky-700 dark:hover:bg-sky-800 text-white">
             Sign Up
           </Button>
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className="bg-background text-muted-foreground relative z-10 px-2">
+          <div className="after:border-neutral-600 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            <span className="bg-neutral-950 text-neutral-400 relative z-10 px-2">
               Or
             </span>
           </div>

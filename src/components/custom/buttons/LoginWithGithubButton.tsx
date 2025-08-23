@@ -25,7 +25,7 @@ const LoginWithGithubButton = () => {
       variant="outline"
       disabled={isLoading}
       aria-busy={isLoading}
-      className="w-full flex gap-2 items-center justify-center dark:bg-[#24292F] dark:text-white dark:hover:bg-[#24292F]/80"
+      className="w-full flex gap-2 items-center justify-center bg-[#24292F] text-white hover:text-white hover:bg-[#24292F]/80 hover:bg-[#1a1e24] border border-none"
       onClick={handleSignIn}
     >
       {isLoading ? (

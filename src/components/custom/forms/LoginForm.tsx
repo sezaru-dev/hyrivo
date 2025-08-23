@@ -65,8 +65,8 @@ export function LoginForm({
     <Form {...form}>
       <form className={cn("flex flex-col gap-6", className)} {...props} onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Login to your account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
+          <h1 className="text-2xl font-bold text-neutral-100">Login to your account</h1>
+          <p className="text-neutral-400 text-sm text-balance">
             Login to your Hyrivo account
           </p>
         </div>
@@ -78,9 +78,14 @@ export function LoginForm({
             name="email"
             render={({ field }) => (
               <FormItem className="grid gap-3">
-                <FormLabel>Email</FormLabel>
+                <FormLabel className={cn(
+                  "text-neutral-100",
+                  form.formState.errors.email && "text-red-500"
+                )}>
+                Email
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete="email" className="auth-inputs text-neutral-50"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,7 +97,12 @@ export function LoginForm({
             render={({ field }) => (
               <FormItem className="grid gap-3">
                 <div className="flex items-center">
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className={cn(
+                    "text-neutral-100",
+                    form.formState.errors.password && "text-red-500"
+                  )}>
+                    Password
+                  </FormLabel>
                   <a
                     href="#"
                     className="ml-auto text-sm underline-offset-4 hover:underline"
@@ -101,7 +111,7 @@ export function LoginForm({
                   </a>
                 </div>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <Input type="password" {...field} autoComplete="current-password" className="text-neutral-50"/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,8 +131,8 @@ export function LoginForm({
             ) : "Login"
 }
           </Button>
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className="bg-background text-muted-foreground relative z-10 px-2">
+          <div className="after:border-neutral-600 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            <span className="bg-neutral-950 text-neutral-400 relative z-10 px-2">
               Or
             </span>
           </div>

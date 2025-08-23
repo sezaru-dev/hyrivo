@@ -1,40 +1,40 @@
 import {
   ClipboardList,
   CalendarClock,
-  Hourglass,
   Search,
   Briefcase,
   BarChart3,
+  FileText,
 } from "lucide-react"
 
 const features = [
   {
-    icon: <ClipboardList className="w-6 h-6 text-blue-600" />,
+    icon: <ClipboardList className="w-6 h-6 text-white" />,
     title: "Track Applications",
     description: "Monitor your application statuses with clarity.",
   },
   {
-    icon: <CalendarClock className="w-6 h-6 text-blue-600" />,
+    icon: <CalendarClock className="w-6 h-6 text-white" />,
     title: "Schedule Interviews",
     description: "Log interview dates and times with ease.",
   },
   {
-    icon: <Hourglass className="w-6 h-6 text-blue-600" />,
-    title: "Follow-Up Reminders",
-    description: "Set reminders to follow up after applying or interviews.",
+    icon: <FileText className="w-6 h-6 text-white" />,
+    title: "Add Notes",
+    description: "Keep track of important details for each application.",
   },
   {
-    icon: <Search className="w-6 h-6 text-blue-600" />,
+    icon: <Search className="w-6 h-6 text-white" />,
     title: "Filter & Sort",
     description: "Quickly find what you need with powerful filters.",
   },
   {
-    icon: <Briefcase className="w-6 h-6 text-blue-600" />,
+    icon: <Briefcase className="w-6 h-6 text-white" />,
     title: "Label by Type & Salary",
     description: "Categorize jobs by type, location, or salary.",
   },
   {
-    icon: <BarChart3 className="w-6 h-6 text-blue-600" />,
+    icon: <BarChart3 className="w-6 h-6 text-white" />,
     title: "Dashboard Summary",
     description: "Visualize progress with stats and summaries.",
   },
@@ -51,9 +51,9 @@ export default function WhatYouCanDo() {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="bg-muted/40 dark:bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            className="bg-neutral-700/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
           >
-            <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-full w-fit mb-4">
+            <div className="p-3 bg-sky-700 rounded-full w-fit mb-4">
               {feature.icon}
             </div>
             <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>

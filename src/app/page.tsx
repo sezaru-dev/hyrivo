@@ -9,7 +9,7 @@ import WhyHyrivo from "@/components/sections/WhyHyrivo";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="bg-[#0a0a0a] text-[#fafafa] min-h-screen  overflow-hidden">
       <Header/>
       <Hero/>
       <HowItWorks/>

@@ -93,7 +93,17 @@
   }
 }
 
-
+@layer components {
+.auth-inputs:-webkit-autofill,
+  .auth-inputs:-webkit-autofill:hover,
+  .auth-inputs:-webkit-autofill:focus,
+  .auth-inputs:-webkit-autofill:active {
+    @apply bg-slate-900 text-white;
+    -webkit-box-shadow: 0 0 0px 1000px #1f2937 inset;
+    -webkit-text-fill-color: white;
+    transition: background-color 9999s ease-in-out 0s; /* hack to override autofill paint */
+  }
+}
 
 
 @layer base {

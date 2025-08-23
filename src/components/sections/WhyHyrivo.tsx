@@ -1,4 +1,4 @@
-import { CheckCircle, XCircle } from "lucide-react"
+import Image from "next/image";
 
 export default function WhyHyrivo() {
   return (
@@ -7,43 +7,42 @@ export default function WhyHyrivo() {
         Why Hyrivo?
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Problems Section */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4">The Struggle Without It</h3>
-          <ul className="space-y-4 text-red-600 dark:text-red-400">
-            <li className="flex items-start gap-3">
-              <XCircle className="size-5 mt-1" />
-              <span>Spreadsheets are hard to maintain</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <XCircle className="size-5 mt-1" />
-              <span>Tracking follow-ups manually is stressful</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <XCircle className="size-5 mt-1" />
-              <span>Missing interviews or offers due to disorganization</span>
-            </li>
-          </ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        {/* Before */}
+        <div className="relative group rounded-2xl overflow-hidden w-full h-80">
+          <Image
+            src="/sticky-notes-stress.jpg"
+            alt="Messy spreadsheets and stress"
+            fill
+            className="object-cover transition duration-500 group-hover:scale-105"
+          />
+          {/* Overlay background */}
+          <div className="absolute inset-0 bg-black/40 transition duration-500 group-hover:bg-black/60"></div>
+          {/* Text */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-white text-center text-2xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
+              Spreadsheets, sticky notes,<br/>stress
+            </p>
+          </div>
         </div>
 
-        {/* Solutions Section */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4">What Hyrivo Gives You</h3>
-          <ul className="space-y-4 text-green-600 dark:text-green-400">
-            <li className="flex items-start gap-3">
-              <CheckCircle className="size-5 mt-1" />
-              <span>Everything in one clean dashboard</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle className="size-5 mt-1" />
-              <span>Visual status & interview timeline</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle className="size-5 mt-1" />
-              <span>Stay motivated and in control of your job hunt</span>
-            </li>
-          </ul>
+        {/* After */}
+        <div className="relative group rounded-2xl overflow-hidden w-full h-80">
+          <Image
+            src="/dashboard-2.png"
+            alt="Hyrivo dashboard"
+            fill
+            className="object-cover transition duration-500 group-hover:scale-105"
+          />
+          {/* Overlay background */}
+          <div className="absolute inset-0 bg-black/40 transition duration-500 group-hover:bg-black/50"></div>
+          {/* Text */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-white text-2xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
+              One clean, organized dashboard
+            </p>
+          </div>
         </div>
       </div>
     </section>

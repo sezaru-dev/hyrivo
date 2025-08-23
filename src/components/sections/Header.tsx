@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
-import { ThemeToggle } from '../custom/toggles/ThemeToggle'
 import { authOptions } from '@/lib/backend/auth'
 import { getServerSession } from 'next-auth'
 import LogoutButton from '../custom/buttons/LogoutButton'
@@ -12,22 +11,20 @@ const Header = async () => {
 
   return (
     <header className="fixed top-6 md:top-8 z-50 w-full flex items-center justify-center">
-      <div className="flex items-center justify-between w-full max-w-6xl mx-4 px-6 py-3 rounded-2xl border border-border dark:border-slate-800 bg-muted-foreground/10 backdrop-blur-sm shadow-sm">
-        <div className="text-xl font-bold">Hyrivo</div>
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-
+      <div className="flex items-center justify-between w-full max-w-6xl mx-4 px-4 sm:px-6 py-3 rounded-lg sm:rounded-2xl border border-zinc-800/50 
+      bg-zinc-800/40 backdrop-blur-sm shadow-sm">
+        <div className="sm:text-xl font-bold">Hyrivo</div>
           <nav className="flex items-center gap-2">
             {!session ? (
               <>
               <LoginSignupDialog triggerType="login">
-                <Button className="h-9 px-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white">
+                <Button className="px-3 text-sm sm:h-9 sm:px-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white">
                   Login
                 </Button>
               </LoginSignupDialog>
 
               <LoginSignupDialog triggerType="signup">
-                <Button className="h-9 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 text-foreground">
+                <Button className="px-3 text-sm sm:h-9 sm:px-4 hover:!bg-neutral-900 bg-neutral-950 border-neutral-700 text-white">
                   Sign up
                 </Button>
               </LoginSignupDialog>
@@ -47,7 +44,6 @@ const Header = async () => {
             )}
           </nav>
         </div>
-      </div>
     </header>
   )
 }
