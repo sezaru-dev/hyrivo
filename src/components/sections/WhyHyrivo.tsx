@@ -40,7 +40,7 @@ export default function WhyHyrivo() {
           {/* Text */}
           <div className="absolute inset-0 flex items-center justify-center">
             <p className="text-white text-center text-xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
-              One clean, organized dashboard
+              One clean, organized <br/>dashboard
             </p>
           </div>
         </div>
