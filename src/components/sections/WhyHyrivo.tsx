@@ -21,7 +21,7 @@ export default function WhyHyrivo() {
           <div className="absolute inset-0 bg-black/40 transition duration-500 group-hover:bg-black/60"></div>
           {/* Text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-white text-center text-2xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
+            <p className="text-white text-center text-xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
               Spreadsheets, sticky notes,<br/>stress
             </p>
           </div>
@@ -39,7 +39,7 @@ export default function WhyHyrivo() {
           <div className="absolute inset-0 bg-black/40 transition duration-500 group-hover:bg-black/50"></div>
           {/* Text */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-white text-2xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
+            <p className="text-white text-center text-xl font-semibold transition duration-500 group-hover:scale-110 drop-shadow-md group-hover:drop-shadow-xl">
               One clean, organized dashboard
             </p>
           </div>
