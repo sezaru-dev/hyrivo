@@ -57,9 +57,6 @@ const areaData = [...timelineData] // copy so original isn't mutated
     }
   })
 
-console.log(areaData);
-
-
   return (
     <Card>
       <CardHeader>
