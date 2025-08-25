@@ -1,22 +1,16 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, CalendarClock, FileText, Handshake, Inbox, XCircle } from "lucide-react"
+import { ArrowUpDown, CircleAlert } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { categoryFilter } from "./data-table"
 import { JobApplicationType } from "@/types"
-import { format } from "date-fns"
+import { format, isBefore } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { capitalize } from "@/utils/capitalize"
 import { AppliedActions } from "@/components/custom/data-table/action-cells/AppliedActions"
-
-const statusIconMap: Record<string, JSX.Element> = {
-  applied: <FileText className="text-gray-500 dark:text-gray-400" />,
-  interview: <CalendarClock className="text-blue-500 dark:text-blue-400" />,
-  offered: <Inbox className="text-amber-500 dark:text-amber-400" />,
-  hired: <Handshake className="text-green-500 dark:text-green-400" />,
-  rejected: <XCircle className="text-red-500 dark:text-red-400" />,
-}
+import InterviewDueTooltip from "@/components/custom/tooltips/InterviewDueTooltip"
+import StatusBadge from "@/components/custom/badges/StatusBadge"
+import InterviewStatusBadge from "@/components/custom/badges/InterviewStatusBadge"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -92,15 +86,59 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       )
     },
     cell: ({ row }) => (
-      <Badge
-        variant="outline"
-        className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 max-w-fit"
-      >
-        {statusIconMap[row.original.status]}
-        {capitalize(row.original.status)} {row.original.interviewStatus === 'none' ? '' : `- ${capitalize(row.original.interviewStatus)}`}
-      </Badge>
+      <StatusBadge status={row.original.status} />
     ),
     filterFn: categoryFilter
+  },
+  {
+  accessorKey: "interviewStatus",
+  header: "Interview Status",
+  cell: ({ row }) => {
+    const status = row.original.interviewStatus;
+    if (status === "none") return null; // show nothing if no interview
+    return (
+      <InterviewStatusBadge status={row.original.interviewStatus} />
+    );
+  },
+},
+  {
+    accessorKey: "interviewAt",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="-ml-4"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Interview Schedule
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const rawValue = row.getValue("interviewAt")
+
+      if (typeof rawValue !== "string" || !rawValue) {
+        return <span className="text-muted-foreground italic text-sm">No interview scheduled</span>
+      }
+
+      const parsedDate = new Date(rawValue)
+      if (isNaN(parsedDate.getTime())) {
+        return <span className="text-destructive font-medium">Invalid date</span>
+      }
+      const isOverdue = isBefore(parsedDate, new Date())
+      const formatted = format(parsedDate, "MMM d, yyyy 'at' h:mm a")
+
+      return (
+        <span className="relative flex items-center gap-2 whitespace-nowrap">
+            {formatted}
+            {
+              isOverdue ?
+            <InterviewDueTooltip>
+              <CircleAlert size={16} className="text-red-500"/>
+            </InterviewDueTooltip>  : null
+            }
+          </span>
+      )
+    },
   },
   {
     accessorKey: "jobType",
