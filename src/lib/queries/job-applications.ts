@@ -1,17 +1,16 @@
 import { JobApplicationType } from "@/types"
 import { fetcher } from "./fetcher";
 
-export async function fetchJobApplications(limit?: number): Promise<JobApplicationType[]> {
-  const url = limit ? `/api/job-applications?limit=${limit}` : `/api/job-applications`
 
-  const res = await fetch(url)
-  if (!res.ok) {
-    throw new Error("Failed to fetch job applications")
-  }
+export const fetchJobApplications = (limit?: number): Promise<JobApplicationType[]> =>
+  fetcher(`/api/job-applications${limit? `?limit=${limit}`: ''}`, {
+    method: "GET",
+  });
 
-  return res.json()
-}
-
+export const fetchJobApplicationById = (id?: string): Promise<JobApplicationType> =>
+  fetcher(`/api/job-applications/${id}`, {
+    method: "GET",
+  });
 
 export const deleteJobApplication = (id: string) =>
   fetcher(`/api/job-applications/${id}/delete`, {
@@ -26,3 +25,14 @@ export const deleteJobApplication = (id: string) =>
     },
     body: JSON.stringify({ status }),
 });
+
+// PUT /api/job-applications/id/edit
+  export const updateJobApplicationData = (id: string, data: Omit<JobApplicationType, "_id">) => {
+  return fetcher(`/api/job-applications/${id}/edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), // just send the key
+  });
+};
