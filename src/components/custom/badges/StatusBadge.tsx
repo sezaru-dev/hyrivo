@@ -7,60 +7,23 @@ type StatusBadgeProps = {
   status: JobStatus;
 };
 
-const StatusBadge = ({ status }:StatusBadgeProps) => {
-  switch (status) {
-    case "applied":
-      return (
-        <Badge
-          variant="outline"
-          className="px-1.5 rounded-md border border-gray-400 bg-gray-300 dark:bg-gray-500/30 text-gray-600 dark:text-neutral-50 font-medium"
-        >
-          {capitalize(status)}
-        </Badge>
-      );
-    case "interview":
-      return (
-        <Badge
-          variant="outline"
-          className="px-1.5 rounded-md border border-blue-400 bg-blue-500/30 text-blue-600 dark:text-neutral-50 font-medium"
-        >
-          {capitalize(status)}
-        </Badge>
-      );
-    case "offered":
-      return (
-        <Badge
-          variant="outline"
-          className="px-1.5 rounded-md border border-amber-400 bg-amber-500/30 text-amber-600 dark:text-neutral-50 font-medium"
-        >
-          {capitalize(status)}
-        </Badge>
-      );
-    case "hired":
-      return (
-        <Badge
-          variant="outline"
-          className="px-1.5 rounded-md border border-green-400 bg-green-500/30 text-green-600 dark:text-neutral-50 font-medium"
-        >
-          {capitalize(status)}
-        </Badge>
-      );
-    case "rejected":
-      return (
-        <Badge
-          variant="outline"
-          className="px-1.5 rounded-md border border-red-400 bg-red-500/30 text-red-600 dark:text-neutral-50 font-medium"
-        >
-          {capitalize(status)}
-        </Badge>
-      );
-    default:
-      return (
-        <Badge variant="outline" className="px-1.5 rounded-md">
-          {capitalize(status)}
-        </Badge>
-      );
-  }
+const statusStyles: Record<JobStatus, string> = {
+  applied: "text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600",
+  interview: "text-blue-600 dark:text-blue-400 border-blue-400",
+  offered: "text-amber-600 dark:text-amber-400 border-amber-400",
+  hired: "text-green-600 dark:text-green-400 border-green-400",
+  rejected: "text-red-600 dark:text-red-400 border-red-400",
+};
+
+const StatusBadge = ({ status }: StatusBadgeProps) => {
+  return (
+    <Badge
+      variant="outline"
+      className={`px-2 py-0.5 rounded-md font-normal border ${statusStyles[status] ?? "text-gray-600 border-gray-300"}`}
+    >
+      {capitalize(status)}
+    </Badge>
+  );
 };
 
 export default StatusBadge;
