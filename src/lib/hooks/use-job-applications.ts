@@ -1,13 +1,23 @@
 // lib/hooks/use-job-applications.ts
 import { useQuery } from "@tanstack/react-query"
-import { fetchJobApplications, updateApplicationStatus } from "../queries/job-applications"
+import { fetchJobApplicationById, fetchJobApplications, updateApplicationStatus } from "../queries/job-applications"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toastPromise } from "@/components/custom/toastPromise"
 
 export function useJobApplications(limit?: number) {
   return useQuery({
-    queryKey: ["job-applications"],
+    queryKey: ["job-applications", limit ?? "all"],
     queryFn: () => fetchJobApplications(limit),
+    staleTime: 1000 * 60 * 5,         // Consider fresh for 5 mins
+    refetchOnMount: true,            // Refetch in background if data is stale
+    refetchOnWindowFocus: true,      // Useful if user switches tab
+    refetchOnReconnect: true, 
+  })
+}
+export function useJobApplicationById(id?: string) {
+  return useQuery({
+    queryKey: ["job-applications", id],
+    queryFn: () => fetchJobApplicationById(id),
     staleTime: 1000 * 60 * 5,         // Consider fresh for 5 mins
     refetchOnMount: true,            // Refetch in background if data is stale
     refetchOnWindowFocus: true,      // Useful if user switches tab
@@ -34,4 +44,8 @@ const useUpdateApplicationStatus = () => {
   })
 }
 
+
+
 export default useUpdateApplicationStatus
+
+
