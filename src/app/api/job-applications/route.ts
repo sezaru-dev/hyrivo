@@ -27,9 +27,8 @@ export async function GET(req: Request) {
 
     return Response.json(applications, { status: 200 })
   } catch (error) {
-    console.error("[GET_JOB_APPLICATIONS_ERROR]", error)
     return Response.json(
-      { message: "Failed to fetch applications" },
+      { message: "Failed to fetch applications", error: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
     )
   }
