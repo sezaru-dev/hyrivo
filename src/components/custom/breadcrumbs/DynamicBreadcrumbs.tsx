@@ -28,18 +28,28 @@ export const DynamicBreadcrumbs = () => {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList
+        className="
+          flex flex-wrap md:flex-nowrap 
+          overflow-x-auto whitespace-nowrap 
+          scrollbar-hide
+          gap-1 md:gap-2
+          max-w-full
+        "
+      >
         {segments.map((segment, index) => {
           const href = '/' + segments.slice(0, index + 1).join('/')
           const isLast = index === segments.length - 1
 
           return (
-            <BreadcrumbItem key={href}>
+            <BreadcrumbItem key={href} className="truncate max-w-[100px] sm:max-w-[150px]">
               {isLast ? (
-                <BreadcrumbPage>{capitalize(segment)}</BreadcrumbPage>
-                ) : (
+                <BreadcrumbPage className="truncate">
+                  {capitalize(segment)}
+                </BreadcrumbPage>
+              ) : (
                 <>
-                  <BreadcrumbLink href={href}>
+                  <BreadcrumbLink href={href} className="truncate">
                     {capitalize(segment)}
                   </BreadcrumbLink>
                   <BreadcrumbSeparator />
