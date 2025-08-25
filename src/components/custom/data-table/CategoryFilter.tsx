@@ -6,6 +6,7 @@ import { Command, CommandGroup, CommandInput, CommandItem } from '@/components/u
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Funnel } from 'lucide-react'
 import { Table } from '@tanstack/react-table'
+import { capitalize } from '@/utils/capitalize'
 
 type CategoryFilterProps<TData> = {
   table: Table<TData>
@@ -13,7 +14,7 @@ type CategoryFilterProps<TData> = {
 
 const CategoryFilter = <TData,>({table}: CategoryFilterProps<TData>) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const status = ["Applied", "Interview", "Offered", "Hired", "Rejected"]
+  const status = ["applied", "interview", "offered", "hired", "rejected"]
 
   function toggleCategory(category: string) {
     const updated = selectedCategories.includes(category)
@@ -45,7 +46,7 @@ const CategoryFilter = <TData,>({table}: CategoryFilterProps<TData>) => {
                   checked={selectedCategories.includes(item)}
                   onCheckedChange={() => toggleCategory(item)}
                 />
-                {item}
+                {capitalize(item)}
               </CommandItem>
             ))}
           </CommandGroup>
