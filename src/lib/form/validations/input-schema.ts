@@ -3,14 +3,24 @@ export const statuses = [
   "applied",
   "interview",
   "offered",
+  "hired",
+  "rejected",
+] as const;
+export const InterviewStatus = [
+  "none",
+  "scheduled",
+  "completed",
+  "missed",
 ] as const;
 export const jobTypes = [
-  "On-Site Full-Time",
   "Full-Time Remote",
+  "On-Site Full-Time",
   "Hybrid",
   "Contract",
   "Internship",
   "Remote Contract",
+  "Remote Full-Time",
+  "Hybrid Remote"
 ] as const;
 export const methodsOfInterview = [
   "phone",
@@ -38,6 +48,52 @@ export const NewApplicationFormSchema = z.object({
   }).min(1000, "Salary must be at least 4 digits (e.g. 1000)")
 })
 
+export const UpdateApplicationFormSchema = z.object({
+  companyName: z.string().min(1, {
+    message: "Required",
+  }),
+  jobTitle: z.string().min(1, {
+    message: "Required",
+  }),
+  status: z.enum(statuses, {
+    errorMap: () => ({ message: "Please select a valid status" }),
+  }),
+  appliedDate: z.date({
+    required_error: "A date of application is required.",
+  }),
+  jobType: z.enum(jobTypes, {
+    errorMap: () => ({ message: "Please select a valid job type" }),
+  }),
+  salary: z.coerce.number({
+    required_error: "Salary is required",
+    invalid_type_error: "Salary must be a number",
+  }).min(1000, "Salary must be at least 4 digits (e.g. 1000)"),
+  interviewStatus: z.enum(InterviewStatus, {
+    errorMap: () => ({ message: "Please select a valid interview status" }),
+  }),
+  interviewAt: z.date().refine(
+    (date) => date >= now,
+    {
+      message: "Interview date cannot be in the past",
+    }
+  ),
+  interviewMethod: z.enum(methodsOfInterview, {
+    errorMap: () => ({ message: "Please select a valid interview method" }),
+  }),
+  interviewNote: z
+    .string()
+    .optional()
+    .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
+      message: "Notes must be between 10 and 200 characters if provided",
+    }),
+    interviewRemarks: z
+    .string()
+    .optional()
+    .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
+      message: "Notes must be between 10 and 200 characters if provided",
+    }),
+})
+
 export const InterviewDetailsFormSchema = z.object({
   interviewAt: z.date().refine(
     (date) => date >= now,
@@ -46,12 +102,12 @@ export const InterviewDetailsFormSchema = z.object({
     }
   ),
   interviewMethod: z.enum(methodsOfInterview),
-interviewNote: z
-  .string()
-  .optional()
-  .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
-    message: "Notes must be between 10 and 200 characters if provided",
-  }),
+  interviewNote: z
+    .string()
+    .optional()
+    .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
+      message: "Notes must be between 10 and 200 characters if provided",
+    }),
 
 })
 
@@ -104,6 +160,7 @@ export const LoginFormSchema = z.object({
 })
 
 export type NewApplicationFormValues = z.infer<typeof NewApplicationFormSchema>
+export type UpdateApplicationFormValues = z.infer<typeof UpdateApplicationFormSchema>
 export type InterviewDetailsFormValues = z.infer<typeof InterviewDetailsFormSchema>
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
 export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
