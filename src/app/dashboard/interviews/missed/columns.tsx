@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { MissedInterviewActions } from "@/components/custom/data-table/action-cells/MissedInterviewActions"
+import { Badge } from "@/components/ui/badge"
+import { capitalize } from "@/utils/capitalize"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -69,6 +71,40 @@ export const columns: ColumnDef<JobApplicationType>[] = [
         </span>
       )
       
+    },
+  },
+    {
+    accessorKey: "interviewMethod",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="-ml-4"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Method
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <div className="w-32">
+        <Badge variant="outline" className="px-1.5 text-muted-foreground">
+          {capitalize(row.original.interviewMethod)}
+        </Badge>
+      </div>
+    ),
+  },
+  {
+    accessorKey: "interviewNote",
+    header: "Notes",
+    cell: ({ row }) => {
+      const rawValue = row.getValue("interviewNote")
+
+      if (typeof rawValue !== "string" || !rawValue) {
+        return null
+      }
+      return <span>{rawValue}</span>
     },
   },
   {
