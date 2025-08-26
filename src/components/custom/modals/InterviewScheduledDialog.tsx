@@ -10,11 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { InterviewScheduledForm } from "../forms/InterviewScheduledForm";
 import React, { useState } from "react";
+import { JobApplicationType } from "@/types";
 
 export type InterviewScheduledDialogProps = {
-  id: string
+  data: JobApplicationType
 }
-export default function InterviewScheduledDialog({id}: InterviewScheduledDialogProps) {
+export default function InterviewScheduledDialog({data}: InterviewScheduledDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +28,7 @@ export default function InterviewScheduledDialog({id}: InterviewScheduledDialogP
           <DialogTitle>Set Interview Schedule</DialogTitle>
         </DialogHeader>
         {/* form here */}
-        <InterviewScheduledForm id={id} closeDialog={() => setIsOpen(false)}/>
+        <InterviewScheduledForm data={data} closeDialog={() => setIsOpen(false)}/>
       </DialogContent>
     </Dialog>
   );
