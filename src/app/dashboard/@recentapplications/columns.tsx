@@ -3,16 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
-import { Badge } from "@/components/ui/badge"
-import { capitalize } from "@/utils/capitalize"
-
-const statusColorMap: Record<string, string> = {
-  applied: "text-gray-500 dark:text-gray-400",
-  interview: "text-blue-500 dark:text-blue-400",
-  offered: "text-amber-500 dark:text-amber-400",
-  hired: "text-green-500 dark:text-green-400",
-  rejected: "text-red-500 dark:text-red-400",
-};
+import StatusBadge from "@/components/custom/badges/StatusBadge"
+import InterviewStatusBadge from "@/components/custom/badges/InterviewStatusBadge"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -47,15 +39,9 @@ export const columns: ColumnDef<JobApplicationType>[] = [
   header: "Status",
   cell: ({ row }) => {
     const status = row.original.status;
-    const colorClass = statusColorMap[status] || "text-muted-foreground";
 
     return (
-      <Badge
-        variant="outline"
-        className={`flex gap-1 px-1.5 max-w-fit ${colorClass} [&_svg]:size-3`}
-      >
-        {capitalize(status)}
-      </Badge>
+      <StatusBadge status={status} />
     );
   },
 },
@@ -63,15 +49,10 @@ export const columns: ColumnDef<JobApplicationType>[] = [
   accessorKey: "interviewStatus",
   header: "Interview Status",
   cell: ({ row }) => {
-    const status = row.original.interviewStatus;
-    if (status === "none") return null; // show nothing if no interview
+    const interviewStatus = row.original.interviewStatus;
+    if (interviewStatus === "none") return null; // show nothing if no interview
     return (
-      <Badge
-        variant="outline"
-        className="flex gap-1 px-1.5 text-muted-foreground [&_svg]:size-3 max-w-fit"
-      >
-        {capitalize(status)}
-      </Badge>
+      <InterviewStatusBadge status={interviewStatus} />
     );
   },
 },
@@ -88,7 +69,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       const parsedDate = new Date(rawValue)
       const formatted = isNaN(parsedDate.getTime())
         ? "Invalid date"
-        : format(parsedDate, "MMM d, yyyy 'at' h:mm a")
+        : format(parsedDate, "MMM d, yyyy h:mm a")
 
       return <span>{formatted}</span>
     },
