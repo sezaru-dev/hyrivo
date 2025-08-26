@@ -2,19 +2,16 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { useRouter } from "next/navigation";
 import useUpdateApplicationStatus from "@/lib/hooks/use-job-applications";
 
 export function MarkAsHiredDialog({ id, onAction }: { id: string; onAction?: () => void}) {
   const { mutate: changeApplicationStatus, isPending } = useUpdateApplicationStatus()
   const isLoading = isPending
-    const router = useRouter()
 
 const actionHandler = () => {
   changeApplicationStatus({ id: id, status: "hired" }, {
     onSuccess: () => {
       onAction?.()
-      router.push("/dashboard/hired")
     },
   })
 }
