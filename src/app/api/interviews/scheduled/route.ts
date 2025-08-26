@@ -27,13 +27,6 @@ export const GET = async (req: NextRequest) => {
 
     const interviews = await query
 
-    if (!interviews || interviews.length === 0) {
-      return NextResponse.json(
-        { error: "No interviews found" },
-        { status: 404 }
-      )
-    }
-
     return NextResponse.json(interviews, { status: 200 })
   } catch {
     return NextResponse.json(
