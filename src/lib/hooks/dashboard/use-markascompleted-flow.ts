@@ -1,24 +1,7 @@
+import { JobApplicationType } from "@/types"
 import { useMutation } from "@tanstack/react-query"
 
 export function useMarkAsCompletedFlow() {
-
-  const createTimeline = useMutation({
-    mutationFn: async () => {
-      const res = await fetch("/api/timeline/job-application", {
-        method: "POST",
-        body: JSON.stringify( 'interview' ), // send status
-      })
-
-      if (res.ok) return { status: "created", ...(await res.json()) }
-
-      if (res.status === 409) {
-        const error = await res.json()
-        return { status: "conflict", _id: error.timelineId } // reuse existing
-      }
-
-      throw new Error("Failed to create timeline")
-    },
-  })
 
   const markAsCompleted = useMutation({
     mutationFn: async (id: string) => {
@@ -35,10 +18,11 @@ export function useMarkAsCompletedFlow() {
   })
 
   const patchTimeline = useMutation({
-    mutationFn: async (timelineId: string ) => {
-      const res = await fetch(`/api/timeline/job-application/${timelineId}`, {
+    mutationFn: async (interviewAt: Pick<JobApplicationType, "interviewAt"> ) => {
+      const res = await fetch(`/api/timeline/job-application/interviews`, {
         method: "PATCH",
-        body: JSON.stringify('interview'), // consistent with POST
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(interviewAt),
       })
       if (!res.ok) throw new Error("Failed to patch timeline")
       return res.json()
@@ -46,22 +30,21 @@ export function useMarkAsCompletedFlow() {
   })
 
   //  Master flow
-  const run = async (appData: string) => {
-    const timeline = await createTimeline.mutateAsync()
+  const run = async (appData: JobApplicationType) => {
 
-    if (timeline.status === "created") {
-      // timeline already has applied: 1 because POST handled $inc
-      await markAsCompleted.mutateAsync(appData)
-      return
-    }
+     try {
+        // Update the application
+        const newApp = await markAsCompleted.mutateAsync(appData._id);
 
-    if (timeline.status === "conflict") {
-      // timeline exists → create app + increment applied
-      await markAsCompleted.mutateAsync(appData)
-      await patchTimeline.mutateAsync(timeline._id) // pass object
-      return
-    }
+        // Patch the timeline using the interviewAt
+        await patchTimeline.mutateAsync({interviewAt: appData.interviewAt});
+
+        return newApp;
+      } catch (err) {
+        console.error("Failed to update application or patch timeline:", err);
+        throw err; // propagate the error so the caller knows
+      }
   }
 
-  return { run, createTimeline, markAsCompleted, patchTimeline }
+  return { run, markAsCompleted, patchTimeline }
 }
