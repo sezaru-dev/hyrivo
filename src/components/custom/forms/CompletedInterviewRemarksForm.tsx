@@ -85,7 +85,7 @@ export default function InterviewRemarksForm({data, onSubmit}: NotesFormProps) {
             name="interviewRemarks"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Notes</FormLabel>
+                <FormLabel>Remarks</FormLabel>
                 <FormControl>
                   <Textarea
                     {...field}
@@ -93,7 +93,7 @@ export default function InterviewRemarksForm({data, onSubmit}: NotesFormProps) {
                       field.ref(e)       // keep RHF ref
                       textareaRef.current = e // keep your custom ref
                     }}
-                    placeholder={!data?.interviewRemarks ? "Add any remarks..." : ""}
+                    placeholder={!data?.interviewRemarks ? "Add interviewer’s feedback, remarks, or follow-up details..." : ""}
                     className="resize-none"
                     rows={4}
                   />
