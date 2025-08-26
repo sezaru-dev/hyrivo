@@ -49,11 +49,6 @@ const DashboardCompletedInterview = () => {
             <div className="space-y-4 py-4">
               <Skeleton className="h-9 w-full rounded" />
               <Skeleton className="h-80 w-full rounded" />
-              <div className="flex items-center justify-between gap-4">
-                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-                <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-              </div>
             </div>
           ) : (
             <DataTable columns={columns} data={interviews as JobApplicationType[] ?? []} />
