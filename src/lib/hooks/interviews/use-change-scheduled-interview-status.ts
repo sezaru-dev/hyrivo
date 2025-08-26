@@ -14,6 +14,7 @@ const useChangeScheduledInterviewStatus = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications"] });
     },
   })
 }
