@@ -80,7 +80,7 @@ export default function NotesForm({data, onSubmit}: NotesFormProps) {
                   <FormLabel>Notes</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder={!data?.interviewNote ? "Add any notes or details about the scheduled interview..." : ""}
+                      placeholder={!data?.interviewNote ? "Add interview notes (onsite address, online link, etc.)" : ""}
                       className="resize-none"
                       rows={4}
                       {...field}
