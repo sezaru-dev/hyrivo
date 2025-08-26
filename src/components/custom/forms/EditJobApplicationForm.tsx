@@ -16,17 +16,20 @@ import { capitalize } from "@/utils/capitalize"
 import { CalendarIcon, Loader2 } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { DateTimePickerField } from './fields/DateTimePickerUpdate'
-import useUpdateJobApplicationData from '@/lib/hooks/use-update-job-application'
 import CustomTooltip from '../tooltips/CustomTooltip'
-import Link from 'next/link'
-import { revalidatePath } from 'next/cache'
 import BackButton from '@/app/dashboard/job-applications/[id]/edit/BackButton'
+import { useUpdateApplicationFlow } from '@/lib/hooks/dashboard/use-update-application-flow'
+import { toastPromise } from '../toastPromise'
+import { useQueryClient } from '@tanstack/react-query'
 
 type ThisComponentProps = {
   data: JobApplicationType
 }
 
 const EditJobApplicationForm = ({data}:ThisComponentProps) => {
+  const queryClient = useQueryClient();
+  const { run, updateApplication, patchTimeline, } = useUpdateApplicationFlow()
+
   const defaultValues = useMemo(() => ({
     companyName: data.companyName,
     jobTitle: data.jobTitle,
@@ -40,13 +43,11 @@ const EditJobApplicationForm = ({data}:ThisComponentProps) => {
     interviewNote: data.interviewNote ?? "",
     interviewRemarks: data.interviewRemarks ?? "",
   }), [data])
-
+  
   const form = useForm<UpdateApplicationFormValues>({
-  resolver: zodResolver(UpdateApplicationFormSchema),
-  defaultValues
+    resolver: zodResolver(UpdateApplicationFormSchema),
+    defaultValues
 })
-
-  const {mutate, isPending, isSuccess} = useUpdateJobApplicationData()
 
   const statusItems = React.useMemo(
     () => statuses.map(s => <SelectItem key={s} value={s}>{capitalize(s)}</SelectItem>),
@@ -66,22 +67,40 @@ const EditJobApplicationForm = ({data}:ThisComponentProps) => {
   )
 
 
-  const onSubmit = useCallback((values: UpdateApplicationFormValues) => {
+  const onSubmit = useCallback(async(values: UpdateApplicationFormValues) => {
     if (!data?._id) return
-    mutate({
-      id: data._id,
-      data: {
-        ...values,
-        appliedDate: values.appliedDate.toISOString(),
-        interviewAt: values.interviewAt ? values.interviewAt.toISOString() : null,
-        interviewNote: values.interviewNote ?? null,
-        interviewRemarks: values.interviewRemarks ?? null,
-      },
-    })
-  }, [data?._id, mutate])
+    try {
+      await toastPromise(
+        async () => {
+          await run({
+            appData: { id: data._id, data: values },
+            timelineData: {
+              field: "applied",
+              oldDate: data.appliedDate,
+              newDate: values.appliedDate.toISOString(),
+            },
+          })
+          // all invalidations after flow completes
+          queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
+          queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
+          queryClient.invalidateQueries({ queryKey: ["completed-interviews"] });
+          queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] });
+          queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] });
+          queryClient.invalidateQueries({ queryKey: ["job-applications"] });
+        },
+        {
+          loading: "Updating application...",
+          success: "Application updated successfully!",
+          error: "Failed to update application.",
+        }
+      );
+    } catch (err) {
+      console.error("Flow failed:", err);
+    }
+  }, [data?._id, data.appliedDate,queryClient, run])
 
 
-  console.log(isPending);
+  const isPending = updateApplication.isPending || patchTimeline.isPending
   
   return (
         <main className="flex-1 p-6 md:p-8 space-y-8 mt-8">
@@ -150,14 +169,13 @@ const EditJobApplicationForm = ({data}:ThisComponentProps) => {
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-1">
                   <FormLabel>Date Applied</FormLabel>
-                  <CustomTooltip message="The applied date is locked to keep charts consistent. Editing is not supported yet." >
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
                             variant="outline"
                             className={cn("pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
-                            disabled
+                          
                           >
                             {field.value ? format(field.value, "MMMM d, yyyy") : <span>Pick a date</span>}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -165,11 +183,9 @@ const EditJobApplicationForm = ({data}:ThisComponentProps) => {
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled/>
+                        <Calendar mode="single" selected={field.value} onSelect={field.onChange}/>
                       </PopoverContent>
                     </Popover>
-                  </CustomTooltip>
-
                   <FormMessage />
                 </FormItem>
               )}
