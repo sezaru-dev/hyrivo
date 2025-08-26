@@ -18,7 +18,10 @@ const InterviewDueTooltip = ({children}:TooltipProps) => {
           {children}
         </TooltipTrigger>
         <TooltipContent>
-          <p>Interview is overdue</p>
+          <p className='max-w-xs'>
+          Interview has passed. Update status by marking as <strong>Completed</strong> or <strong>Missed</strong>.
+        </p>
+
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
