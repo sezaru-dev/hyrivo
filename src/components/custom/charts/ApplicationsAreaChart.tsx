@@ -10,6 +10,7 @@ import {
 import { ChartContainer, ChartConfig, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import useDashboardJobApplicationsTimeline from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-timeline"
+import { format } from "date-fns";
 
 type TimelineItem = {
   _id: string
@@ -47,15 +48,28 @@ export function ApplicationsAreaChart() {
     
   const timelineData = (data as TimelineItem[] | undefined) ?? []
 
+
 const areaData = [...timelineData] // copy so original isn't mutated
   .reverse()
-  .map((item, index) => {
+  .map((item) => {
+    const start = new Date(item.weekStart); // assuming timelineData has weekStart
+    const end = new Date(item.weekEnd);     // and weekEnd as ISO strings
+
+    // Format as "Aug 17 - 23" or "Aug 31 - Sep 6" if months differ
+    const startFormat = format(start, "MMM d");
+    const endFormat = format(end, "MMM d");
+
+    const weekLabel =
+      start.getMonth() === end.getMonth()
+        ? `${startFormat} - ${format(end, "d")}` // same month
+        : `${startFormat} - ${endFormat}`;      // different months
+
     return {
-      week: `Week ${index + 1}`,
+      week: weekLabel,
       applied: item.applied,
       interview: item.interview,
-    }
-  })
+    };
+  });
 
   return (
     <Card>
