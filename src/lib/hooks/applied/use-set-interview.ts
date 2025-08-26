@@ -21,7 +21,8 @@ const useSetInterviewSchedule = (options?: { onSuccess?: () => void }) => {
       queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
       queryClient.invalidateQueries({ queryKey: ["completed-interviews"] });
-      queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-timeline"] });
       queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] });
       options?.onSuccess?.();
     },
