@@ -13,6 +13,7 @@ const useScheduledInterviewReschedule = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications"] });
     },
   })
 }
