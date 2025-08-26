@@ -2,8 +2,8 @@
 
 import useGetScheduledInterviews from "@/lib/hooks/interviews/use-scheduled-interviews";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Building2, Laptop, Smartphone } from "lucide-react"
 import { JobApplicationType } from "@/types";
+import InterviewMethodBadge from "@/components/custom/badges/InterviewMethodBadge";
 
 export default function UpcomingInterviews() {
   const { 
@@ -69,24 +69,6 @@ export default function UpcomingInterviews() {
                   })
                 : "TBD"
 
-              const methodLabel = {
-                phone: (
-                  <span className="inline-flex items-center gap-1 text-[#3b82f6] font-medium">
-                    <Smartphone className="h-4 w-4" /> Phone
-                  </span>
-                ),
-                online: (
-                  <span className="inline-flex items-center gap-1 text-[#10b981] font-medium">
-                    <Laptop className="h-4 w-4" /> Online
-                  </span>
-                ),
-                onsite: (
-                  <span className="inline-flex items-center gap-1 text-[#f59e0b] font-medium">
-                    <Building2 className="h-4 w-4" /> Onsite
-                  </span>
-                ),
-              }[interview.interviewMethod]
-
               return (
                 <article 
                   key={interview._id}
@@ -98,7 +80,8 @@ export default function UpcomingInterviews() {
                   {/* Job Title + Date + Method */}
                   <p className="text-sm text-muted-foreground flex flex-wrap items-center gap-2 mt-1">
                     <span className="font-medium">{interview.jobTitle}</span> –{" "}
-                    <time dateTime={interview.interviewAt ?? ""}>{date}</time> ({methodLabel})
+                    <time dateTime={interview.interviewAt ?? ""}>{date}</time> 
+                    <InterviewMethodBadge status={interview.interviewMethod} /> 
                   </p>
 
                   {/* Interview Note */}
