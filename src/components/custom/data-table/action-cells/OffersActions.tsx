@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from "lucide-react"
 import { DeleteApplicationDialog } from '../../alert-dialogs/DeleteActionDialog'
 import { MarkAsHiredDialog } from '../../alert-dialogs/MarkAsHiredDialog'
+import ActionDialog from '../../modals/ActionDialog'
 
 type ThisComponentProps = {
   jobApplication: JobApplicationType
@@ -34,6 +35,18 @@ export const OffersActions = ({ jobApplication}: ThisComponentProps) => {
       <DropdownMenuContent align="end" className="grid">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <ActionDialog
+            data={jobApplication}
+            title={jobApplication.interviewRemarks? "Edit Remarks" : "Add Remarks"}
+            form="remarks"
+          >
+            <Button variant="ghost" className=" justify-start px-2">
+              Add/Edit Remarks
+            </Button>
+          </ActionDialog>
+        </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
           <MarkAsHiredDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
