@@ -1,3 +1,4 @@
+import { JobApplicationType } from "@/types";
 import { z } from "zod"
 export const statuses = [
   "applied",
@@ -94,22 +95,26 @@ export const UpdateApplicationFormSchema = z.object({
     }),
 })
 
-export const InterviewDetailsFormSchema = z.object({
-  interviewAt: z.date().refine(
-    (date) => date >= now,
-    {
-      message: "Interview date cannot be in the past",
-    }
-  ),
-  interviewMethod: z.enum(methodsOfInterview),
-  interviewNote: z
-    .string()
-    .optional()
-    .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
-      message: "Notes must be between 10 and 200 characters if provided",
-    }),
 
-})
+export const InterviewDetailsFormSchema = (data: JobApplicationType) => {
+  const appliedDate = data.interviewAt ? new Date(data.interviewAt) : new Date(); // fallback to now if null
+
+  return z.object({
+    interviewAt: z.date().refine(
+      (date) => date >= appliedDate,
+      {
+        message: `Interview date cannot be before the applied date (${appliedDate.toLocaleDateString()})`,
+      }
+    ),
+    interviewMethod: z.enum(methodsOfInterview),
+    interviewNote: z
+      .string()
+      .optional()
+      .refine((val) => !val || (val.length >= 10 && val.length <= 200), {
+        message: "Notes must be between 10 and 200 characters if provided",
+      }),
+  });
+};
 
 export const remarksFormSchema = z.object({
   remarks: z
@@ -161,7 +166,7 @@ export const LoginFormSchema = z.object({
 
 export type NewApplicationFormValues = z.infer<typeof NewApplicationFormSchema>
 export type UpdateApplicationFormValues = z.infer<typeof UpdateApplicationFormSchema>
-export type InterviewDetailsFormValues = z.infer<typeof InterviewDetailsFormSchema>
+/* export type InterviewDetailsFormValues = z.infer<typeof InterviewDetailsFormSchema> */
 export type RemarksFormValues = z.infer<typeof remarksFormSchema>
 export type InterviewDateFormValues = z.infer<typeof interviewDateFormSchema>
 export type SignupFormValues = z.infer<typeof signupFormSchema>
