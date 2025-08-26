@@ -1,6 +1,6 @@
 // lib/hooks/use-job-applications.ts
 import { useQuery } from "@tanstack/react-query"
-import { fetchJobApplicationById, fetchJobApplications, updateApplicationStatus } from "../queries/job-applications"
+import { fetchJobApplications, updateApplicationStatus } from "../queries/job-applications"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toastPromise } from "@/components/custom/toastPromise"
 
@@ -8,16 +8,6 @@ export function useJobApplications(limit?: number) {
   return useQuery({
     queryKey: ["job-applications", limit ?? "all"],
     queryFn: () => fetchJobApplications(limit),
-    staleTime: 1000 * 60 * 5,         // Consider fresh for 5 mins
-    refetchOnMount: true,            // Refetch in background if data is stale
-    refetchOnWindowFocus: true,      // Useful if user switches tab
-    refetchOnReconnect: true, 
-  })
-}
-export function useJobApplicationById(id?: string) {
-  return useQuery({
-    queryKey: ["job-applications", id],
-    queryFn: () => fetchJobApplicationById(id),
     staleTime: 1000 * 60 * 5,         // Consider fresh for 5 mins
     refetchOnMount: true,            // Refetch in background if data is stale
     refetchOnWindowFocus: true,      // Useful if user switches tab
@@ -37,9 +27,14 @@ const useUpdateApplicationStatus = () => {
         }),
 
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] });
+      queryClient.invalidateQueries({ queryKey: ["job-applications"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
       queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
       queryClient.invalidateQueries({ queryKey: ["completed-interviews"] });
+      queryClient.invalidateQueries({ queryKey: ["offered-jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["hired-applications"] });
+      queryClient.invalidateQueries({ queryKey: ["rejected-applications"] });
     },
   })
 }
