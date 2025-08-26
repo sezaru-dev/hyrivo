@@ -1,6 +1,6 @@
 export type JobStatus = 'applied' | 'interview' | 'offered' | 'hired' | 'rejected';
 export type InterviewStatus = 'none' | 'scheduled' | 'completed' | 'missed';
-export type InterviewMethod = 'phone' | 'online' | 'onsite';
+export type InterviewMethod = 'online' | 'onsite' | 'phone';
 
 export type JobType =
   | 'Full-Time Remote'
