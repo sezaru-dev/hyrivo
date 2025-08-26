@@ -54,7 +54,7 @@ export const AppliedActions = ({ jobApplication}: AppliedActionsProps) => {
               </DropdownMenuItem>
               
               <DropdownMenuItem asChild>
-                <InterviewScheduledDialog id={jobApplication._id} />
+                <InterviewScheduledDialog data={jobApplication} />
               </DropdownMenuItem>
 
               <DropdownMenuItem asChild>
@@ -97,7 +97,7 @@ export const AppliedActions = ({ jobApplication}: AppliedActionsProps) => {
               </DropdownMenuItem>
 
               <DropdownMenuItem asChild>
-                <MarkAsCompletedDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+                <MarkAsCompletedDialog data={jobApplication} onAction={() => setOpenDropdownId(null)}/>
               </DropdownMenuItem>
 
               <DropdownMenuItem asChild>
