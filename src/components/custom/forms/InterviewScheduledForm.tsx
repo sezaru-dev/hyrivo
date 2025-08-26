@@ -4,21 +4,27 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { InterviewDetailsFormSchema, InterviewDetailsFormValues, methodsOfInterview } from "@/lib/form/validations/input-schema"
+import { InterviewDetailsFormSchema, methodsOfInterview } from "@/lib/form/validations/input-schema"
 import { DateTimePickerField } from "./fields/DateTimePicker"
 import { capitalize } from "@/utils/capitalize"
 import { Textarea } from "@/components/ui/textarea"
 import useSetInterviewSchedule from "@/lib/hooks/applied/use-set-interview"
+import z from "zod"
+import { JobApplicationType } from "@/types"
 
 type ThisComponentProps = {
-  id: string,
+  data: JobApplicationType,
   closeDialog: () => void 
 }
 
-export function InterviewScheduledForm({id, closeDialog}:ThisComponentProps) {
+export function InterviewScheduledForm({data, closeDialog}:ThisComponentProps) {
+
+  const schema = InterviewDetailsFormSchema(data);
+
+type InterviewDetailsFormValues = z.infer<typeof schema>;
 
   const form = useForm<InterviewDetailsFormValues>({
-    resolver: zodResolver(InterviewDetailsFormSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       interviewAt: undefined,
       interviewMethod: "online",
@@ -31,7 +37,7 @@ export function InterviewScheduledForm({id, closeDialog}:ThisComponentProps) {
   // Handle form submit
   const onSubmit = async (values: InterviewDetailsFormValues) => {
     try {
-     mutate({ id: id, data: {
+     mutate({ id: data._id, data: {
         interviewAt: values.interviewAt.toISOString(),
         interviewMethod: values.interviewMethod,
         interviewNote: values.interviewNote ?? null, // convert undefined → null
