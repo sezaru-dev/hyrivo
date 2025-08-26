@@ -63,7 +63,7 @@ export const ScheduledInterviewActions = ({ jobApplication}: ScheduledInterviewA
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <MarkAsCompletedDialog id={jobApplication._id} onAction={() => setOpenDropdownId(null)}/>
+          <MarkAsCompletedDialog data={jobApplication} onAction={() => setOpenDropdownId(null)}/>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
