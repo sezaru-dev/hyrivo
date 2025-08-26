@@ -17,10 +17,10 @@ import { useQueryClient } from "@tanstack/react-query"
 
 export function NewApplicationForm() {
   const closeModal = useModalStore.getState().closeNewAppModal;
-  const queryClient = useQueryClient(); // ← add this
+  const queryClient = useQueryClient();
   
   // Get the flow hook
-  const { run, createApplication, createTimeline, patchTimeline, } = useCreateApplicationFlow()
+  const { run, createApplication, patchTimeline, } = useCreateApplicationFlow()
   
   const form = useForm<NewApplicationFormValues>({
     resolver: zodResolver(NewApplicationFormSchema),
@@ -38,10 +38,13 @@ export function NewApplicationForm() {
     try {
     await toastPromise(
       async () => {
-        await run(values); // runs timeline + application + patch
+        await run(values, {
+          field: "applied",
+          newDate: values.appliedDate.toISOString(),
+        }); // runs timeline + application + patch
         // all invalidations after flow completes
-        queryClient.invalidateQueries({ queryKey: ["timeline"] });
-        queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] });
+        queryClient.invalidateQueries({ queryKey: ["job-applications"] });
+        queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-timeline"] });
         queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] });
       },
       {
@@ -57,8 +60,8 @@ export function NewApplicationForm() {
   }
 
   // Combine loading states (timeline/app creation/patching)
-  const isPending = createTimeline.isPending || createApplication.isPending || patchTimeline.isPending
-  const isSuccess = createTimeline.isSuccess || createApplication.isSuccess || patchTimeline.isSuccess
+  const isPending = createApplication.isPending || patchTimeline.isPending
+  const isSuccess = createApplication.isSuccess || patchTimeline.isSuccess
 
   return (
     <Form {...form}>
