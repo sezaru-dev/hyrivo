@@ -2,19 +2,24 @@ import { connectToDB } from "@/lib/backend/db";
 import { verifySession } from "@/lib/backend/verify-session";
 import JobApplicationTimeline from "@/models/job-application-timeline";
 import { NextRequest, NextResponse } from "next/server";
+import { startOfWeek, endOfWeek } from "date-fns";
 
-export async function PATCH(
-    req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+function normalizeDate(d: Date) {
+  // reset time to 00:00:00 local
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
+export async function PATCH(req: NextRequest) {
   const session = await verifySession();
   if (session instanceof NextResponse) return session;
 
   try {
-    const status = await req.json();
-    if (!params.id || !status) {
+    const body = await req.json();
+    const { interviewAt } = body;
+
+    if (!interviewAt) {
       return NextResponse.json(
-        { message: "timelineId and updates are required" },
+        { message: "interviewAt date is required" },
         { status: 400 }
       );
     }
@@ -22,24 +27,21 @@ export async function PATCH(
     await connectToDB();
     const userEmail = session.user.email;
 
-     // convert to Mongo $inc format
-    const updates = { [status]: 1 };
+    // Compute the week for this interview
+    const weekStart = normalizeDate(startOfWeek(new Date(interviewAt), { weekStartsOn: 1 }));
+    const weekEnd = normalizeDate(endOfWeek(new Date(interviewAt), { weekStartsOn: 1 }));
 
-    // Find and update
+    // Increment or create the weekly snapshot
     const updatedTimeline = await JobApplicationTimeline.findOneAndUpdate(
-      { _id: params.id, userEmail },
-      { $inc: updates }, // example: { applied: 1 } or { interview: 1 }
-      { new: true }
+      { userEmail, weekStart, weekEnd },
+      { $inc: { interview: 1 } },
+      { new: true, upsert: true }
     );
 
-    if (!updatedTimeline) {
-      return NextResponse.json(
-        { message: "Timeline not found or not owned by user" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(updatedTimeline, { status: 200 });
+    return NextResponse.json(
+      { message: "Interview snapshot recorded", updatedTimeline },
+      { status: 201 }
+    );
   } catch (err) {
     return NextResponse.json(
       {
