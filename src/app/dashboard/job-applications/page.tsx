@@ -5,8 +5,15 @@ import { columns } from "./columns"
 import { Skeleton } from "@/components/ui/skeleton"
 import NewApplicationModal from "@/components/custom/modals/NewApplicationModal"
 import { useJobApplications } from "@/lib/hooks/use-job-applications"
+import { StatCard } from "@/components/custom/stats/StatCard"
+import { CountUpNumber } from "@/motions/count-up-number"
+import useDashboardJobApplicationsStats from "@/lib/hooks/dashboard/use-dashboard-job-appliactions-stats"
 
 const JobApplicationPage = () => {
+
+  const { 
+    data:stats, 
+  } = useDashboardJobApplicationsStats()
   const { 
     data: jobApplications, 
     isLoading: isLoadingApplications, 
@@ -25,15 +32,19 @@ const JobApplicationPage = () => {
         <NewApplicationModal />
       </div>
 
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        <StatCard title="Applied" value={<CountUpNumber to={stats?.applied ?? 0} />} />
+        <StatCard title="Interviews" value={<CountUpNumber to={stats?.interview ?? 0} />} />
+        <StatCard title="Offer" value={<CountUpNumber to={stats?.offered ?? 0} />} />
+        <StatCard title="Hired" value={<CountUpNumber to={stats?.hired ?? 0} />} />
+        <StatCard title="Rejected" value={<CountUpNumber to={stats?.rejected ?? 0} />} />
+        <StatCard title="Total" value={<CountUpNumber to={stats?.total ?? 0} />} />
+      </div>
+
       {isLoadingApplications ? (
       <div className="space-y-4 py-4">
         <Skeleton className="h-9 w-full rounded" />
         <Skeleton className="h-80 w-full rounded" />
-        <div className="flex items-center justify-between gap-4">
-          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-          <Skeleton className="h-9 w-full max-w-[14rem] rounded" />
-        </div>
       </div>
       ) : (
       <DataTable columns={columns} data={jobApplications ?? []} />
