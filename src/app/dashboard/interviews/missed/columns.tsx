@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { MissedInterviewActions } from "@/components/custom/data-table/action-cells/MissedInterviewActions"
-import { Badge } from "@/components/ui/badge"
-import { capitalize } from "@/utils/capitalize"
+import InterviewMethodBadge from "@/components/custom/badges/InterviewMethodBadge"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
@@ -63,7 +62,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       if (isNaN(parsedDate.getTime())) {
         return <span className="text-destructive font-medium">Invalid date</span>
       }
-      const formatted = format(parsedDate, "MMM d, yyyy 'at' h:mm a")
+      const formatted = format(parsedDate, "MMM d, yyyy h:mm a")
 
       return (
         <span className="whitespace-nowrap">
@@ -88,11 +87,7 @@ export const columns: ColumnDef<JobApplicationType>[] = [
       )
     },
     cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="px-1.5 text-muted-foreground">
-          {capitalize(row.original.interviewMethod)}
-        </Badge>
-      </div>
+      <InterviewMethodBadge status={row.original.interviewMethod} />
     ),
   },
   {
