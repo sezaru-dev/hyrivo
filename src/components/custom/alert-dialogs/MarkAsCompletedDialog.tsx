@@ -5,20 +5,21 @@ import React from "react";
 import { useMarkAsCompletedFlow } from "@/lib/hooks/dashboard/use-markascompleted-flow";
 import { toastPromise } from "../toastPromise";
 import { useQueryClient } from "@tanstack/react-query";
+import { JobApplicationType } from "@/types";
 
-export function MarkAsCompletedDialog({ id, onAction }: { id: string; onAction?: () => void}) {
+export function MarkAsCompletedDialog({ data, onAction }: { data: JobApplicationType; onAction?: () => void}) {
   const queryClient = useQueryClient()
-  const { run, markAsCompleted, createTimeline, patchTimeline } = useMarkAsCompletedFlow()
-  const isLoading = createTimeline.isPending || markAsCompleted.isPending || patchTimeline.isPending
+  const { run, markAsCompleted, patchTimeline } = useMarkAsCompletedFlow()
+  const isLoading = markAsCompleted.isPending || patchTimeline.isPending
 
 const actionHandler = async () => {
     try {
       await toastPromise(
         async () => {
-          await run(id)
+          await run(data)
           // Invalidate relevant queries after the flow completes
           queryClient.invalidateQueries({ queryKey: ["timeline"] })
-          queryClient.invalidateQueries({ queryKey: ["job-applications-applied"] })
+          queryClient.invalidateQueries({ queryKey: ["job-applications"] })
           queryClient.invalidateQueries({ queryKey: ["dashboard-job-applications-stats"] })
           queryClient.invalidateQueries({ queryKey: ["scheduled-interviews"] });
           queryClient.invalidateQueries({ queryKey: ["scheduled-interview-stats"] });
