@@ -108,6 +108,18 @@ export const columns: ColumnDef<JobApplicationType>[] = [
 
     ),
   },
+    {
+    accessorKey: "interviewRemarks",
+    header: "Remarks",
+    cell: ({ row }) => {
+      const rawValue = row.getValue("interviewRemarks")
+
+      if (typeof rawValue !== "string" || !rawValue) {
+        return null
+      }
+      return <span>{rawValue}</span>
+    },
+  },
 
   {
     id: "actions",
