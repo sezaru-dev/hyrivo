@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { ChevronDownIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
@@ -45,7 +44,7 @@ export function DateTimePickerField({ label, value, onChange, disabled }: Props)
       onChange(newDate)
     }
     // Don't include `value` in dependencies → avoids loop
-  }, [dateOnly, time, onChange])
+  }, [dateOnly, time, onChange, value])
 
   return (
     <FormItem className="space-y-2 w-full md:col-span-2">
