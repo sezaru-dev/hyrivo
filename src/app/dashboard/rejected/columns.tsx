@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { JobApplicationType } from "@/types"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
-import { DeleteApplicationDialog } from "@/components/custom/alert-dialogs/DeleteActionDialog"
+import DeleteApplicationDialog from "@/components/custom/alert-dialogs/DeleteActionDialog"
 
 export const columns: ColumnDef<JobApplicationType>[] = [
   {
