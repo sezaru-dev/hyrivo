@@ -12,16 +12,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from "lucide-react"
-import { DeleteApplicationDialog } from '../../alert-dialogs/DeleteActionDialog'
 import InterviewScheduledDialog from '../../modals/InterviewScheduledDialog'
 import RescheduleDialog from '../../modals/RescheduleDialog'
 import ActionDialog from '../../modals/ActionDialog'
-import { MarkAsCompletedDialog } from '../../alert-dialogs/MarkAsCompletedDialog'
-import { MarkAsMissedDialog } from '../../alert-dialogs/MarkAsMissedDialog'
-import { MarkAsOfferedDialog } from '../../alert-dialogs/MarkAsOfferedDialog'
-import { MarkAsRejectedDialog } from '../../alert-dialogs/MarkAsRejectedDialog'
-import { MarkAsHiredDialog } from '../../alert-dialogs/MarkAsHiredDialog'
 import Link from 'next/link'
+import DeleteApplicationDialog from '../../alert-dialogs/DeleteActionDialog'
+import MarkAsCompletedDialog from '../../alert-dialogs/MarkAsCompletedDialog'
+import MarkAsMissedDialog from '../../alert-dialogs/MarkAsMissedDialog'
+import MarkAsOfferedDialog from '../../alert-dialogs/MarkAsOfferedDialog'
+import MarkAsRejectedDialog from '../../alert-dialogs/MarkAsRejectedDialog'
+import MarkAsHiredDialog from '../../alert-dialogs/MarkAsHiredDialog'
 
 type AppliedActionsProps = {
   jobApplication: JobApplicationType

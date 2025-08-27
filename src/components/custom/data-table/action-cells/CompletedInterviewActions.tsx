@@ -13,9 +13,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from "lucide-react"
 import ActionDialog from '../../modals/ActionDialog'
-import { DeleteApplicationDialog } from '../../alert-dialogs/DeleteActionDialog'
-import { MarkAsOfferedDialog } from '../../alert-dialogs/MarkAsOfferedDialog'
-import { MarkAsRejectedDialog } from '../../alert-dialogs/MarkAsRejectedDialog'
+import MarkAsOfferedDialog from '../../alert-dialogs/MarkAsOfferedDialog'
+import MarkAsRejectedDialog from '../../alert-dialogs/MarkAsRejectedDialog'
+import DeleteApplicationDialog from '../../alert-dialogs/DeleteActionDialog'
+
 
 type ThisComponentProps = {
   jobApplication: JobApplicationType

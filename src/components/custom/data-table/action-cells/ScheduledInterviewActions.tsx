@@ -14,9 +14,10 @@ import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from "lucide-react"
 import ActionDialog from '../../modals/ActionDialog'
 import RescheduleDialog from '../../modals/RescheduleDialog'
-import { DeleteApplicationDialog } from '../../alert-dialogs/DeleteActionDialog'
-import { MarkAsCompletedDialog } from '../../alert-dialogs/MarkAsCompletedDialog'
-import { MarkAsMissedDialog } from '../../alert-dialogs/MarkAsMissedDialog'
+import DeleteApplicationDialog from '../../alert-dialogs/DeleteActionDialog'
+import MarkAsCompletedDialog from '../../alert-dialogs/MarkAsCompletedDialog'
+import MarkAsMissedDialog from '../../alert-dialogs/MarkAsMissedDialog'
+
 
 type ScheduledInterviewActionsProps = {
   jobApplication: JobApplicationType

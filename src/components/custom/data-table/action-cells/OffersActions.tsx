@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from "lucide-react"
-import { DeleteApplicationDialog } from '../../alert-dialogs/DeleteActionDialog'
-import { MarkAsHiredDialog } from '../../alert-dialogs/MarkAsHiredDialog'
 import ActionDialog from '../../modals/ActionDialog'
+import MarkAsHiredDialog from '../../alert-dialogs/MarkAsHiredDialog'
+import DeleteApplicationDialog from '../../alert-dialogs/DeleteActionDialog'
 
 type ThisComponentProps = {
   jobApplication: JobApplicationType
