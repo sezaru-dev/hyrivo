@@ -15,13 +15,14 @@ import { JobApplicationType } from "@/types";
 export type InterviewScheduledDialogProps = {
   data: JobApplicationType
 }
-export default function InterviewScheduledDialog({data}: InterviewScheduledDialogProps) {
-  const [isOpen, setIsOpen] = useState(false);
 
-  return (
+const InterviewScheduledDialog = React.forwardRef<HTMLButtonElement, InterviewScheduledDialogProps>(
+  ({ data }, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className=" justify-start px-2">Interview Scheduled</Button>
+        <Button ref={ref} variant="ghost" className=" justify-start px-2">Interview Scheduled</Button>
       </DialogTrigger>
       <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
@@ -31,5 +32,9 @@ export default function InterviewScheduledDialog({data}: InterviewScheduledDialo
         <InterviewScheduledForm data={data} closeDialog={() => setIsOpen(false)}/>
       </DialogContent>
     </Dialog>
-  );
-}
+  )
+  }
+)
+InterviewScheduledDialog.displayName = "InterviewScheduledDialog"
+
+export default InterviewScheduledDialog

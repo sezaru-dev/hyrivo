@@ -6,64 +6,73 @@ import { Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useDropdownMenuStore } from "@/stores/features/dropdownMenuStore";
 
-export function DeleteApplicationDialog({ id, withTooltip }: { id: string, withTooltip?: boolean }) {
-  const { setOpenDropdownId } = useDropdownMenuStore()
-  const { mutate: deleteApplication, isPending, isSuccess } = useDeleteJobApplication()
-
-const deleteHandler = () => {
-  deleteApplication(id, {
-    onSuccess: () => {
-      setOpenDropdownId(null)
-      /* router.push("/dashboard/interviews/completed") */
-    },
-  })
+type ThisComponentProps = {
+  id: string
+  withTooltip?: boolean
 }
 
+const DeleteApplicationDialog = React.forwardRef<HTMLButtonElement, ThisComponentProps>(
+  ({ id, withTooltip }, ref) => {
+    const { setOpenDropdownId } = useDropdownMenuStore()
+    const { mutate: deleteApplication, isPending, isSuccess } = useDeleteJobApplication()
+    
+    const deleteHandler = () => {
+      deleteApplication(id, {
+        onSuccess: () => {
+          setOpenDropdownId(null)
+        },
+      })
+    }
 
-  return (
-    <AlertDialog>
-      {withTooltip ? (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <AlertDialogTrigger asChild>
-              <Button variant="ghost">
-                <Trash2 className="text-red-500" />
+    return (
+      <AlertDialog>
+        {withTooltip ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost">
+                  <Trash2 className="text-red-500" />
+                </Button>
+              </AlertDialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Delete Permanently</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          <AlertDialogTrigger asChild>
+            <Button ref={ref} variant="ghost" className=" justify-start px-2">Delete Permanently</Button>
+          </AlertDialogTrigger>
+        )}
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. It will permanently delete this job application.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isPending || isSuccess}>Cancel</AlertDialogCancel>
+    
+              <Button
+                onClick={deleteHandler}
+                disabled={isPending || isSuccess}
+                className="bg-red-600 text-white hover:bg-red-700"
+              >
+                {isPending
+                  ? "Deleting..."
+                  : isSuccess
+                  ? "Deleting..."
+                  : "Yes, Delete Permanently"}
+    
               </Button>
-            </AlertDialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Delete Permanently</p>
-          </TooltipContent>
-        </Tooltip>
-      ) : (
-        <AlertDialogTrigger asChild>
-          <Button variant="ghost"  className=" justify-start px-2">Delete Permanently</Button>
-        </AlertDialogTrigger>
-      )}
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. It will permanently delete this job application.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending || isSuccess}>Cancel</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    )
+  }
+)
 
-            <Button
-              onClick={deleteHandler}
-              disabled={isPending || isSuccess}
-              className="bg-red-600 text-white hover:bg-red-700"
-            >
-              {isPending
-                ? "Deleting..."
-                : isSuccess
-                ? "Deleting..."
-                : "Yes, Delete Permanently"}
+DeleteApplicationDialog.displayName = "DeleteApplicationDialog"
 
-            </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
-}
+export default DeleteApplicationDialog

@@ -4,23 +4,30 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import useChangeScheduledInterviewStatus from "@/lib/hooks/interviews/use-change-scheduled-interview-status";
 
-export function MarkAsMissedDialog({ id, onAction }: { id: string; onAction?: () => void}) {
-  const { mutate: changeStatus, isPending: isStatusChanging } = useChangeScheduledInterviewStatus()
-  const isLoading = isStatusChanging
-
-const actionHandler = () => {
-  changeStatus({ id: id, interviewStatus: "missed" }, {
-    onSuccess: () => {
-      onAction?.()
-    },
-  })
+type ThisComponentProps= {
+  id: string;
+  onAction?: () => void;
 }
 
+const MarkAsMissedDialog = React.forwardRef<HTMLButtonElement, ThisComponentProps>(
+  ({ id, onAction }, ref) => {
 
+  const { mutate: changeStatus, isPending: isStatusChanging } = useChangeScheduledInterviewStatus()
+  const isLoading = isStatusChanging
+  
+  const actionHandler = () => {
+    changeStatus({ id: id, interviewStatus: "missed" }, {
+      onSuccess: () => {
+        onAction?.()
+      },
+    })
+  }
+  
+  
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className=" justify-start px-2">Mark as Missed</Button>
+        <Button ref={ref} variant="ghost" className=" justify-start px-2">Mark as Missed</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -39,4 +46,7 @@ const actionHandler = () => {
       </AlertDialogContent>
     </AlertDialog>
   )
-}
+  })
+
+  MarkAsMissedDialog.displayName = "MarkAsMissedDialog"
+  export default MarkAsMissedDialog
