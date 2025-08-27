@@ -19,7 +19,7 @@ const InterviewMethodBadge = ({ status }: InterviewMethodBadgeProps) => {
       variant="outline"
       className={`px-2 py-0.5 rounded-md font-normal border ${statusStyles[status]}`}
     >
-      {capitalize(status)}
+      <span>{capitalize(status)}</span>
     </Badge>
   );
 };
