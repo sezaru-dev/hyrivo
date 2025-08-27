@@ -13,13 +13,13 @@ import z from "zod"
 import { JobApplicationType } from "@/types"
 
 type ThisComponentProps = {
-  data: JobApplicationType,
+  data: Pick<JobApplicationType, '_id' | 'appliedDate'>,
   closeDialog: () => void 
 }
 
 export function InterviewScheduledForm({data, closeDialog}:ThisComponentProps) {
 
-  const schema = InterviewDetailsFormSchema(data);
+const schema = InterviewDetailsFormSchema(data);
 
 type InterviewDetailsFormValues = z.infer<typeof schema>;
 
@@ -31,6 +31,8 @@ type InterviewDetailsFormValues = z.infer<typeof schema>;
       interviewNote: ""
     },
   })
+
+  console.log(data)
 
   const {mutate, isPending, isSuccess} = useSetInterviewSchedule()
 
