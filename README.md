@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hyrivo – Job Application Tracker Web App
 
-## Getting Started
+## 1. Project Overview
 
-First, run the development server:
+Hyrivo is a personal job application tracking tool designed to help users manage their applications, take notes, and visualize their progress. It is built for individuals who want to stay organized during their job hunt.
 
+**Key Highlights:**
+- Track multiple job applications per user
+- Add notes and remarks for each application
+- Download application data as CSV/XLSX (planned/optional)
+- Clean, responsive interface built with modern web technologies
+
+---
+
+## 2. Tech Stack
+
+- **Frontend:** Next.js 14, React, Tailwind CSS, shadcn/ui, Framer Motion
+- **Backend / Database:** MongoDB, Mongoose, Bcryptjs
+- **Authentication:** NextAuth.js (GitHub + Credentials)
+- **Deployment:** Vercel
+- **State Management & Data Fetching:** Zustand, TanStack Query
+
+---
+
+## 3. Features
+
+- User authentication (Sign up, Login, GitHub OAuth)
+- Dashboard with an overview of job applications
+- Add, edit, and delete job applications
+- Track application status (e.g., Applied, Interview, Hired, Rejected)
+- Add notes and remarks for each application
+- **Planned:** CSV/XLSX export functionality
+- **Planned:** Framer Motion animations for UI polish
+
+---
+
+## 4. Getting Started
+
+**Prerequisites:**
+- Node.js v20+
+- npm or yarn
+- MongoDB account
+- GitHub OAuth app (if using GitHub sign-in)
+
+**Installation Steps:**
+
+1. Clone the repository:
+```bash
+git clone https://github.com/sezaru-dev/hyrivo.git
+cd hyrivo
+```
+2. Install dependencies.
+```bash
+npm install
+# or
+yarn
+```
+3. Setup environment variables (.env.local) with Supabase keys / NextAuth credentials.
+```bash
+GITHUB_ID=
+GITHUB_SECRET=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+MONGO_URI=
+MONGO_DB=
+```
+4. Run the development server.
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 5. Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Sign up or login via credentials/GitHub
+- Add new job applications with status and notes
+- Use filters and search to find specific applications
+- Planned: Download all data in CSV/XLSX format
 
-## Learn More
+## 6. Future Enhancements
 
-To learn more about Next.js, take a look at the following resources:
+- Framer Motion animations for dashboard and modals
+- CSV/XLSX export functionality
+- Optional email notifications for application updates
+- In-app notifications
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
