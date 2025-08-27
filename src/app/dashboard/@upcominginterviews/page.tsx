@@ -78,11 +78,13 @@ export default function UpcomingInterviews() {
                   <p className="font-semibold text-lg">{interview.companyName}</p>
 
                   {/* Job Title + Date + Method */}
-                  <p className="text-sm text-muted-foreground flex flex-wrap items-center gap-2 mt-1">
-                    <span className="font-medium">{interview.jobTitle}</span> –{" "}
-                    <time dateTime={interview.interviewAt ?? ""}>{date}</time> 
+                  <div className="text-sm text-muted-foreground flex flex-wrap items-center gap-2 mt-1">
+                    <p>
+                      <span className="font-medium">{interview.jobTitle}</span> –{" "}
+                      <time dateTime={interview.interviewAt ?? ""}>{date}</time> 
+                    </p>
                     <InterviewMethodBadge status={interview.interviewMethod} /> 
-                  </p>
+                  </div>
 
                   {/* Interview Note */}
                   {interview.interviewNote && (
