@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -42,20 +42,20 @@ export const DynamicBreadcrumbs = () => {
           const isLast = index === segments.length - 1
 
           return (
-            <BreadcrumbItem key={href} className="truncate max-w-[100px] sm:max-w-[150px]">
-              {isLast ? (
-                <BreadcrumbPage className="truncate">
-                  {capitalize(segment)}
-                </BreadcrumbPage>
-              ) : (
-                <>
+            <React.Fragment key={index}>
+              <BreadcrumbItem key={href} className="truncate max-w-[100px] sm:max-w-[150px]">
+                {isLast ? (
+                  <BreadcrumbPage className="truncate">
+                    {capitalize(segment)}
+                  </BreadcrumbPage>
+                ) : (
                   <BreadcrumbLink href={href} className="truncate">
                     {capitalize(segment)}
                   </BreadcrumbLink>
-                  <BreadcrumbSeparator />
-                </>
-              )}
-            </BreadcrumbItem>
+                )}
+              </BreadcrumbItem>
+              {!isLast && <BreadcrumbSeparator />}
+            </React.Fragment>
           )
         })}
       </BreadcrumbList>
