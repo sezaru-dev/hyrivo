@@ -105,7 +105,7 @@ export function LoginForm({
                   </FormLabel>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                    className="ml-auto text-sm underline-offset-4 hover:underline text-neutral-300"
                   >
                     Forgot your password?
                   </a>
