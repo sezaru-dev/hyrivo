@@ -26,7 +26,7 @@ const MarkAsHiredDialog = React.forwardRef<HTMLButtonElement, ThisComponentProps
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="ghost" className=" justify-start px-2">Mark as Hired</Button>
+          <Button ref={ref} variant="ghost" className=" justify-start px-2">Mark as Hired</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
