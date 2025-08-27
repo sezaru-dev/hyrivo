@@ -55,7 +55,7 @@ npm install
 # or
 yarn
 ```
-3. Setup environment variables (.env.local) with Supabase keys / NextAuth credentials.
+3. Setup environment variables (.env.local) with MongoDB URI, MONGODB Name, GITHUB ID & SECRET, NextAuth Secret and URL
 ```bash
 GITHUB_ID=
 GITHUB_SECRET=
