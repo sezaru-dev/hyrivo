@@ -96,8 +96,8 @@ export const UpdateApplicationFormSchema = z.object({
 })
 
 
-export const InterviewDetailsFormSchema = (data: JobApplicationType) => {
-  const appliedDate = data.interviewAt ? new Date(data.interviewAt) : new Date(); // fallback to now if null
+export const InterviewDetailsFormSchema = (data: Pick<JobApplicationType, 'appliedDate'>) => {
+  const appliedDate = data.appliedDate ? new Date(data.appliedDate) : new Date(); // fallback to now if null
 
   return z.object({
     interviewAt: z.date().refine(
