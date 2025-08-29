@@ -74,15 +74,19 @@ export const fadeInWithDelay = ({direction, type, delay, duration}:FadeInParamet
 	},
 });
 
-
-export const zoomIn = ({ delay, duration, finalScale }: ZoomInParameters) => {
-  const transition: any = {
-    type: 'spring',
+export const zoomIn = ({
+  delay,
+  duration,
+  finalScale
+}: ZoomInParameters): Variants => {
+  const transition: Transition = {
+    type: "spring",
     duration,
-    ease: 'easeOut',
-    ...(delay !== undefined && { delay }), 
+    ease: "easeOut",
+    ...(delay !== undefined && { delay }),
   };
-  return{
+
+  return {
     hidden: {
       scale: 0.6,
       opacity: 0,
@@ -90,23 +94,24 @@ export const zoomIn = ({ delay, duration, finalScale }: ZoomInParameters) => {
     show: {
       scale: finalScale,
       opacity: 1,
-      transition
+      transition,
     },
-  }
-} 
-
-export const fade = ({duration, delay}:FadeParameter) => {
-  const transition: any = {
-    type: 'tween',
-    duration,
-    ease: 'easeIn',
-    ...(delay !== undefined && { delay }), 
   };
+};
+
+export const fade = ({ duration, delay }: FadeParameter): Variants => {
+  const transition: Transition = {
+    type: "tween",
+    duration,
+    ease: "easeIn",
+    ...(delay !== undefined && { delay }),
+  };
+
   return {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition
+      transition,
     },
-  }
+  };
 };
