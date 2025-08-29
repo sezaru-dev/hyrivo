@@ -1,16 +1,28 @@
+'use client'
 import Link from "next/link"
 import React from "react"
 import { FaGithub } from "react-icons/fa"
+import { motion } from 'framer-motion'
+import { fade, staggerContainer } from "@/motions/motionVariants";
 
 const Footer = () => {
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400 text-center py-6 space-y-1">
+    <motion.footer
+      variants={staggerContainer(0.3, 0.2)}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.1 }}
+      className="text-sm text-neutral-500 dark:text-neutral-400 text-center py-6 space-y-1">
       
-      <div>
+      <motion.div
+        variants={fade({ duration: .4 })}
+      >
         © {new Date().getFullYear()} Hyrivo. Built by Cezarlito O. Baguhin
-      </div>
+      </motion.div>
       
-      <div>
+      <motion.div
+        variants={fade({ duration: .4 })}
+      >
         <Link
           href="https://github.com/sezaru-dev"
           target="_blank"
@@ -21,10 +33,12 @@ const Footer = () => {
           <FaGithub className="w-4 h-4 mr-1" />
           sezaru-dev
         </Link>
-      </div>
+      </motion.div>
 
-      <div>All rights reserved.</div>
-    </footer>
+      <motion.div
+        variants={fade({ duration: .4 })}
+      >All rights reserved.</motion.div>
+    </motion.footer>
   )
 }
 

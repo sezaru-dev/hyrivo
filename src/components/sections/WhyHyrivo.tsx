@@ -1,16 +1,32 @@
+'use client'
+
 import Image from "next/image";
+import { motion } from 'framer-motion'
+import { fade, staggerContainer } from "@/motions/motionVariants";
 
 export default function WhyHyrivo() {
   return (
     <section className="py-20 px-4 max-w-6xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+      <motion.h2
+        variants={fade({ duration: .5 })}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        className="text-3xl md:text-4xl font-bold text-center mb-12">
         Why Hyrivo?
-      </h2>
+      </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <motion.div
+        variants={staggerContainer(0.3, .5)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {/* Before */}
-        <div className="relative group rounded-2xl overflow-hidden w-full h-80">
+        <motion.div
+          variants={fade({ duration: .4 })}
+          className="relative group rounded-2xl overflow-hidden w-full h-80">
           <Image
             src="/sticky-notes-stress.jpg"
             alt="Messy spreadsheets and stress"
@@ -25,10 +41,12 @@ export default function WhyHyrivo() {
               Spreadsheets, sticky notes,<br/>stress
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* After */}
-        <div className="relative group rounded-2xl overflow-hidden w-full h-80">
+        <motion.div
+          variants={fade({ duration: .4 })}
+          className="relative group rounded-2xl overflow-hidden w-full h-80">
           <Image
             src="/dashboard-2.png"
             alt="Hyrivo dashboard"
@@ -43,8 +61,9 @@ export default function WhyHyrivo() {
               One clean, organized <br/>dashboard
             </p>
           </div>
-        </div>
-      </div>
+        </motion.div>
+
+      </motion.div>
     </section>
   )
 }

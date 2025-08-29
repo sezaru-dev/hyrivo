@@ -1,6 +1,10 @@
+'use client'
+
 import React from 'react'
 import { Button } from '../ui/button'
 import LoginSignupDialog from '../custom/modals/LoginSignupDialog'
+import { motion } from 'framer-motion'
+import { fade } from "@/motions/motionVariants";
 
 const CTAFooter = () => {
   return (
@@ -10,9 +14,21 @@ const CTAFooter = () => {
       </div>
 
       <div className='bg-zinc-900/40 backdrop-blur-sm text-white text-center py-20 sm:py-32 px-4'>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6">Ready to stay on top of your job search?</h2>
+        <motion.h2 
+          variants={fade({ duration: .4 })}
+          initial="hidden"   
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          className="text-2xl md:text-3xl font-semibold mb-6">Ready to stay on top of your job search?</motion.h2>
         <LoginSignupDialog triggerType="signup">
-          <Button variant="secondary" className="h-12 px-6 font-semibold bg-white hover:bg-neutral-200  text-neutral-900">Create your free account</Button>
+          <motion.div 
+            variants={fade({ duration: .4, delay: .3 })}
+            initial="hidden"   
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <Button variant="secondary" className="h-12 px-6 font-semibold bg-white hover:bg-neutral-200  text-neutral-900">Create your free account</Button>
+          </motion.div>
         </LoginSignupDialog>
       </div>
     </section>

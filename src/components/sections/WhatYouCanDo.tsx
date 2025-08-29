@@ -1,3 +1,5 @@
+'use client'
+
 import {
   ClipboardList,
   CalendarClock,
@@ -6,6 +8,8 @@ import {
   BarChart3,
   FileText,
 } from "lucide-react"
+import { motion } from 'framer-motion'
+import { fade, staggerContainer } from "@/motions/motionVariants";
 
 const features = [
   {
@@ -43,13 +47,24 @@ const features = [
 export default function WhatYouCanDo() {
   return (
     <section className="py-20 px-4 max-w-6xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+      <motion.h2 
+        variants={fade({ duration: .5 })}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        className="text-3xl md:text-4xl font-bold text-center mb-12">
         What You Can Do with Hyrivo
-      </h2>
+      </motion.h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <motion.div 
+        variants={staggerContainer(0.3, .5)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {features.map((feature, index) => (
-          <div
+          <motion.div
+            variants={fade({ duration: .4 })}
             key={index}
             className="bg-neutral-700/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
           >
@@ -58,9 +73,9 @@ export default function WhatYouCanDo() {
             </div>
             <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>
             <p className="text-muted-foreground text-sm">{feature.description}</p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }
