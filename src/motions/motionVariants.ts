@@ -1,3 +1,4 @@
+import { Transition, Variants } from "framer-motion";
 type FadeInParameters = {
   direction: 'left' | 'up' | 'right' | 'down',
   type: string,
@@ -26,17 +27,23 @@ export const staggerContainer = (staggerChildren:number, delayChildren:number) =
 });
 
 
-export const fadeIn = ({direction, type, delay, duration}:FadeInParameters) => {
-  const transition: any = {
-    type,
+export const fadeIn = ({
+  direction,
+  type,
+  delay,
+  duration
+}: FadeInParameters): Variants => {
+  const transition: Transition = {
+    type: type as Transition["type"], // ensures valid Framer Motion type
     duration,
-    ease: 'easeOut',
-    ...(delay !== undefined && { delay }), 
+    ease: "easeOut",
+    ...(delay !== undefined && { delay }),
   };
+
   return {
     hidden: {
-      x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
-      y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
+      x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
+      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
       opacity: 0,
     },
     show: {
@@ -45,8 +52,9 @@ export const fadeIn = ({direction, type, delay, duration}:FadeInParameters) => {
       opacity: 1,
       transition,
     },
-  }
-}
+  };
+};
+
 export const fadeInWithDelay = ({direction, type, delay, duration}:FadeInParameters) => ({
 	hidden: {
 		x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
