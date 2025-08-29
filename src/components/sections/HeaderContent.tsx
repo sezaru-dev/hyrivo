@@ -19,7 +19,7 @@ type HeaderContentProps = {
   } | null;
 };
 
-const HeaderContent = async ({session}:HeaderContentProps) => {
+const HeaderContent = ({session}:HeaderContentProps) => {
   
   return (
     <motion.header
